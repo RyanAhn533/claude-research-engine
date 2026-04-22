@@ -1,0 +1,22 @@
+{
+  "task": "Korean FER with landmark features, 4-class",
+  "N": 400,
+  "dist": {
+    "angry": 100,
+    "happy": 100,
+    "neutral": 100,
+    "sad": 100
+  },
+  "configs": {
+    "baseline": {
+      "acc": 0.255,
+      "f1": 0.11031235959445997,
+      "use_cultural": false
+    },
+    "+cultural(Korean prior)": {
+      "acc": 0.2525,
+      "f1": 0.10515089585110816,
+      "use_cultural": true
+    }
+  }
+}

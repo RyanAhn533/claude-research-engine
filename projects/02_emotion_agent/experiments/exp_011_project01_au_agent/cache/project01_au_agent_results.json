@@ -1,0 +1,36 @@
+{
+  "task": "Korean FER with OpenGraphAU 41-AU intensity, 4-class, FACS-aware prompt",
+  "N": 400,
+  "dist": {
+    "angry": 100,
+    "happy": 100,
+    "neutral": 100,
+    "sad": 100
+  },
+  "configs": {
+    "baseline (FACS prototype)": {
+      "acc": 0.3425,
+      "f1": 0.3115994318559835,
+      "use_cultural": false,
+      "reasons_sample": [
+        "Low overall AU intensity levels.",
+        "The intensities of AU25, AU5, and AU10 are low, indicating no strong expression of specific emotions.",
+        "AU4 (brow lowerer) and AU7 (lid tightener) indicate anger.",
+        "Low intensities of AUs associated with specific emotions.",
+        "AU1 (inner brow raiser) indicates presence of sadness according to FACS prototypes."
+      ]
+    },
+    "+cultural(Korean prior)": {
+      "acc": 0.2725,
+      "f1": 0.18259490525552652,
+      "use_cultural": true,
+      "reasons_sample": [
+        "Low intensity in AU5 and AU26, indicating no strong emotional expression in the eye or mouth regions.",
+        "Low intensity of AU-related actions in the mouth region.",
+        "AU4 (brow lowerer) and AU7 (lid tightener) indicate raised eyebrows and tightened eyelids, which are key components of the anger prototype.",
+        "Low intensities of AUs involved in happiness (AU12) and none in sadness or anger.",
+        "AU1 (inner brow raiser) and AU5 (upper lid raiser) indicate emotional intensity, aligning with the Sad prototype which includes AU1."
+      ]
+    }
+  }
+}
