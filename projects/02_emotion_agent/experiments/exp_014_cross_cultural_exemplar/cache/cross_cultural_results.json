@@ -1,0 +1,36 @@
+{
+  "task": "Korean FER AU 4-class, exemplar-origin ablation",
+  "N_test": 400,
+  "configs": {
+    "A_zero_shot": {
+      "k": 0,
+      "origin": null,
+      "acc": 0.255,
+      "f1": 0.12357025236698134
+    },
+    "B_k2_korean_real": {
+      "k": 2,
+      "origin": "Korean subjects",
+      "acc": 0.4075,
+      "f1": 0.3543855793390317
+    },
+    "C_k4_western_ekman_prototype": {
+      "k": 4,
+      "origin": "Western FACS prototype",
+      "acc": 0.2525,
+      "f1": 0.11366458797412421
+    },
+    "D_k4_mixed_kor2_west2": {
+      "k": 4,
+      "origin": "Korean + Western mix",
+      "acc": 0.4425,
+      "f1": 0.37245124026654247
+    },
+    "E_k4_korean_real": {
+      "k": 4,
+      "origin": "Korean subjects",
+      "acc": 0.42,
+      "f1": 0.359346619747426
+    }
+  }
+}
