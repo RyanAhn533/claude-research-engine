@@ -1,0 +1,103 @@
+{
+  "IEMOCAP_root": {
+    "path": "/mnt/hdd/BG/MER/IEMOCAP_code/IEMOCAP_full_release/IEMOCAP_full_release",
+    "exists": true,
+    "is_dir": true,
+    "n_items_top": 17
+  },
+  "IEMOCAP_session1": {
+    "path": "/mnt/hdd/BG/MER/IEMOCAP_code/IEMOCAP_full_release/IEMOCAP_full_release/Session1",
+    "exists": true,
+    "is_dir": true,
+    "n_items_top": 6,
+    "wav_sample_count_first3": 3,
+    "wav_sample_names": [
+      "Ses01M_script03_2.wav",
+      "._Ses01M_script01_3.wav",
+      "._Ses01F_script03_2.wav"
+    ]
+  },
+  "MELD_data": {
+    "path": "/data/heartlab/datasets/MELD",
+    "exists": true,
+    "is_dir": true,
+    "n_items_top": 2
+  },
+  "MELD_raw_alt": {
+    "path": "/mnt/hdd/BG/private_paper/datasets/MELD.Raw",
+    "exists": true,
+    "is_dir": true,
+    "n_items_top": 16
+  },
+  "CMU_MOSEI": {
+    "path": "/data/heartlab/datasets/CMU_MOSEI",
+    "exists": true,
+    "is_dir": true,
+    "n_items_top": 1
+  },
+  "CMU_MOSI": {
+    "path": "/data/heartlab/datasets/CMU_MOSI",
+    "exists": true,
+    "is_dir": true,
+    "n_items_top": 3
+  },
+  "DEAP_code": {
+    "path": "/mnt/hdd/BG/MER/DEAP_code",
+    "exists": true,
+    "is_dir": true,
+    "n_items_top": 8
+  },
+  "AU_embeddings_project01": {
+    "path": "/home/ajy/AU-RegionFormer/data/label_quality/au_embeddings",
+    "exists": true,
+    "is_dir": true,
+    "n_items_top": 18
+  },
+  "Yonsei_consensus_csv": {
+    "path": "/home/ajy/AU-RegionFormer/data/label_quality/all_photos.csv",
+    "exists": true,
+    "is_dir": false,
+    "n_items_top": null,
+    "rows": 237355,
+    "cols": [
+      "path",
+      "emotion",
+      "n_evals",
+      "n_selected",
+      "is_selected"
+    ],
+    "load_ok": true
+  },
+  "Korean_FER_237K": {
+    "path": "/home/ajy/FER_03_aihub_au_vit/data2/data_processed_korea",
+    "exists": true,
+    "is_dir": true,
+    "n_items_top": 7
+  },
+  "Qwen25_7B_cache": {
+    "path": "/mnt/hdd/ajy/caches/huggingface/hub/models--Qwen--Qwen2.5-7B-Instruct",
+    "exists": true,
+    "is_dir": true,
+    "n_items_top": 4
+  },
+  "Qwen25_VL_cache": {
+    "path": "/mnt/hdd/ajy/caches/huggingface/hub/models--Qwen--Qwen2.5-VL-7B-Instruct",
+    "exists": true,
+    "is_dir": true,
+    "n_items_top": 4
+  },
+  "MELD_csv_at_MELD": {
+    "samples": [
+      "dev_sent_emo.csv",
+      "train_sent_emo.csv",
+      "test_sent_emo.csv"
+    ]
+  },
+  "MELD_csv_at_MELD.Raw": {
+    "samples": [
+      "dev_sent_emo.csv",
+      "test_sent_emo.csv",
+      "train_sent_emo.csv"
+    ]
+  }
+}
