@@ -1,0 +1,43 @@
+# === Large binaries (don't commit) ===
+*.pt
+*.pth
+*.ckpt
+*.pkl
+*.h5
+*.hdf5
+*.zip
+*.tar.gz
+*.parquet
+
+# === Data caches ===
+*.npy
+*.npz
+
+# === Python ===
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+*.egg
+
+# === IDE / OS ===
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+.ipynb_checkpoints/
+
+# === tmp / runtime ===
+nohup.out
+*.tmp
+/tmp/
+
+# === Kill switch is a runtime signal, not a tracked file ===
+scripts/kill_switch
+
+# === Allow small result files (override above) ===
+!projects/*/results/**/*.png
+!projects/*/results/**/*.json
+!projects/*/results/**/*.md
