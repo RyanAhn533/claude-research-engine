@@ -145,8 +145,8 @@ claude-research-engine/
 
 | # | Name | Status | Target venue | Current best |
 |---|------|--------|--------------|-------------|
-| 01 | **au_regionformer_q1** | active — 9 iter | IEEE TAFFC (realistic 65-75%) | 87.56% |
-| 02 | *(reserved)* | — | — | — |
+| 01 | **au_regionformer_q1** | **Q2 draft-ready** (후배 1저자 ESWA/PRL 인계) | ESWA IF 7.5 | 87.56% (11 iter) |
+| 02 | **emotion_agent** (Q1) | **Pre-setup** (ROADMAP 확정, Phase 0 대기) | IEEE TAFFC IF 11 / ICMI / ACII | — |
 | 03 | *(reserved)* | — | — | — |
 
 ---
