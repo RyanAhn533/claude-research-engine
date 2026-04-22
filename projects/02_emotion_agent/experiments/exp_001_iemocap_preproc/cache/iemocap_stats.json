@@ -1,0 +1,49 @@
+{
+  "source": "HF AbstractTTS/IEMOCAP (direct arrow read)",
+  "shard_count": 3,
+  "total_raw": 10039,
+  "total_4class": 6877,
+  "per_class": {
+    "hap": 2632,
+    "neu": 1726,
+    "ang": 1269,
+    "sad": 1250
+  },
+  "label_col": "major_emotion",
+  "label_raw_dist": {
+    "frustrated": 2917,
+    "excited": 1976,
+    "neutral": 1726,
+    "angry": 1269,
+    "sad": 1250,
+    "happy": 656,
+    "surprise": 110,
+    "fear": 107,
+    "other": 26,
+    "disgust": 2
+  },
+  "columns": [
+    "file",
+    "frustrated",
+    "angry",
+    "sad",
+    "disgust",
+    "excited",
+    "fear",
+    "neutral",
+    "surprise",
+    "happy",
+    "EmoAct",
+    "EmoVal",
+    "EmoDom",
+    "gender",
+    "transcription",
+    "major_emotion",
+    "speaking_rate",
+    "pitch_mean",
+    "pitch_std",
+    "rms",
+    "relative_db",
+    "label_name"
+  ]
+}
