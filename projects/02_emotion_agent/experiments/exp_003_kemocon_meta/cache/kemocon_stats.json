@@ -1,0 +1,76 @@
+{
+  "source": "/home/ajy/Jetson_thor/data/precessed_data/kemocon/label-segments_index_clean.csv",
+  "total_rows": 41654,
+  "unique_participants": 32,
+  "annotator_sources": {
+    "external": 24990,
+    "partner": 8318,
+    "aggregated_external": 4187,
+    "self": 4159
+  },
+  "arousal_dist": {
+    "3": 17367,
+    "2": 11684,
+    "4": 7701,
+    "1": 3829,
+    "5": 1073
+  },
+  "valence_dist": {
+    "3": 29734,
+    "4": 6826,
+    "2": 4180,
+    "5": 503,
+    "1": 411
+  },
+  "va_quadrant_dist": {
+    "HV_HA": 22880,
+    "HV_LA": 14183,
+    "LV_HA": 3261,
+    "LV_LA": 1330
+  },
+  "label_discrete_top10": {
+    "cheerful": 30761,
+    "nervous": 7567,
+    "angry": 1814,
+    "happy": 1422,
+    "sad": 90
+  },
+  "label_4class_mapped": 34087,
+  "label_4class_dist": {
+    "hap": 32183,
+    "ang": 1814,
+    "sad": 90
+  },
+  "aggregated_external_rows": 4187,
+  "bio_root": "/home/ajy/Jetson_thor/data/precessed_data/kemocon/e4_data",
+  "bio_participants": [
+    1,
+    4,
+    5,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32
+  ]
+}
