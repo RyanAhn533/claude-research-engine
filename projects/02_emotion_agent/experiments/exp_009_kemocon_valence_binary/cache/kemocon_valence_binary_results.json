@@ -1,0 +1,21 @@
+{
+  "task": "valence binary from arousal-only bio-proxy",
+  "N": 400,
+  "label_dist": {
+    "positive": 200,
+    "negative": 200
+  },
+  "random_baseline": 0.5,
+  "configs": {
+    "baseline": {
+      "acc": 0.5,
+      "f1": 0.3333333333333333,
+      "use_cultural": false
+    },
+    "+cultural": {
+      "acc": 0.5,
+      "f1": 0.3333333333333333,
+      "use_cultural": true
+    }
+  }
+}

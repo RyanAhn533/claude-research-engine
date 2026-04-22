@@ -1,0 +1,19 @@
+{
+  "test_n": 115,
+  "class_dist": {
+    "angry": 15,
+    "happy": 100
+  },
+  "configs": {
+    "baseline": {
+      "acc": 0.09565217391304348,
+      "f1": 0.15330188679245282,
+      "use_cultural": false
+    },
+    "+cultural(Korean prior)": {
+      "acc": 0.05217391304347826,
+      "f1": 0.02830188679245283,
+      "use_cultural": true
+    }
+  }
+}
