@@ -1,0 +1,34 @@
+{
+  "task": "Korean FER AU 4-class, zero-shot FACS vs few-shot (k=4 Korean exemplars)",
+  "N": 400,
+  "exemplars": [
+    {
+      "label": "angry",
+      "au_text": "AU25 (lips part)=1, AU12 (lip corner puller)=1, AU7 (lid tightener)=1"
+    },
+    {
+      "label": "happy",
+      "au_text": "AU12 (lip corner puller)=1, AU25 (lips part)=1, AU10 (upper lip raiser)=1"
+    },
+    {
+      "label": "neutral",
+      "au_text": "AU12 (lip corner puller)=1, AU6 (cheek raiser)=0, AU5 (upper lid raiser)=0"
+    },
+    {
+      "label": "sad",
+      "au_text": "AU17 (chin raiser)=1, AU15 (lip corner depressor)=1, AU7 (lid tightener)=0"
+    }
+  ],
+  "configs": {
+    "baseline_zero_shot_FACS": {
+      "acc": 0.2975,
+      "f1": 0.22613648762141575,
+      "use_fewshot": false
+    },
+    "fewshot_k4_Korean_exemplars": {
+      "acc": 0.4175,
+      "f1": 0.38391979261340164,
+      "use_fewshot": true
+    }
+  }
+}
