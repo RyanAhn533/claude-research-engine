@@ -1,0 +1,49 @@
+{
+  "total": 13708,
+  "per_split": {
+    "train": 9989,
+    "test": 2610,
+    "dev": 1109
+  },
+  "emotion_7_dist": {
+    "neutral": 6436,
+    "joy": 2308,
+    "surprise": 1636,
+    "anger": 1607,
+    "sadness": 1002,
+    "disgust": 361,
+    "fear": 358
+  },
+  "sentiment_dist": {
+    "neutral": 6436,
+    "negative": 4184,
+    "positive": 3088
+  },
+  "emotion_4_total": 11353,
+  "emotion_4_dist": {
+    "neu": 6436,
+    "hap": 2308,
+    "ang": 1607,
+    "sad": 1002
+  },
+  "video_missing_sample": 0,
+  "video_sample_size": 200,
+  "columns": [
+    "sr_no",
+    "text",
+    "speaker",
+    "emotion_7",
+    "sentiment",
+    "dialogue_id",
+    "utterance_id",
+    "season",
+    "episode",
+    "start_time",
+    "end_time",
+    "split",
+    "video_path",
+    "label_7",
+    "label_4_name",
+    "label_4"
+  ]
+}
