@@ -1,0 +1,29 @@
+{
+  "test_n": 400,
+  "configs": {
+    "baseline": {
+      "acc": 0.55,
+      "f1": 0.539786477794893,
+      "use_cultural": false,
+      "use_context": false
+    },
+    "+cultural": {
+      "acc": 0.5575,
+      "f1": 0.5522261709556996,
+      "use_cultural": true,
+      "use_context": false
+    },
+    "+context(prev2)": {
+      "acc": 0.55,
+      "f1": 0.5442577960394802,
+      "use_cultural": false,
+      "use_context": true
+    },
+    "full(+cultural+context)": {
+      "acc": 0.585,
+      "f1": 0.5814471852458826,
+      "use_cultural": true,
+      "use_context": true
+    }
+  }
+}
