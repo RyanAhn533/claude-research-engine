@@ -1,0 +1,64 @@
+{
+  "test_n": 400,
+  "label_dist": {
+    "angry": 100,
+    "happy": 100,
+    "neutral": 100,
+    "sad": 100
+  },
+  "configs": {
+    "baseline (no cultural, no prosody)": {
+      "acc": 0.4875,
+      "f1": 0.48396593765167106,
+      "use_cultural": false,
+      "use_prosody": false,
+      "reasonings_sample": [
+        "The utterance expresses frustration and a demand, indicating anger.",
+        "The statement is matter-of-fact and does not express strong emotions.",
+        "The short and abrupt \"What?\" often indicates confusion or irritation.",
+        "The utterance expresses frustration and disappointment about someone's single status, indicating sadness.",
+        "The speaker expresses positive aspirations for the future, including wanting a family and kids, indicating happiness and optimism."
+      ]
+    },
+    "+cultural (no prosody)": {
+      "acc": 0.485,
+      "f1": 0.48494381365902817,
+      "use_cultural": true,
+      "use_prosody": false,
+      "reasonings_sample": [
+        "The utterance expresses frustration and a demand, indicating anger.",
+        "The statement indicates a lack of intoxication, which is a factual assertion without strong emotional content.",
+        "The short and abrupt \"What?\" often indicates confusion or frustration, which can be interpreted as anger in Korean cultural context.",
+        "The utterance expresses pity and disappointment, which aligns with a sad emotional state.",
+        "The speaker expresses positive aspirations for the future, indicating happiness and satisfaction."
+      ]
+    },
+    "+prosody (no cultural)": {
+      "acc": 0.48,
+      "f1": 0.478708851889077,
+      "use_cultural": false,
+      "use_prosody": true,
+      "reasonings_sample": [
+        "The utterance expresses frustration and the high speaking rate and low pitch suggest anger.",
+        "The statement is matter-of-fact with no strong emotional indicators in both text and acoustic features.",
+        "The high speaking rate and low RMS suggest urgency and possibly frustration, indicative of anger.",
+        "The utterance expresses frustration and disappointment about someone's single status, indicating a sad emotional state.",
+        "The speaker expresses positive aspirations for the future, indicating happiness and contentment despite potential financial challenges."
+      ]
+    },
+    "full (+cultural +prosody)": {
+      "acc": 0.4825,
+      "f1": 0.4854999357821731,
+      "use_cultural": true,
+      "use_prosody": true,
+      "reasonings_sample": [
+        "The utterance expresses frustration and the high speaking rate and low pitch suggest anger.",
+        "The statement suggests a lack of intoxication, which is a neutral sentiment without strong emotional cues.",
+        "The high speaking rate and relatively low pitch suggest effortful or irritated speech, indicative of anger.",
+        "The utterance expresses disappointment and pity, which aligns with a sad emotional state.",
+        "The speaker expresses positive aspirations for the future, indicating happiness and satisfaction despite potential financial challenges."
+      ]
+    }
+  },
+  "random_baseline_4class": 0.25
+}
