@@ -1,0 +1,21 @@
+{
+  "task": "LoRA fine-tune Qwen2.5-7B Korean AU 4-class",
+  "config": {
+    "lora_r": 16,
+    "lora_alpha": 32,
+    "lora_dropout": 0.05,
+    "epochs": 1,
+    "batch_size": 4,
+    "grad_accum": 4,
+    "lr": 0.0002,
+    "n_train": 10000,
+    "n_test": 400,
+    "seed": 42
+  },
+  "finetuned": {
+    "acc": 0.5675,
+    "f1": 0.5725743300365196
+  },
+  "reference_fewshot_k4_seed42": 0.455,
+  "reference_multiseed_mean": 0.4183
+}

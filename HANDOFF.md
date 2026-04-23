@@ -2,7 +2,7 @@
 
 > **새 세션 시작하면 이 파일 먼저 읽어라.** 짧게 현 상태 + 다음 action 전달용.
 
-**Last update**: 2026-04-23 06:50 KST
+**Last update**: 2026-04-23 14:55 KST (multi-seed A + LoRA D 모두 완료. 3-tier story 확정)
 
 ---
 
@@ -22,39 +22,58 @@ Direction ID prefix: `EMA-D###`. 각 iter 끝에 leaderboard/direction 기록.
 
 ## 🎯 현 상황 & 다음 Action
 
-### 방금 일어난 일
-- JY가 BrandSpace 종료 허가 → `pkill -f "serve.py --port 8090"` 실행 완료
-- **GPU 48GB 전부 free (확인됨)**
-- Auto mode 지속 — Multi-seed (A) + LoRA prep (D) 진행 중이던 상태
+### 방금 일어난 일 (이번 세션, 2026-04-23)
+- BrandSpace off, GPU 48GB free 확인
+- **Priority A (Multi-seed) ✅ 완료** — exp_012/013/014 × 3 seeds (42/123/777, 총 3h)
+- **Priority D (LoRA fine-tune) ✅ 완료** — exp_015 QLoRA r=16
+  - **결과: 56.75% acc / F1 0.573** (+14.92pp over fewshot, +27.67pp over zero-shot)
+  - 10K train (balanced 4-class) / 400 test (seed=42, exp_012 matched)
+  - 훈련 30분, loss 11.5→0.85, 625 steps
+  - Adapter 170MB saved at `experiments/exp_015_lora_korean_au/cache/adapter/`
 
-### 현재 진행해야 할 action
+### 현재 진행해야 할 action (A+D 완료됨)
 
-**Priority 1 (A — Multi-seed robustness, ~1h)**:
-exp_012/013/014를 3-seed (42, 123, 777) 재측정. 현 findings에 p-value + std 붙여 reviewer 방어력.
+JY 판단 필요. 현재 3-tier story 확보:
+  **prompt 29% → ICL 42% → LoRA 57%** (+27.67pp total)
 
-Target files:
-- `experiments/exp_012_fewshot_au/run.py` — seed 인자 추가
-- `experiments/exp_013_kshot_sweep/run.py` — 동일
-- `experiments/exp_014_cross_cultural_exemplar/run.py` — 동일
+**다음 options (JY 선택)**:
+- **F. Paper §4 재작성** (제일 강력): multi-seed + LoRA 결과로 §4.1/§4.2/§4.3 새로 쓰기
+  - §4.1 motivation (Ekman vs Korean) — 기존 살아있음
+  - §4.2 inverted-U 제거 → k-saturation + ICL gain 중심
+  - §4.3 LoRA로 adaptation hierarchy 완성 (신규)
+- **G. Variance hypothesis 검증** (novel): Mixed σ=0.87 vs Korean-only σ=4.34
+  - 1+3, 3+1 exemplar sweep (5+ seeds)
+  - Random-token anchor control
+  - "Diverse-redundant anchors regularize ICL" 주장
+- **E. Emotion-LLaMA 재현** (SOTA 비교, 4-6h)
+- **B. MELD cross-cultural** (30min, novelty check)
+- **LoRA 확장 실험**: multi-seed LoRA (exp_015 × 2 more seeds), larger r, more epochs
 
-**Priority 2 (D — LoRA fine-tune, 2-4h, BrandSpace off 필요함 — 이미 off)**:
-- Training data: Korean FER AU parquet + label → instruction format
-- Base: Qwen2.5-7B-Instruct
-- LoRA rank 16, alpha 32, 1 epoch on 10K Korean 4-class
-- Output: fine-tuned adapter → 재평가 expected +10-15pp
+## 📊 핵심 Findings (multi-seed robust + LoRA, 논문용)
 
-## 📊 핵심 Findings (절대 잊지 말 것)
+### 3-tier adaptation hierarchy (⭐ 메인 thesis)
 
-**3-levels of cultural grounding on Korean FER AU (exp_011→014)**:
+| Tier | Method | Acc | F1 | Δ |
+|------|--------|-----|-----|------|
+| 1 | zero-shot FACS (multi-seed) | 29.08 ± 0.76% | 0.194 | — |
+| 2 | ICL k=4 Korean (multi-seed) | 41.83 ± 3.41% | 0.364 | +12.75 pp |
+| **3** | **QLoRA r=16 fine-tune** | **56.75%** | **0.573** | **+14.92 pp** |
+| total | zero-shot → LoRA | | | **+27.67 pp** |
 
-| Level | Method | Δ acc |
-|-------|--------|------|
-| Abstract prompt | cultural text | **−7 pp** |
-| Ekman FACS textbook prototype | idealized AU | **±0 pp (random)** |
-| Actual Korean exemplars (k=2) | sampled from 237K | **+15 pp** |
-| **Mixed Korean+Western** | 2+2 exemplars | **+18.75 pp (44.25 % best)** |
+### 3-levels of cultural grounding (보조)
 
-+ **Inverted-U scaling** (k=2 opt, k=16 drop). Paper §4 main finding.
+| Level | Method | Multi-seed acc |
+|-------|--------|----------------|
+| Prototype | Ekman FACS textbook | 25.42 ± 0.38 (random, σ 극소) |
+| Distribution | Korean real k=4 | 41.00 ± 4.34 (σ 큼) |
+| **Anchored** | Korean 2 + Western 2 mix | **41.25 ± 0.87** (같은 mean, σ 5배 작음) |
+
+→ Δ (Ekman→Mixed) = +15.83 pp. 평균은 Korean-only와 비슷하지만 **variance 극적 감소**.
+→ **New hypothesis**: "Diverse-redundant anchors structurally regularize ICL".
+
+### k-scaling — REVISED
+- k=0 29.08 → k=2 44.25 (peak) → k=4~16 42-44% saturation
+- 원 "k=16 drop"(36%)은 seed 아티팩트.
 
 ## 🖥 환경
 

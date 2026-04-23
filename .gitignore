@@ -8,6 +8,7 @@
 *.zip
 *.tar.gz
 *.parquet
+*.safetensors
 
 # === Data caches ===
 *.npy
@@ -36,6 +37,12 @@ nohup.out
 
 # === Kill switch is a runtime signal, not a tracked file ===
 scripts/kill_switch
+
+# === Experiment runtime artifacts (regeneratable) ===
+projects/02_emotion_agent/experiments/*/cache/multiseed_run.log
+projects/02_emotion_agent/experiments/*/cache/run.log
+projects/02_emotion_agent/experiments/*/cache/checkpoints/
+projects/02_emotion_agent/experiments/*/cache/adapter/
 
 # === Allow small result files (override above) ===
 !projects/*/results/**/*.png

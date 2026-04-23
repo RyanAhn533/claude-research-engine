@@ -1,8 +1,8 @@
-# Snapshot — 02_emotion_agent (2026-04-23 14:30 KST)
+# Snapshot — 02_emotion_agent (2026-04-23 14:55 KST)
 
 > JY 깨어나서 한 눈에 파악용. 세부: `Q1_WORKING.md`, `state/insights.md`, 각 `experiments/exp_NNN/summary.md`.
 
-## 현재 상태: **논문 §4 multi-seed robust (n=3) 완료**
+## 현재 상태: **3-tier story 완성 (prompt 29% → ICL 42% → LoRA 57%)**
 
 ### 17 iterations (14 single-seed + 3 multi-seed replication)
 | # | Exp | 결과 (핵심) |
@@ -19,6 +19,7 @@
 | **15** | **exp_012 multi-seed** | baseline **31.83 ± 1.70** / fewshot_k4 **41.83 ± 3.41** / Δ=+10pp |
 | **16** | **exp_013 multi-seed** | k=0 **29.08±0.76** / k=2 **44.25±2.82** / k=4 42.75±5.02 / k=8 43.50±1.52 / k=16 42.33±1.84 |
 | **17** | **exp_014 multi-seed** | **Ekman 25.42±0.38** (random, very stable) / **Mixed 41.25±0.87** (BEST, stable) / Kor 41.00±4.34 |
+| **18** | **exp_015 QLoRA r=16** | **56.75% / F1 0.573** (+14.92pp over fewshot, +27.67pp over zero-shot). Adapter 170MB. 30min 훈련. |
 
 ## 🎯 논문 §4 key findings (multi-seed robust)
 
@@ -47,6 +48,22 @@ Multi-seed reveals original "k=16 drop" (36%) was seed artifact. True picture:
 | 16 | 42.33 ± 1.84 | +13.25 pp |
 
 → **REVISED claim**: "k≥2 exemplars give +13–15 pp robust gain; saturation beyond k=2 (not collapse)". Paper §4.2 needs rewording.
+
+### (iii) 3-tier adaptation hierarchy — **new paper §4.3** (from exp_015)
+
+| Tier | Method | Acc | F1 | vs prior tier |
+|------|--------|-----|-----|-------|
+| 1. Prompt only | zero-shot FACS (multi-seed) | 29.08 ± 0.76% | 0.194 | — |
+| 2. ICL (in-context) | fewshot k=4 Korean (multi-seed) | 41.83 ± 3.41% | 0.364 | +12.75 pp |
+| **3. LoRA fine-tune** | **QLoRA r=16, 10K train, 1 epoch** | **56.75%** | **0.573** | **+14.92 pp** |
+
+→ Thesis: **cultural grounding benefits compound across adaptation levels** — prompt gives 29% (near-random), exemplars add +12.75pp structural cues, parameter adaptation adds another +14.92pp. Total headroom vs zero-shot = **+27.67pp**.
+→ Headline chart for §4.3 — can write paper around this now.
+
+### (iv) 새로운 hypothesis (exp_014 variance 패턴)
+Mixed anchor (Kor2+West2) σ=0.87 vs Korean-only k=4 σ=4.34 — 평균 같은데 variance 5배 차이.
+→ **"Diverse-redundant anchors structurally regularize ICL even when individually uninformative."**
+→ 검증 실험: 1+3, 3+1 sweep across more seeds; random-token anchors; attention map 비교.
 
 ## GPU 현황
 - A6000 1× 48GB, **현재 BrandSpace serve.py (~28.9GB) 상주**
