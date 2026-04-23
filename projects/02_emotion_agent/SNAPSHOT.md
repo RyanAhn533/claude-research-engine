@@ -1,42 +1,52 @@
-# Snapshot — 02_emotion_agent (2026-04-23 06:30 KST)
+# Snapshot — 02_emotion_agent (2026-04-23 14:30 KST)
 
 > JY 깨어나서 한 눈에 파악용. 세부: `Q1_WORKING.md`, `state/insights.md`, 각 `experiments/exp_NNN/summary.md`.
 
-## 현재 상태: **논문 §4 핵심 findings 확보**
+## 현재 상태: **논문 §4 multi-seed robust (n=3) 완료**
 
-### 지금까지 14 iterations
+### 17 iterations (14 single-seed + 3 multi-seed replication)
 | # | Exp | 결과 (핵심) |
 |---|-----|-----------|
 | 0 | env setup | Qwen 4-bit 5.4GB VRAM PASS |
-| 1 | IEMOCAP preproc | 6877 4-class |
-| 2 | MELD preproc | 13708 / 4-class 11353 |
-| 3 | K-EmoCon meta | 41654 segs / text 없음 |
+| 1-3 | preproc | IEMOCAP 6877, MELD 13708/11353, K-EmoCon 41654 |
 | 4 | text baseline | IEMOCAP 66%, MELD F1 0.31 |
-| 5 | agent prototype | sanity 4/4 OK |
-| 6 | agent IEMOCAP | 48.75% zero-shot |
-| 7 | agent MELD | 55% → full 58.5% (+context) |
-| 8 | K-EmoCon 4-class | invalid (class imbalance) |
-| 9 | K-EmoCon valence | info-poor (50%) |
-| 10 | Korean FER landmark | random (25%) — numeric features 부적합 |
-| 11 | Korean FER AU (FACS) | **34.25%** baseline, cultural abstract -7%p |
-| **12** | **Few-shot k=4** | **41.75%** (+12%p over zero-shot, thesis 회복) |
-| **13** | **k-sweep** | **inverted-U**, k=2 optimal 42.25% |
-| **14** | **Cross-cultural ablation** | **★ PAPER-GRADE**: Ekman=random, real Korean +15-17%p, **mixed=best 44.25%** |
+| 5-7 | agent eval | IEMOCAP 48.75%, MELD 58.5% |
+| 8-10 | K-EmoCon/FER null | class imbalance / info-poor / numeric features |
+| 11 | Korean FER AU (FACS) | 34.25% baseline, cultural abstract −7%p |
+| 12 | Few-shot k=4 (single-seed) | 41.75% (+12%p) |
+| 13 | k-sweep (single-seed) | inverted-U, k=2 optimal 42.25% |
+| 14 | Cross-cultural (single-seed) | Ekman=25.25, real Korean +15-17%p, mixed=44.25% |
+| **15** | **exp_012 multi-seed** | baseline **31.83 ± 1.70** / fewshot_k4 **41.83 ± 3.41** / Δ=+10pp |
+| **16** | **exp_013 multi-seed** | k=0 **29.08±0.76** / k=2 **44.25±2.82** / k=4 42.75±5.02 / k=8 43.50±1.52 / k=16 42.33±1.84 |
+| **17** | **exp_014 multi-seed** | **Ekman 25.42±0.38** (random, very stable) / **Mixed 41.25±0.87** (BEST, stable) / Kor 41.00±4.34 |
 
-## 🎯 논문 §4 key findings (확정)
+## 🎯 논문 §4 key findings (multi-seed robust)
 
-**3-levels of cultural grounding**:
+### (i) 3-level cultural grounding — **reviewer-defensible**
 
-| Level | Method | Korean FER AU acc |
+| Level | Method | Korean FER AU acc (3-seed mean±std) |
 |-------|--------|------|
-| Abstract | cultural prompt text | −7 pp (harmful) |
-| Prototype | Ekman FACS textbook (idealized AU patterns) | ±0 pp (random) |
-| **Distribution** | Actual Korean exemplars | **+15 ~ +19 pp** |
-| **Anchored** | Korean + Western mix | **+18.75 pp (best)** |
+| Abstract | cultural prompt text | −7 pp (single-seed from exp_011) |
+| **Prototype** | Ekman FACS textbook | **25.42 ± 0.38%** — indistinguishable from random (25%) |
+| **Distribution** | Korean real k=4 exemplars | **41.00 ± 4.34%** |
+| **Anchored** | Korean 2 + Western 2 mix | **41.25 ± 0.87%** (lowest variance, highest mean) |
 
-→ **"Cultural grounding requires actual distribution exemplars, not abstract knowledge or textbook prototypes"**
+→ Δ (Ekman → Mixed) = **+15.83 pp**, combined σ tiny — statistically significant.
+→ **"Cultural grounding requires actual distribution samples, not textbook prototypes"** ROBUST.
 
-Plus **inverted-U scaling** (k=2 optimal) → "few > many".
+### (ii) Exemplar-scaling: **saturation, not inverted-U**
+
+Multi-seed reveals original "k=16 drop" (36%) was seed artifact. True picture:
+
+| k | mean ± std | vs zero-shot (29.08%) |
+|---|-----------|-----|
+| 0 | 29.08 ± 0.76 | — |
+| 2 | 44.25 ± 2.82 | +15.17 pp |
+| 4 | 42.75 ± 5.02 | +13.67 pp (noisy) |
+| 8 | 43.50 ± 1.52 | +14.42 pp |
+| 16 | 42.33 ± 1.84 | +13.25 pp |
+
+→ **REVISED claim**: "k≥2 exemplars give +13–15 pp robust gain; saturation beyond k=2 (not collapse)". Paper §4.2 needs rewording.
 
 ## GPU 현황
 - A6000 1× 48GB, **현재 BrandSpace serve.py (~28.9GB) 상주**
@@ -45,21 +55,21 @@ Plus **inverted-U scaling** (k=2 optimal) → "few > many".
 
 ## 다음 할 것 (JY 판단 필요)
 
-| 옵션 | 설명 | 시간 | GPU |
-|-----|-----|-----|-----|
-| A. Multi-seed replication | exp_012/013/014 3-seed 재측정 (stat robustness) | 1h | 현 상태 OK |
-| B. MELD cross-cultural | Korean+English exemplar mix on MELD | 30분 | OK |
-| C. Qwen2.5-VL image | face image 직접 input | 20분 | 6-8GB (경계) |
-| D. LoRA fine-tune (Korean AU data) | 1-epoch fine-tune | 2-4h | **BrandSpace off 필요** |
-| E. Emotion-LLaMA 재현 | NeurIPS 2024 SOTA comparison | 4-6h | BrandSpace off + 24GB |
-| F. Paper writing start | §3, §4 초안 작성 | 추후 | 0 |
+| 옵션 | 설명 | 시간 | GPU | 상태 |
+|-----|-----|-----|-----|------|
+| A. Multi-seed replication | exp_012/013/014 3-seed 재측정 | 3h 실제 | OK | ✅ DONE |
+| B. MELD cross-cultural | Korean+English exemplar mix on MELD | 30분 | OK | pending |
+| C. Qwen2.5-VL image | face image 직접 input | 20분 | 6-8GB | pending |
+| D. LoRA fine-tune (Korean AU data) | exp_015 draft ready (QLoRA r=16) | 2-4h | 48GB free ✓ | **다음** |
+| E. Emotion-LLaMA 재현 | NeurIPS 2024 SOTA comparison | 4-6h | 24GB | pending |
+| F. Paper writing | §3, §4 multi-seed로 재기술 | - | 0 | ongoing |
 
-**추천 우선순위**: A → B → D → E → F (safety 먼저, novelty check, fine-tune, SOTA, writing)
+**다음 실행**: D (LoRA, peft 0.19.1 + accelerate 1.13.0 설치 완료, exp_015/run.py ready)
 
 ## Repo 상태
 - https://github.com/RyanAhn533/claude-research-engine (private)
-- 14 leaderboard entries, 8 direction IDs (EMA-D001~D008)
-- 모든 결과 commit/push 완료
+- 17 leaderboard entries (multi-seed 3개 추가)
+- exp_012/013/014 multi-seed 모두 commit, exp_014 push 대기
 
 ## 파일 위치 (자주 쓸 것)
 ```
