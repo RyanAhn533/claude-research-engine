@@ -1,0 +1,27 @@
+{
+  "task": "LoRA QLoRA fine-tune Qwen2.5-7B Korean FER AU — multi-seed aggregate",
+  "config": {
+    "lora_r": 16, "lora_alpha": 32, "lora_dropout": 0.05,
+    "epochs": 1, "batch_size": 4, "grad_accum": 4, "lr": 2e-4,
+    "n_train": 10000, "n_test_per_seed": 400,
+    "target_modules": "all linear (q,k,v,o,gate,up,down)"
+  },
+  "seeds": [42, 123, 777],
+  "per_seed": {
+    "42":  {"acc": 0.5675, "f1": 0.5726},
+    "123": {"acc": 0.5200, "f1": 0.5250},
+    "777": {"acc": 0.5625, "f1": 0.5660}
+  },
+  "aggregate": {
+    "acc_mean": 0.5500, "acc_std": 0.0261,
+    "f1_mean": 0.5545,  "f1_std": 0.0259
+  },
+  "comparison": {
+    "zero_shot_FACS_multiseed": {"acc": 0.2908, "std": 0.0076, "f1": 0.194},
+    "fewshot_k4_multiseed":     {"acc": 0.4183, "std": 0.0341, "f1": 0.364},
+    "lora_multiseed":           {"acc": 0.5500, "std": 0.0261, "f1": 0.555},
+    "delta_prompt_to_icl":      0.1275,
+    "delta_icl_to_lora":        0.1317,
+    "delta_zero_shot_to_lora":  0.2592
+  }
+}

@@ -19,7 +19,8 @@
 | **15** | **exp_012 multi-seed** | baseline **31.83 ± 1.70** / fewshot_k4 **41.83 ± 3.41** / Δ=+10pp |
 | **16** | **exp_013 multi-seed** | k=0 **29.08±0.76** / k=2 **44.25±2.82** / k=4 42.75±5.02 / k=8 43.50±1.52 / k=16 42.33±1.84 |
 | **17** | **exp_014 multi-seed** | **Ekman 25.42±0.38** (random, very stable) / **Mixed 41.25±0.87** (BEST, stable) / Kor 41.00±4.34 |
-| **18** | **exp_015 QLoRA r=16** | **56.75% / F1 0.573** (+14.92pp over fewshot, +27.67pp over zero-shot). Adapter 170MB. 30min 훈련. |
+| **18** | **exp_015 QLoRA r=16** (seed=42) | **56.75% / F1 0.573** (seed=42 baseline). Adapter 170MB. 30min 훈련. |
+| **19** | **exp_015 multi-seed LoRA** | **55.00 ± 2.61% / F1 0.555 ± 0.026** (seeds 42/123/777: 56.75/52.00/56.25). 3-tier ROBUST. |
 
 ## 🎯 논문 §4 key findings (multi-seed robust)
 
@@ -49,16 +50,19 @@ Multi-seed reveals original "k=16 drop" (36%) was seed artifact. True picture:
 
 → **REVISED claim**: "k≥2 exemplars give +13–15 pp robust gain; saturation beyond k=2 (not collapse)". Paper §4.2 needs rewording.
 
-### (iii) 3-tier adaptation hierarchy — **new paper §4.3** (from exp_015)
+### (iii) 3-tier adaptation hierarchy — **multi-seed robust §4.3**
 
-| Tier | Method | Acc | F1 | vs prior tier |
-|------|--------|-----|-----|-------|
-| 1. Prompt only | zero-shot FACS (multi-seed) | 29.08 ± 0.76% | 0.194 | — |
-| 2. ICL (in-context) | fewshot k=4 Korean (multi-seed) | 41.83 ± 3.41% | 0.364 | +12.75 pp |
-| **3. LoRA fine-tune** | **QLoRA r=16, 10K train, 1 epoch** | **56.75%** | **0.573** | **+14.92 pp** |
+| Tier | Method | Acc (mean±std, n=3) | F1 | Δ |
+|------|--------|---------------------|-----|-------|
+| 1. Prompt only | zero-shot FACS | 29.08 ± 0.76% | 0.194 ± 0.011 | — |
+| 2. ICL | fewshot k=4 Korean | 41.83 ± 3.41% | 0.364 ± 0.040 | +12.75 pp |
+| **3. LoRA** | **QLoRA r=16, 10K, 1 ep** | **55.00 ± 2.61%** | **0.555 ± 0.026** | **+13.17 pp** |
+| total | zero-shot → LoRA | | | **+25.92 pp** |
 
-→ Thesis: **cultural grounding benefits compound across adaptation levels** — prompt gives 29% (near-random), exemplars add +12.75pp structural cues, parameter adaptation adds another +14.92pp. Total headroom vs zero-shot = **+27.67pp**.
-→ Headline chart for §4.3 — can write paper around this now.
+Per-seed LoRA: 42→56.75, 123→52.00, 777→56.25. σ=2.61, lower bound (52.4) > ICL upper (45.2) → **tiers are statistically separated**.
+
+→ Thesis: **cultural grounding benefits compound across adaptation levels**. Each tier gives +13pp robust gain. Total headroom vs zero-shot = **+25.92pp**.
+→ Paper §4.3 headline chart ready.
 
 ### (iv) 새로운 hypothesis (exp_014 variance 패턴)
 Mixed anchor (Kor2+West2) σ=0.87 vs Korean-only k=4 σ=4.34 — 평균 같은데 variance 5배 차이.
