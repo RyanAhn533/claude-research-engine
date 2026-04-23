@@ -22,6 +22,7 @@
 | **18** | **exp_015 QLoRA r=16** (seed=42) | **56.75% / F1 0.573** (seed=42 baseline). Adapter 170MB. 30min 훈련. |
 | **19** | **exp_015 multi-seed LoRA** | **55.00 ± 2.61% / F1 0.555 ± 0.026** (seeds 42/123/777: 56.75/52.00/56.25). 3-tier ROBUST. |
 | **20** | **exp_016 anchor-ratio** | **Two-effect finding**: Kor presence → MEAN (k=1 충분), Wes ≥2 → VARIANCE (std 4-6 → <1). Paper §4.4 novel. |
+| **21** | **exp_017 LoRA+ICL combo** | **반전**: LoRA 위에 ICL 추가 시 성능 HURT (−0.75~−4pp). Adaptation hierarchy는 ordinal, additive 아님. Korean 분포 중복. |
 
 ## 🎯 논문 §4 key findings (multi-seed robust)
 

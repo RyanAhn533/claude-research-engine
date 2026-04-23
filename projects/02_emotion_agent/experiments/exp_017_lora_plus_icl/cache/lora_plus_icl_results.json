@@ -1,0 +1,26 @@
+{
+  "task": "LoRA + ICL combo test (seed=42, N=400)",
+  "adapter": "/home/ajy/claude-research-engine/projects/02_emotion_agent/experiments/exp_015_lora_korean_au/cache/adapter",
+  "configs": {
+    "A_lora_only": {
+      "acc": 0.5675,
+      "f1": 0.5725743300365196,
+      "k": 0
+    },
+    "B_lora_mixed_k4_2+2": {
+      "acc": 0.56,
+      "f1": 0.5529425237294245,
+      "k": 4
+    },
+    "C_lora_korean_k4": {
+      "acc": 0.5275,
+      "f1": 0.5041274173075752,
+      "k": 4
+    }
+  },
+  "reference": {
+    "exp_015_seed42_no_icl": 0.5675,
+    "exp_014_D_mixed_no_lora_multiseed": 0.4125,
+    "exp_014_E_korean_no_lora_multiseed": 0.41
+  }
+}
