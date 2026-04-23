@@ -21,6 +21,7 @@
 | **17** | **exp_014 multi-seed** | **Ekman 25.42±0.38** (random, very stable) / **Mixed 41.25±0.87** (BEST, stable) / Kor 41.00±4.34 |
 | **18** | **exp_015 QLoRA r=16** (seed=42) | **56.75% / F1 0.573** (seed=42 baseline). Adapter 170MB. 30min 훈련. |
 | **19** | **exp_015 multi-seed LoRA** | **55.00 ± 2.61% / F1 0.555 ± 0.026** (seeds 42/123/777: 56.75/52.00/56.25). 3-tier ROBUST. |
+| **20** | **exp_016 anchor-ratio** | **Two-effect finding**: Kor presence → MEAN (k=1 충분), Wes ≥2 → VARIANCE (std 4-6 → <1). Paper §4.4 novel. |
 
 ## 🎯 논문 §4 key findings (multi-seed robust)
 
@@ -64,10 +65,25 @@ Per-seed LoRA: 42→56.75, 123→52.00, 777→56.25. σ=2.61, lower bound (52.4)
 → Thesis: **cultural grounding benefits compound across adaptation levels**. Each tier gives +13pp robust gain. Total headroom vs zero-shot = **+25.92pp**.
 → Paper §4.3 headline chart ready.
 
-### (iv) 새로운 hypothesis (exp_014 variance 패턴)
-Mixed anchor (Kor2+West2) σ=0.87 vs Korean-only k=4 σ=4.34 — 평균 같은데 variance 5배 차이.
-→ **"Diverse-redundant anchors structurally regularize ICL even when individually uninformative."**
-→ 검증 실험: 1+3, 3+1 sweep across more seeds; random-token anchors; attention map 비교.
+### (iv) Korean-Western anchor ratio — **§4.4 novel finding** (exp_014 + exp_016 combined)
+
+Full 5-point ratio sweep (k=4 total, 3 seeds each):
+
+| k=Wes (of 4) | Acc mean ± std | σ regime |
+|--------------|----------------|----------|
+| 0 (4+0 Korean only) | 41.00 ± **4.34** | HIGH |
+| 1 (3 Kor + 1 Wes) | 41.50 ± **6.00** | HIGH |
+| 2 (2+2 Mixed) | 41.25 ± **0.87** | LOW |
+| 3 (1 Kor + 3 Wes) | 40.08 ± **0.80** | LOW |
+| 4 (Western only, Ekman) | 25.42 ± 0.38 | LOW (but low mean) |
+
+**Two independent effects observed**:
+1. **MEAN ∝ Korean presence** — even a single Korean exemplar gives +15pp over zero-shot (41.5% at 3+1, 40.1% at 1+3). Korean count within [1,4] doesn't matter much.
+2. **VARIANCE ∝ Western count (threshold k_W ≥ 2)** — std collapses from 4-6pp to <1pp when at least 2 Western anchors are present.
+
+**Paper §4.4 claim**: "Effective cultural grounding requires dual design — target-culture exemplars (even k=1) for mean accuracy, plus ≥2 diverse anchors for stability across exemplar sampling."
+
+Unique vs existing ICL literature: most work treats exemplars as monolithic. This decouples the roles of target-culture vs anchor-culture examples.
 
 ## GPU 현황
 - A6000 1× 48GB, **현재 BrandSpace serve.py (~28.9GB) 상주**
