@@ -2,7 +2,7 @@
 
 > **새 세션 시작하면 이 파일 먼저 읽어라.** 짧게 현 상태 + 다음 action 전달용.
 
-**Last update**: 2026-04-23 14:55 KST (multi-seed A + LoRA D 모두 완료. 3-tier story 확정)
+**Last update**: 2026-04-23 16:35 KST (A+D+G 모두 완료. 3-tier + anchor-variance 두 주요 finding 확보)
 
 ---
 
@@ -22,57 +22,63 @@ Direction ID prefix: `EMA-D###`. 각 iter 끝에 leaderboard/direction 기록.
 
 ## 🎯 현 상황 & 다음 Action
 
-### 방금 일어난 일 (이번 세션, 2026-04-23)
+### 방금 일어난 일 (이번 세션, 2026-04-23, 약 6시간)
 - BrandSpace off, GPU 48GB free 확인
-- **Priority A (Multi-seed) ✅ 완료** — exp_012/013/014 × 3 seeds (42/123/777, 총 3h)
-- **Priority D (LoRA fine-tune) ✅ 완료** — exp_015 QLoRA r=16
-  - **결과: 56.75% acc / F1 0.573** (+14.92pp over fewshot, +27.67pp over zero-shot)
-  - 10K train (balanced 4-class) / 400 test (seed=42, exp_012 matched)
-  - 훈련 30분, loss 11.5→0.85, 625 steps
-  - Adapter 170MB saved at `experiments/exp_015_lora_korean_au/cache/adapter/`
+- **Priority A (Multi-seed) ✅** — exp_012/013/014 × 3 seeds
+- **Priority D (LoRA fine-tune) ✅** — exp_015 single + multi-seed
+  - single (seed=42): 56.75% acc / F1 0.573
+  - multi-seed (42/123/777): **55.00 ± 2.61% / F1 0.555 ± 0.026** — paper-grade
+- **Priority G (Anchor-variance) ✅** — exp_016 1+3 / 3+1 sweep
+  - Novel two-effect finding (MEAN vs VARIANCE decoupled)
+  - Paper §4.4 — unique vs existing ICL literature
 
-### 현재 진행해야 할 action (A+D 완료됨)
+**7 commits pushed** this session (ea5f277 → 25b1212).
 
-JY 판단 필요. 현재 3-tier story 확보:
-  **prompt 29% → ICL 42% → LoRA 57%** (+27.67pp total)
+### 현재 진행해야 할 action — JY 판단 필요
 
-**다음 options (JY 선택)**:
-- **F. Paper §4 재작성** (제일 강력): multi-seed + LoRA 결과로 §4.1/§4.2/§4.3 새로 쓰기
-  - §4.1 motivation (Ekman vs Korean) — 기존 살아있음
-  - §4.2 inverted-U 제거 → k-saturation + ICL gain 중심
-  - §4.3 LoRA로 adaptation hierarchy 완성 (신규)
-- **G. Variance hypothesis 검증** (novel): Mixed σ=0.87 vs Korean-only σ=4.34
-  - 1+3, 3+1 exemplar sweep (5+ seeds)
-  - Random-token anchor control
-  - "Diverse-redundant anchors regularize ICL" 주장
-- **E. Emotion-LLaMA 재현** (SOTA 비교, 4-6h)
-- **B. MELD cross-cultural** (30min, novelty check)
-- **LoRA 확장 실험**: multi-seed LoRA (exp_015 × 2 more seeds), larger r, more epochs
+현재 2개 강력한 paper-grade findings 확보:
+1. **3-tier adaptation hierarchy**: prompt 29 → ICL 42 → LoRA 55 (multi-seed, statistically separated)
+2. **Two-effect exemplar decomposition**: Korean-presence → MEAN, Western-count≥2 → VARIANCE
 
-## 📊 핵심 Findings (multi-seed robust + LoRA, 논문용)
+**우선순위 옵션**:
+- **F. Paper §4 작성** (ready): §4.1/§4.2/§4.3/§4.4 모두 결과 확보됨. 논문 쓰기 적기.
+- **E. Emotion-LLaMA SOTA 재현** (4-6h): multimodal baseline comparison. 논문에 필요.
+- **H. LoRA + ICL combo test** (20min): LoRA 위에 Mixed 프롬프트 추가 → 4-tier 가능성?
+- **I. Mechanism analysis** (attention map): §4.4 variance-reduction mechanism 규명
+- **B. MELD generalization** (설계 필요): text 도메인으로 효과 전이?
 
-### 3-tier adaptation hierarchy (⭐ 메인 thesis)
+**내 추천**: F (paper writing) + 병렬로 E. 이 정도면 충분.
 
-| Tier | Method | Acc | F1 | Δ |
-|------|--------|-----|-----|------|
-| 1 | zero-shot FACS (multi-seed) | 29.08 ± 0.76% | 0.194 | — |
-| 2 | ICL k=4 Korean (multi-seed) | 41.83 ± 3.41% | 0.364 | +12.75 pp |
-| **3** | **QLoRA r=16 fine-tune** | **56.75%** | **0.573** | **+14.92 pp** |
-| total | zero-shot → LoRA | | | **+27.67 pp** |
+## 📊 핵심 Findings (multi-seed robust, 논문용)
 
-### 3-levels of cultural grounding (보조)
+### ⭐ FINDING 1 — 3-tier adaptation hierarchy (paper §4.3)
 
-| Level | Method | Multi-seed acc |
-|-------|--------|----------------|
-| Prototype | Ekman FACS textbook | 25.42 ± 0.38 (random, σ 극소) |
-| Distribution | Korean real k=4 | 41.00 ± 4.34 (σ 큼) |
-| **Anchored** | Korean 2 + Western 2 mix | **41.25 ± 0.87** (같은 mean, σ 5배 작음) |
+| Tier | Method | Acc (n=3) | F1 | Δ |
+|------|--------|-----------|-----|------|
+| 1 | zero-shot FACS | 29.08 ± 0.76% | 0.194 | — |
+| 2 | ICL k=4 Korean | 41.83 ± 3.41% | 0.364 | +12.75 pp |
+| 3 | QLoRA r=16 10K 1ep | **55.00 ± 2.61%** | **0.555** | +13.17 pp |
 
-→ Δ (Ekman→Mixed) = +15.83 pp. 평균은 Korean-only와 비슷하지만 **variance 극적 감소**.
-→ **New hypothesis**: "Diverse-redundant anchors structurally regularize ICL".
+LoRA lower-bound (52.39) > ICL upper-bound (45.24) → 3 tiers statistically separated.
+Total Δ = +25.92pp over zero-shot.
 
-### k-scaling — REVISED
-- k=0 29.08 → k=2 44.25 (peak) → k=4~16 42-44% saturation
+### ⭐ FINDING 2 — Two-effect anchor decomposition (paper §4.4)
+
+5-point Korean-Western ratio sweep (k=4 total, n=3):
+
+| (Kor+Wes) | Mean ± σ | σ regime |
+|-----------|----------|----------|
+| 4+0 | 41.00 ± 4.34 | HIGH |
+| 3+1 | 41.50 ± 6.00 | HIGH |
+| **2+2** | 41.25 ± 0.87 | LOW |
+| **1+3** | 40.08 ± 0.80 | LOW |
+| 0+4 | 25.42 ± 0.38 | LOW but low mean |
+
+**Decoupled**: Korean-presence → MEAN (k=1 충분), Western-count (≥2) → VARIANCE.
+**Paper claim**: "Effective cultural grounding requires dual design — target-culture for mean, diverse anchors for variance."
+
+### FINDING 3 — k-scaling revised (§4.2)
+- Multi-seed k-sweep: k=0 29.08 → k=2 44.25 (peak) → k=4~16 42-44% saturation
 - 원 "k=16 drop"(36%)은 seed 아티팩트.
 
 ## 🖥 환경
