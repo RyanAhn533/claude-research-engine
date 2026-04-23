@@ -2,7 +2,7 @@
 
 > **새 세션 시작하면 이 파일 먼저 읽어라.** 짧게 현 상태 + 다음 action 전달용.
 
-**Last update**: 2026-04-23 16:35 KST (A+D+G 모두 완료. 3-tier + anchor-variance 두 주요 finding 확보)
+**Last update**: 2026-04-23 16:55 KST (3 paper-grade findings 확보, 9 commits pushed)
 
 ---
 
@@ -51,7 +51,7 @@ Direction ID prefix: `EMA-D###`. 각 iter 끝에 leaderboard/direction 기록.
 
 ## 📊 핵심 Findings (multi-seed robust, 논문용)
 
-### ⭐ FINDING 1 — 3-tier adaptation hierarchy (paper §4.3)
+### ⭐ FINDING 1 — 3-tier adaptation hierarchy (§4.3)
 
 | Tier | Method | Acc (n=3) | F1 | Δ |
 |------|--------|-----------|-----|------|
@@ -59,27 +59,33 @@ Direction ID prefix: `EMA-D###`. 각 iter 끝에 leaderboard/direction 기록.
 | 2 | ICL k=4 Korean | 41.83 ± 3.41% | 0.364 | +12.75 pp |
 | 3 | QLoRA r=16 10K 1ep | **55.00 ± 2.61%** | **0.555** | +13.17 pp |
 
-LoRA lower-bound (52.39) > ICL upper-bound (45.24) → 3 tiers statistically separated.
-Total Δ = +25.92pp over zero-shot.
+LoRA LB (52.39) > ICL UB (45.24) → tiers **statistically separated**. Total Δ = +25.92pp.
 
-### ⭐ FINDING 2 — Two-effect anchor decomposition (paper §4.4)
+### ⭐ FINDING 2 — Two-effect anchor decomposition (§4.4)
 
-5-point Korean-Western ratio sweep (k=4 total, n=3):
+5-point ratio sweep (k=4 total):
 
-| (Kor+Wes) | Mean ± σ | σ regime |
+| Kor+Wes | Acc ± σ | σ regime |
 |-----------|----------|----------|
 | 4+0 | 41.00 ± 4.34 | HIGH |
 | 3+1 | 41.50 ± 6.00 | HIGH |
 | **2+2** | 41.25 ± 0.87 | LOW |
 | **1+3** | 40.08 ± 0.80 | LOW |
-| 0+4 | 25.42 ± 0.38 | LOW but low mean |
+| 0+4 | 25.42 ± 0.38 | (low mean) |
 
-**Decoupled**: Korean-presence → MEAN (k=1 충분), Western-count (≥2) → VARIANCE.
-**Paper claim**: "Effective cultural grounding requires dual design — target-culture for mean, diverse anchors for variance."
+**Decoupled**: Korean-presence → MEAN (k=1 충분), Western-count ≥2 → VARIANCE.
 
-### FINDING 3 — k-scaling revised (§4.2)
-- Multi-seed k-sweep: k=0 29.08 → k=2 44.25 (peak) → k=4~16 42-44% saturation
-- 원 "k=16 drop"(36%)은 seed 아티팩트.
+### ⭐ FINDING 3 — ICL-LoRA substitutability (§4.3 refinement)
+
+LoRA (seed=42) = 56.75%. On same adapter with ICL exemplars:
+- + Mixed k=4: 56.00% (−0.75pp)
+- + Korean k=4: 52.75% (−4.00pp)
+
+→ **Adaptation modes are ORDINAL, not ADDITIVE**. LoRA subsumes ICL's Korean-distribution benefit; presenting same distribution as context causes attention-split. Mixed anchors cause *less* regression (consistent with Finding 2's anchor-regularization).
+
+### FINDING 4 — k-scaling revised (§4.2)
+- Multi-seed: k=0 29.08 → k=2 44.25 peak → k=4-16 42-44% saturation
+- 원 single-seed "k=16 drop"(36%)은 seed 아티팩트.
 
 ## 🖥 환경
 
