@@ -1,0 +1,58 @@
+{
+  "task": "Hidden-state last-layer cluster tightness \u2014 D_mixed vs E_kor4",
+  "N_samples": 80,
+  "seed": 42,
+  "results": {
+    "D_mixed": {
+      "within_class_dist": {
+        "angry": 14.060617446899414,
+        "happy": 15.51707649230957,
+        "neutral": 14.691655158996582,
+        "sad": 13.691438674926758
+      },
+      "between_class_dist": {
+        "angry": 7.2051262855529785,
+        "happy": 12.171573638916016,
+        "neutral": 7.907083034515381,
+        "sad": 7.4544219970703125
+      },
+      "tightness_ratio": {
+        "angry": 0.5124331355122546,
+        "happy": 0.7843986362346269,
+        "neutral": 0.5382023297540712,
+        "sad": 0.5444586338995664
+      },
+      "within_overall": 14.490196943283081,
+      "between_overall": 8.684551239013672,
+      "tightness_overall": 0.5948731838501298
+    },
+    "E_kor4": {
+      "within_class_dist": {
+        "angry": 17.779375076293945,
+        "happy": 19.070220947265625,
+        "neutral": 20.296199798583984,
+        "sad": 17.626815795898438
+      },
+      "between_class_dist": {
+        "angry": 9.146832466125488,
+        "happy": 15.67529010772705,
+        "neutral": 11.281838417053223,
+        "sad": 9.01409912109375
+      },
+      "tightness_ratio": {
+        "angry": 0.5144631027173379,
+        "happy": 0.8219773725261765,
+        "neutral": 0.5558596451065844,
+        "sad": 0.5113855630800448
+      },
+      "within_overall": 18.693152904510498,
+      "between_overall": 11.279515027999878,
+      "tightness_overall": 0.600921420857536
+    }
+  },
+  "tightness_comparison": {
+    "D": 0.5948731838501298,
+    "E": 0.600921420857536,
+    "ratio_D_over_E": 0.9899350617277461
+  }
+}
