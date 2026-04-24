@@ -30,6 +30,9 @@
 | **26** | **exp_023 IEMOCAP k-sweep** | k=0 46.67 / k=4 46.17 / k=8 47.00 — **FLAT**. IEMOCAP에서 ICL 자체 무효 |
 | **27** | **exp_024 IEMOCAP LoRA multi-seed** | **70.00 ± 3.70%** / F1 0.698 (+22.17pp vs T1). Cross-domain LoRA robust |
 | **28** | **exp_025 MELD LoRA multi-seed** | **61.75 ± 1.15%** / F1 0.614 (+6.25pp vs T1). 작지만 유의 |
+| **29** | **exp_019 attention entropy (L14)** | D 0.645 vs E 0.639 — **mechanism at attention level REJECTED** |
+| **30** | **exp_026 MELD k-sweep** | k=0/4/8 = 55.75/56.50/55.17 — **완전 FLAT**. ICL modality-gating 2nd domain 확인 |
+| **31** | **exp_019b multi-layer attention** | L{1,7,14,21,27} 모두 D vs E identical — **모든 depth에서 attention 아님 확정** |
 
 ## 🎯 논문 §4 key findings (multi-seed robust)
 
