@@ -345,6 +345,46 @@ LoRA has it, more ICL becomes noise.
 - When input is standard text: ICL adds little; invest in LoRA or prompt
   engineering other than exemplars.
 
+## §6 Future Work
+
+### 6.1 Bio-grounded emotion agent (integration with same-lab S-PACE/CBBF)
+Our concurrent S-PACE/CBBF work addresses the orthogonal physiological
+grounding axis: bio signal → behavioral-emotion via causal cross-attention.
+A natural next system combines both:
+- Bio signal (EDA, HR from wearable) → NormWear-style encoder → structural
+  prior on arousal/valence axis.
+- Face AU intensity → LLM via our Mixed-anchor exemplar scheme OR via LoRA.
+- Fuse physiological prior with LLM reasoning (BioToken-style projection).
+This would directly target real-time affective agents in safety-critical
+settings (e.g., driver monitoring with KMER-style multimodal data).
+
+### 6.2 Mechanism for exemplar-variance (beyond attention)
+Our layer-14 attention entropy test found D_mixed and E_kor4 near-identical
+(both show recency bias), yet their output variances differ 5×. This
+isolates the mechanism to *hidden representations* rather than attention
+weights. Future work: extract hidden states from exemplar positions, cluster
+per-label, and measure cluster tightness. If D_mixed shows tighter per-label
+clusters than E_kor4, that mechanism is at the feature-space level.
+
+### 6.3 Modality-gating interventional test
+§5.1's hypothesis (ICL helps only when input modality is novel to the LLM)
+is correlational. A direct intervention: take a standard IEMOCAP transcript
+and transform it into a synthetic "novel format" (e.g., phoneme-level
+encoding, or extracted acoustic statistics text) that the LLM has not seen.
+If ICL gain appears under the novel format but not the original text, that
+confirms input-novelty as a causal driver.
+
+### 6.4 Scale & model-family ablation
+Our experiments used a single base model (Qwen2.5-7B 4-bit). Repeating on
+Llama-3-8B, Qwen2.5-72B, and a smaller 1-3B variant would test whether the
+observed tier gaps and modality gating are model-size-dependent.
+
+### 6.5 Cross-cultural replication
+Current Korean-specific findings should be validated on Japanese, Chinese,
+or African face data. If the 3-axis anchor decomposition survives, that
+strengthens generalizability; if it doesn't, the finding becomes
+culturally-parameterized.
+
 ## Limitations
 
 - Single base model (Qwen2.5-7B 4-bit quantized); no ablation over model

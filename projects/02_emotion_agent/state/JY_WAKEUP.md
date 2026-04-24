@@ -1,10 +1,50 @@
-# JY 일어나서 한 번에 확인하기 (2026-04-23 밤 queue, 9AM까지 packed)
+# JY 일어나서 확인 (2026-04-24 morning — M1 overnight + dawn 세션 완료)
 
-## 한 명령
+## TL;DR
+
+- M1 queue (exp_018~025) ✅ 완료 02:11
+- Follow-up (exp_026 MELD k-sweep + exp_019 + exp_019b attention) 진행 중
+- **Q1_WORKING v2 대폭 재작성** (§1/§2 draft + §4 revised + §5 expanded + §6 future)
+- **5 figures** regenerated (cross-domain 3-tier 포함)
+- Commits pushed: a6765d1, dd02cb9, 256aae4 (3 batches)
+- **Major revision**: "ICL universal 3-tier" → "ICL modality-gated, LoRA universal"
+
+
+
+## 확인 순서 (우선순위)
 
 ```bash
+# 1) 모든 실험 종합 결과
 cat /home/ajy/claude-research-engine/projects/02_emotion_agent/state/m1_queue.log
+
+# 2) 최신 paper draft
+less /home/ajy/claude-research-engine/projects/02_emotion_agent/Q1_WORKING.md
+
+# 3) 새 figures (5개)
+ls -la /home/ajy/claude-research-engine/projects/02_emotion_agent/figures/*.png
+
+# 4) Git log 최근 추가 commit
+cd /home/ajy/claude-research-engine && git log --oneline -10
 ```
+
+## 핵심 Headline Results
+
+| Dataset | T1 zero-shot | T2 ICL k=4 | T3 LoRA |
+|---------|-------------|-----------|---------|
+| Korean FER AU | 29.08 ± 0.76 | 41.83 ± 3.41 (**+12.75**) | 55.00 ± 2.61 (**+13.17**) |
+| IEMOCAP text | 47.83 ± 2.50 | 48.92 ± 4.25 (**+1.09**) | 70.00 ± 3.70 (**+21.08**) |
+| MELD text | 55.50 ± 3.27 | 55.17 ± 5.65 (**−0.33**) | 61.75 ± 1.15 (+6.58) |
+
+**LoRA universal, ICL Korean-FER-only**.
+
+## 추가 발견
+
+- **exp_018 random-token anchor**: σ 2.50 (중간) → Ekman 의미 있음 (1.63pp σ 기여)
+- **exp_020 class-coverage**: H1 3-class σ=1.53 vs H2 4-class σ=4.34 — **class redundancy가 σ 주 요인 (2.81pp)**
+- **exp_023 IEMOCAP k-sweep**: FLAT (46.67/46.17/47.00) — ICL 진짜 flat
+- **exp_019 attention entropy**: D vs E 거의 동일 (0.645 vs 0.639) — **attention level 아닌 mechanism**
+
+
 
 ## 전체 Queue 계획 (9AM까지 ~10.5h packed)
 
