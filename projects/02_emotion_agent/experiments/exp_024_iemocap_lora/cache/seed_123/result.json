@@ -1,0 +1,17 @@
+{
+  "seed": 123,
+  "config": {
+    "r": 16,
+    "alpha": 32,
+    "epochs": 1,
+    "bs": 4,
+    "grad_accum": 4,
+    "lr": 0.0002,
+    "n_train": 6477,
+    "n_test": 400
+  },
+  "finetuned": {
+    "acc": 0.7425,
+    "f1": 0.7410551062294946
+  }
+}

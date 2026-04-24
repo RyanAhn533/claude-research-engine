@@ -2,7 +2,7 @@
 
 > JY 깨어나서 한 눈에 파악용. 세부: `Q1_WORKING.md`, `state/insights.md`, 각 `experiments/exp_NNN/summary.md`.
 
-## 현재 상태: **3-tier story 완성 (prompt 29% → ICL 42% → LoRA 57%)**
+## 현재 상태: **Cross-domain 3-tier 완성 (3 datasets) + anchor-decomp 수정됨**
 
 ### 17 iterations (14 single-seed + 3 multi-seed replication)
 | # | Exp | 결과 (핵심) |
@@ -23,6 +23,13 @@
 | **19** | **exp_015 multi-seed LoRA** | **55.00 ± 2.61% / F1 0.555 ± 0.026** (seeds 42/123/777: 56.75/52.00/56.25). 3-tier ROBUST. |
 | **20** | **exp_016 anchor-ratio** | **Two-effect finding**: Kor presence → MEAN (k=1 충분), Wes ≥2 → VARIANCE (std 4-6 → <1). Paper §4.4 novel. |
 | **21** | **exp_017 LoRA+ICL combo** | **반전**: LoRA 위에 ICL 추가 시 성능 HURT (−0.75~−4pp). Adaptation hierarchy는 ordinal, additive 아님. Korean 분포 중복. |
+| **22** | **exp_018 random-token anchor** | G1 (2 Kor + 2 random): 41.08 ± **2.50**. D_mixed(0.87)과 E_kor4(4.34) 중간 — **Ekman semantic content도 일부 역할** |
+| **23** | **exp_020 class-coverage dissociation** | H1 (Kor 3-class) σ=**1.53** vs H2 (Kor 4-class) σ=**4.34**. **Class coverage가 σ 주 요인** (Paper B narrative 수정 필요) |
+| **24** | **exp_021 IEMOCAP T1+T2** | T1 47.83 / T2 48.92 = +**1.09pp만** (Korean FER +12.75 대비). ICL gain이 input modality에 따라 다름 |
+| **25** | **exp_022 MELD T1+T2** | T1 55.50 / T2 55.17 = **−0.33pp** (MELD에서 ICL 실패). Text domain 재확인 |
+| **26** | **exp_023 IEMOCAP k-sweep** | k=0 46.67 / k=4 46.17 / k=8 47.00 — **FLAT**. IEMOCAP에서 ICL 자체 무효 |
+| **27** | **exp_024 IEMOCAP LoRA multi-seed** | **70.00 ± 3.70%** / F1 0.698 (+22.17pp vs T1). Cross-domain LoRA robust |
+| **28** | **exp_025 MELD LoRA multi-seed** | **61.75 ± 1.15%** / F1 0.614 (+6.25pp vs T1). 작지만 유의 |
 
 ## 🎯 논문 §4 key findings (multi-seed robust)
 
@@ -66,6 +73,22 @@ Per-seed LoRA: 42→56.75, 123→52.00, 777→56.25. σ=2.61, lower bound (52.4)
 → Thesis: **cultural grounding benefits compound across adaptation levels**. Each tier gives +13pp robust gain. Total headroom vs zero-shot = **+25.92pp**.
 → Paper §4.3 headline chart ready.
 
+### (iii.b) Cross-domain 3-tier — **NEW (exp_021-025)**
+
+3 datasets (Korean FER AU / IEMOCAP text / MELD text) × 3-tier:
+
+| Dataset | T1 (zero-shot) | T2 (ICL k=4) | T3 (LoRA) | ΔT1→T3 |
+|---------|---------------|-------------|-----------|--------|
+| Korean FER AU | 29.08 ± 0.76 | 41.83 ± 3.41 | 55.00 ± 2.61 | **+25.92** |
+| IEMOCAP (text) | 47.83 ± 2.50 | 48.92 ± 4.25 | **70.00 ± 3.70** | **+22.17** |
+| MELD (text) | 55.50 ± 3.27 | 55.17 ± 5.65 | **61.75 ± 1.15** | +6.25 |
+
+**핵심 revised findings**:
+1. **LoRA tier universal** — 모든 domain에서 큰 gain
+2. **ICL gain은 domain-specific** — Korean FER만 +12.75pp, text domain들은 +1pp 내외 또는 음수
+3. **새 가설**: ICL은 "LLM이 익숙하지 않은 input modality" (= AU intensity text)에서만 효과. 표준 text는 이미 잘 처리.
+4. **Paper A §4 revision**: "universal 3-tier" 대신 "LoRA 안정적, ICL modality-dependent" narrative
+
 ### (iv) Korean-Western anchor ratio — **§4.4 novel finding** (exp_014 + exp_016 combined)
 
 Full 5-point ratio sweep (k=4 total, 3 seeds each):
@@ -85,6 +108,27 @@ Full 5-point ratio sweep (k=4 total, 3 seeds each):
 **Paper §4.4 claim**: "Effective cultural grounding requires dual design — target-culture exemplars (even k=1) for mean accuracy, plus ≥2 diverse anchors for stability across exemplar sampling."
 
 Unique vs existing ICL literature: most work treats exemplars as monolithic. This decouples the roles of target-culture vs anchor-culture examples.
+
+### (iv.b) Anchor-variance claim REVISED (exp_018 + 020, 2026-04-24 morning)
+
+**exp_018 random-token anchor**:
+- G1 (2 Kor + 2 random-AU): σ=**2.50** — 중간 (D_mixed Ekman 0.87, E_kor4 4.34 사이)
+- G2 (4 random only): 27.58% random-level (Korean presence = mean 재확인)
+
+**exp_020 class-coverage dissociation** (순수 Korean만 써서 coverage 효과 분리):
+- H1 (Kor 3-class: angry/happy/sad/sad_dup): σ=**1.53**
+- H2 (Kor 4-class: E 재현): σ=**4.34**
+- Δ = 2.81pp σ 감소 from class redundancy ALONE
+
+**Revised decomposition** (3축):
+1. **Class redundancy (3-class > 4-class)**: σ 2.81pp 감소 (주 요인)
+2. **Anchor origin (Mixed > Korean-only at same 3-class)**: σ 추가 0.66pp 감소 (D 0.87 vs H1 1.53)
+3. **Anchor semantic content (Ekman > random)**: σ 추가 1.63pp 감소 (D 0.87 vs G1 2.50)
+
+**Paper B §4 re-framing**: 
+- 기존: "Western ≥2 → σ collapse" (too simple)
+- 수정: "**Class redundancy is primary σ driver; anchor diversity (origin) + semantic anchor content add secondary gains**"
+- Still novel: 기존 ICL 문헌에 이런 decomposition 없음
 
 ## GPU 현황
 - A6000 1× 48GB, **현재 BrandSpace serve.py (~28.9GB) 상주**

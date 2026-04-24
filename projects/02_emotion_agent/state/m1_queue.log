@@ -1,0 +1,55 @@
+[2026-04-23 22:30:31] M1 queue start
+[22:30:31] waiting for exp_018 (already running)...
+[22:30:31] exp_018 finished
+[22:30:31] exp_020 starting...
+[22:37:06] EXT queue waiting for m1_queue.sh...
+[23:19:41] exp_020 finished (exit=0)
+[23:19:41] exp_021 starting...
+[23:41:24] exp_021 finished (exit=0)
+[2026-04-23 23:41:24] M1 queue complete
+
+=== FINAL RESULTS ===
+--- exp_018_random_token_anchor ---
+  G1_kor2_random2: acc=41.08±2.50%, f1=0.337±0.039
+  G2_kor0_random4: acc=27.58±1.59%, f1=0.158±0.032
+--- exp_020_class_coverage ---
+  H1_kor4_3class: acc=40.67±1.53%, f1=0.354±0.030
+  H2_kor4_4class: acc=41.00±4.34%, f1=0.364±0.079
+--- exp_021_iemocap_multiseed ---
+  T1_zero_shot: acc=47.83±2.50%, f1=0.464±0.033
+  T2_icl_k4: acc=48.92±4.25%, f1=0.484±0.051
+[2026-04-23 23:42:08] EXT queue start
+[23:42:08] exp_022 starting...
+[00:03:51] exp_022 finished (exit=0)
+[00:03:51] exp_023 starting...
+[00:36:30] exp_023 finished (exit=0)
+[00:36:30] exp_024_seed42 starting...
+[00:51:56] exp_024_seed42 finished (exit=0)
+[00:51:56] exp_024_seed123 starting...
+[01:07:24] exp_024_seed123 finished (exit=0)
+[01:07:24] exp_024_seed777 starting...
+[01:22:51] exp_024_seed777 finished (exit=0)
+[01:22:51] exp_025_seed42 starting...
+[01:39:01] exp_025_seed42 finished (exit=0)
+[01:39:01] exp_025_seed123 starting...
+[01:55:09] exp_025_seed123 finished (exit=0)
+[01:55:09] exp_025_seed777 starting...
+[02:11:19] exp_025_seed777 finished (exit=0)
+[2026-04-24 02:11:19] EXT queue complete
+
+=== EXT FINAL RESULTS ===
+--- exp_022_meld_multiseed ---
+  T1_zero_shot: acc=55.50±3.27%
+  T2_icl_k4: acc=55.17±5.65%
+--- exp_023_iemocap_kshot ---
+  k=0: acc=46.67±4.06%
+  k=4: acc=46.17±6.39%
+  k=8: acc=47.00±4.67%
+--- exp_024 (IEMOCAP LoRA) per-seed ---
+  seed=42: acc=68.25%, f1=0.684
+  seed=123: acc=74.25%, f1=0.741
+  seed=777: acc=67.50%, f1=0.669
+--- exp_025 (MELD LoRA) per-seed ---
+  seed=42: acc=60.75%, f1=0.605
+  seed=123: acc=61.50%, f1=0.612
+  seed=777: acc=63.00%, f1=0.624
