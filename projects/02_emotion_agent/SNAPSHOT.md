@@ -33,6 +33,8 @@
 | **29** | **exp_019 attention entropy (L14)** | D 0.645 vs E 0.639 — **mechanism at attention level REJECTED** |
 | **30** | **exp_026 MELD k-sweep** | k=0/4/8 = 55.75/56.50/55.17 — **완전 FLAT**. ICL modality-gating 2nd domain 확인 |
 | **31** | **exp_019b multi-layer attention** | L{1,7,14,21,27} 모두 D vs E identical — **모든 depth에서 attention 아님 확정** |
+| **32** | **exp_028 hidden cluster MECHANISM** | D within=14.49 vs E within=18.69 — **D가 22% compact**. §5.2 mechanism 해결. |
+| **33** | **exp_029 LoRA rank ablation** | r=8 56.50 / r=16 56.75 / r=32 56.00. **rank 무관 (≤0.75pp 차)**. Ceiling은 data/capacity-limited. |
 
 ## 🎯 논문 §4 key findings (multi-seed robust)
 

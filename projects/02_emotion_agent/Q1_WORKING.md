@@ -422,8 +422,11 @@ culturally-parameterized.
 - Only one target culture (Korean) and two English dialog benchmarks
   (IEMOCAP, MELD); cross-cultural text and non-English bio benchmarks remain
   untested.
-- 1-epoch QLoRA with fixed hyperparameters (r=16, α=32, LR 2e-4); longer
-  training or larger rank may extend the LoRA ceiling.
+- 1-epoch QLoRA with fixed LR 2e-4 and batch configuration. We performed a
+  rank ablation (r ∈ {8, 16, 32} with matched α = 2r) on Korean FER AU and
+  observed ≤ 0.75 pp accuracy variation (56.00 – 56.75 %), suggesting rank
+  is not the bottleneck; data volume or model capacity appears to be. Longer
+  training (multi-epoch) remains unexplored.
 - The modality-gating hypothesis (§5.1) is correlational — we observe ICL gain
   ↔ input novelty co-occur but have not intervened on novelty directly.
 - Attention-map or representation-level mechanism for §5.2 is not measured;
