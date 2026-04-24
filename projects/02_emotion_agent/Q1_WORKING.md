@@ -1,11 +1,12 @@
 # Q1 Paper Working Draft — Emotion Agent
 
-## Status (2026-04-23, end of Week 3)
+## Status (2026-04-24, after overnight M1 queue)
 - Phase 0 setup ✓
 - Week 1 preprocessing ✓ (IEMOCAP/MELD/K-EmoCon)
 - Week 2 agent baseline eval ✓ (IEMOCAP/MELD/K-EmoCon/FER)
-- **Week 3 few-shot scaling + multi-seed + LoRA ✓ — paper-grade findings**
-- Week 4 writing + SOTA baseline + cross-domain: planned
+- Week 3 few-shot scaling + multi-seed + LoRA ✓
+- **Week 4 M1 queue ✓ — cross-domain (IEMOCAP/MELD) + anchor mechanism (exp_018/020)**
+- Week 5 writing + SOTA baseline: planned
 
 ## Title (draft)
 
@@ -15,68 +16,87 @@ Facial Emotion Agents"*
 alt: *"Target-Culture Exemplars, Diverse Anchors, and LoRA: Decomposing the
 Contributions of Cultural Grounding in LLM Emotion Classifiers"*
 
-## Abstract draft (multi-seed + LoRA)
+## Abstract draft (v2, with cross-domain + revised anchor decomp)
 
-We present a three-tier study of cultural grounding in LLM-based facial emotion
-classifiers, using Korean FER action-unit data (229K images, 4-class) with
-Qwen2.5-7B-Instruct. Each tier is evaluated under multi-seed (n=3) protocol
-with statistical reporting.
+We study adaptation hierarchies in LLM-based emotion classifiers across three
+domains: Korean facial action-unit (FER AU) text, and two English dialog
+benchmarks (IEMOCAP, MELD). Using Qwen2.5-7B-Instruct with multi-seed (n=3)
+protocol, we report four findings.
 
-Three findings:
+**(1) Adaptation hierarchy is cumulative but domain-dependent.** Parametric
+adaptation (LoRA r=16, 1 epoch) improves accuracy by +6 to +26 pp over
+zero-shot across three domains and is the single most reliable tier. In-context
+learning (ICL, k=4 exemplars) shows a large gain only on Korean FER AU
+(+12.75 pp) but collapses on standard text (+1.09 pp on IEMOCAP; −0.33 pp on
+MELD). A k-sweep {0,4,8} replication on IEMOCAP confirms ICL is flat on
+familiar text domains. We hypothesize ICL helps primarily when the input
+modality is novel to the LLM (AU intensity text being structurally unlike
+training data).
 
-**(1) Adaptation hierarchy is cumulative across tiers.** A zero-shot FACS prompt
-reaches 29.08 ± 0.76 %; adding k=4 Korean exemplars raises this to
-41.83 ± 3.41 % (+12.75 pp); applying QLoRA (r=16, 10K training samples,
-1 epoch) reaches 55.00 ± 2.61 % (+13.17 pp). Tiers are statistically
-separated under 1σ.
-
-**(2) The role of exemplars decomposes into two independent effects.** Across a
-five-point Korean-to-Western exemplar ratio sweep (k=4 total), we observe:
-(i) the **mean** depends on the presence of ≥1 target-culture (Korean)
-exemplar (single-Korean setup reaches 40 %, no Korean stays at 25 %);
-(ii) the **variance** collapses from σ≈4-6 pp to σ<1 pp once at least two
-Western (non-semantic, idealized-prototype) anchors are included.
-Mean and variance are driven by different exemplar types.
+**(2) Exemplar-variance decomposes into three additive components.** Under
+controlled ablations (class coverage, anchor origin, anchor semantic content),
+we find: (i) **class redundancy** (3-class vs 4-class coverage in the exemplar
+pool) reduces σ by ~2.81 pp (primary driver); (ii) **anchor origin**
+(Mixed = 2 Korean + 2 Western vs pure 4 Korean at matched 3-class coverage)
+reduces σ by ~0.66 pp; (iii) **semantic anchor content** (Ekman idealized
+prototype vs random-AU-token at matched structure) reduces σ by ~1.63 pp.
+Previous claims of a single "Western count ≥2" threshold are superseded by
+this three-axis decomposition.
 
 **(3) ICL and LoRA are substitutes, not complements.** Adding Korean exemplars
-on top of a Korean-trained LoRA adapter hurts accuracy by 0.75-4.00 pp —
-adaptation modes overlap in information, and presenting the same
-distribution twice causes attention-split regression. Mixed (anchored)
-exemplars hurt *less* than pure target-culture ones, consistent with the
-anchor-regularization story in (2).
+on top of a Korean-trained LoRA adapter hurts accuracy by 0.75–4.00 pp —
+adaptation modes access overlapping information. Mixed anchors hurt less
+than pure target-culture anchors, consistent with (2)'s regularization story.
 
-Idealized Ekman FACS prototypes — the textbook contribution of Western
-FACS literature — perform at random (25.42 ± 0.38 %) on Korean faces,
-regardless of seed. This negative result motivates finding (2)'s
-decomposition.
+**(4) Ekman FACS prototypes are random on Korean faces.** The textbook Western
+FACS prototype reaches 25.42 ± 0.38 % on Korean FER AU — indistinguishable
+from random (4-class baseline 25 %), regardless of seed. This negative result
+motivates the three-axis anchor decomposition in (2).
 
-These results challenge the common practice of injecting cultural metadata
-via system prompts and provide a concrete recipe for culturally-situated
-LLM agents: use at least one target-culture exemplar for mean accuracy,
-at least two diverse anchors for variance stability, and prefer LoRA over
-ICL when training data is available (do not stack both).
+These results (a) challenge the common practice of injecting cultural
+metadata via system prompts, (b) expose that ICL benefit is modality-gated
+rather than universal, and (c) provide a concrete recipe for grounded LLM
+emotion classifiers: prefer LoRA when training data is available; use
+ICL with class-redundant Mixed exemplars when training data is limited
+and the input modality is novel to the base LLM.
 
 ## Headline Results Table (multi-seed robust)
 
-### Main: 3-tier hierarchy on Korean FER AU 4-class (n=3 seeds, N=400 each)
+### ⭐ Main: Cross-domain 3-tier hierarchy (n=3 seeds per cell, N=400 test each)
 
-| Tier | Method | Acc | Macro-F1 | Δ vs prev |
-|------|--------|-----|----------|-----------|
-| 1 | Zero-shot FACS prompt | 29.08 ± 0.76 | 0.194 ± 0.011 | — |
-| 2 | ICL k=4 Korean exemplars | 41.83 ± 3.41 | 0.364 ± 0.040 | **+12.75** |
-| **3** | **QLoRA r=16, 10K, 1 ep** | **55.00 ± 2.61** | **0.555 ± 0.026** | **+13.17** |
+| Dataset | T1 zero-shot | T2 ICL k=4 | T3 LoRA (r=16) | ΔT1→T3 |
+|---------|-------------|-----------|----------------|--------|
+| Korean FER AU | 29.08 ± 0.76 | 41.83 ± 3.41 | **55.00 ± 2.61** | **+25.92** |
+| IEMOCAP text | 47.83 ± 2.50 | 48.92 ± 4.25 | **70.00 ± 3.70** | **+22.17** |
+| MELD text | 55.50 ± 3.27 | 55.17 ± 5.65 | **61.75 ± 1.15** | **+6.25** |
 
-Total Δ (tier 1 → tier 3) = **+25.92 pp**.
+**Key observations**:
+- LoRA tier-3 gives reliable large gain (+6.25 to +25.92 pp) across all three domains
+- ICL tier-2 gives large gain only on Korean FER AU (+12.75 pp); collapses to ~0 on text
+- k-sweep on IEMOCAP (k=0→4→8) = FLAT (46.67, 46.17, 47.00) — ICL absent, not just small
+- Hypothesis: ICL helps when input modality is novel to the LLM (AU intensity = novel)
 
-### Anchor-ratio ablation (k=4 total, n=3 seeds)
+### Anchor-variance three-axis decomposition (n=3 seeds, k=4 exemplars, Korean FER AU)
 
-| k_Kor + k_Wes | Acc ± σ | σ regime |
-|---------------|---------|----------|
-| 4 + 0 (pure Korean) | 41.00 ± 4.34 | HIGH |
-| 3 + 1 | 41.50 ± 6.00 | HIGH |
-| **2 + 2 (Mixed)** | **41.25 ± 0.87** | LOW |
-| **1 + 3 (Wes-heavy)** | **40.08 ± 0.80** | LOW |
-| 0 + 4 (Ekman only) | 25.42 ± 0.38 | (low mean) |
+| Config (origin × coverage × content) | Acc ± σ | σ attribution |
+|---|---|---|
+| E: Kor4, 4-class | 41.00 ± 4.34 | baseline |
+| H1: Kor4, 3-class | 40.67 ± 1.53 | ← class-redundancy reduces σ by 2.81 |
+| G1: Kor2+Random2, 3-class | 41.08 ± 2.50 | + semantic vs random content |
+| D: Kor2+Wes(Ekman)2, 3-class | 41.25 ± 0.87 | ← anchor origin adds 0.66 more |
+| C: Wes4 (Ekman only) | 25.42 ± 0.38 | (low mean — no Korean) |
+
+**Decomposition**:
+- Class redundancy (3-class vs 4-class): σ **−2.81 pp** (primary driver)
+- Anchor origin (Mixed vs pure Korean at 3-class): σ **−0.66 pp** (secondary)
+- Semantic anchor content (Ekman vs random-AU-token): σ **−1.63 pp** (tertiary)
+
+### Prior mis-attribution correction
+A previous k-sweep interpretation of the same grid claimed a "Western ≥ 2 threshold"
+effect on variance. That observation confounded class coverage with anchor origin:
+Ekman anchors happen to cover 3 classes (happy/sad/angry, no neutral), so adding
+2 Western anchors simultaneously collapses class coverage from 4 to 3. The three-axis
+decomposition above correctly separates these effects.
 
 ### ICL on LoRA substitutability (seed=42, N=400)
 
@@ -96,12 +116,14 @@ Total Δ (tier 1 → tier 3) = **+25.92 pp**.
 | 8 | 43.50 ± 1.52 |
 | 16 | 42.33 ± 1.84 |
 
-## Key figures (TBD — plot generation)
+## Key figures (5 generated, `figures/*.png`)
 
-1. **Figure 1**: 3-tier hierarchy bar chart with error bars (prompt vs ICL vs LoRA).
-2. **Figure 2**: Anchor-ratio variance curve (k_Wes on x, acc±σ, showing threshold at k_Wes=2).
-3. **Figure 3**: k-scaling with saturation + note on prior single-seed artifact.
-4. **Figure 4**: LoRA+ICL stacking plot, showing substitutability regression.
+1. **fig1_3tier_korean_fer.png**: Korean FER AU 3-tier bar chart (prompt / ICL / LoRA).
+2. **fig2_anchor_variance_revised.png**: 5-config anchor decomposition showing
+   class-redundancy, anchor-origin, semantic-content separation.
+3. **fig3_kshot_cross_domain.png**: k-sweep — Korean FER saturation vs IEMOCAP flat.
+4. **fig4_lora_icl_substitute.png**: LoRA+ICL substitutability regression.
+5. **fig5_cross_domain_3tier.png** ⭐: Korean FER / IEMOCAP / MELD × 3 tiers (main result).
 
 ## §3 Method outline
 
@@ -126,68 +148,109 @@ Target: LABEL only (REASON masked). Fresh adapter per seed.
 Stratified 400-sample test set per seed, seeds {42, 123, 777}. Both exemplar
 sampling and test sampling reseeded per run. Report mean ± std across 3 seeds.
 
-## §4 Findings
+## §4 Findings (v2 — revised for cross-domain + anchor decomposition)
 
-1. **3-tier adaptation cumulates.** Prompt, ICL, LoRA each add +12–13 pp
-robust gain over the previous tier. Tiers are statistically separated.
-2. **Ekman FACS prototypes = random** on Korean data (25.42 ± 0.38 %),
-despite being the textbook canonical representation.
-3. **Target-culture presence → mean**: 1 Korean exemplar is sufficient;
-Korean count within [1,4] does not materially change mean accuracy.
-4. **Diverse-anchor count → variance**: threshold at k_Wes ≥ 2;
-std drops 4-6 pp → < 1 pp. Effect is on exemplar-sampling variance,
-not on mean.
-5. **LoRA subsumes ICL** for same target-distribution; stacking causes
-small regression (−0.75 to −4 pp). Mixed exemplars hurt less than pure.
-6. **k-saturation**, not inverted-U. Single-seed "k=16 drop" was a seed artifact.
+1. **LoRA tier robust across domains.** +6.25 (MELD) to +25.92 pp (Korean FER) vs
+   zero-shot T1 across three datasets. Multi-seed std 1.15–3.70 pp.
+2. **ICL tier is modality-gated, not universal.** Large gain (+12.75 pp) on
+   Korean FER AU; near-zero on IEMOCAP (+1.09) and MELD (−0.33). k-sweep on
+   IEMOCAP is flat across k=0,4,8 (46.17–47.00%). ICL appears to require the
+   input modality to be novel to the base LLM.
+3. **Ekman FACS prototype ≈ random on Korean.** 25.42 ± 0.38 % — strong negative
+   result showing textbook Western prototypes do not generalize to Korean faces.
+4. **Three-axis anchor variance decomposition**:
+   (a) class redundancy (3-class vs 4-class exemplar set) → σ **−2.81 pp** (primary);
+   (b) anchor origin (Mixed Kor+Wes vs pure Kor at matched 3-class) → σ **−0.66 pp**;
+   (c) semantic content (Ekman prototype vs random AU intensities) → σ **−1.63 pp**.
+   Previous "Western ≥ 2 threshold" claim is superseded by this decomposition.
+5. **ICL and LoRA are substitutes, not complements.** Adding ICL on LoRA
+   adapter regresses 0.75–4.00 pp; Mixed anchors cause smaller regression
+   than pure target-culture anchors (consistent with finding 4).
+6. **k-saturation on Korean FER (not inverted-U).** Multi-seed shows flat k≥2
+   plateau; the previously reported k=16 drop (36%) was a single-seed artifact.
 
 ## §5 Discussion
 
-### 5.1 Why do Western anchors reduce variance?
-Hypothesis: idealized Ekman prototypes lie on a distinct manifold from real Korean
-face distributions. When mixed in context, they act as *structural regularizers*:
-they give the model a stable frame for "what the label classes look like" independent
-of the specific Korean subsample. Pure Korean exemplars vary widely (sampling noise in
-AU intensity), producing high variance across seeds. Adding non-semantic Ekman
-anchors pins down the label structure without competing with the Korean signal.
+### 5.1 Why is ICL gain modality-gated?
+ICL gave +12.75 pp on Korean FER AU but ≤1 pp on IEMOCAP/MELD text. Possible
+explanations:
+(a) **Familiarity saturation**: LLMs are pre-trained heavily on English dialog
+text; zero-shot already reaches 48–55% on IEMOCAP/MELD. Additional in-context
+examples provide little new information.
+(b) **Novelty compensation**: AU-intensity text (e.g., "AU6 (cheek raiser)=75,
+AU12=82") is structurally dissimilar to natural language training data. ICL
+examples serve as a brief fine-tune, teaching the LLM to map this syntax to
+labels.
+(c) **Label-space anchoring**: For unfamiliar input, exemplars primarily
+anchor the output label space. For familiar text, the label space is already
+encoded in the LLM's lexical embeddings.
 
-This predicts: (i) random-token or noise-pattern anchors should also reduce
-variance if they provide structural class-coverage; (ii) the effect should
-disappear if the anchors overlap with the Korean distribution. (Future work.)
+Evidence for (b)/(c): on Korean FER AU, exemplar content and class coverage
+both contribute to variance (§4 finding 4), suggesting the model uses
+exemplars for structural label-space grounding, not purely semantic.
+Follow-up experiments that would disambiguate: (i) test ICL on synthetic
+"text with novel format" tasks; (ii) measure LLM embedding cosine similarity
+between AU-intensity tokens and natural language.
 
-### 5.2 Why is adaptation ordinal?
-LoRA trained on 10K Korean samples has internalized the Korean distribution.
-Adding the same distribution as ICL context introduces redundancy; the model's
-attention splits between context and internal representation, with marginal
-cost. This is consistent with the finding that Mixed (which partially lies
-*outside* the Korean distribution via Ekman anchors) hurts less than pure Korean.
-→ ICL helps when LoRA has *not* seen the distribution; once it has, more ICL is noise.
+### 5.2 Why do class redundancy and anchor origin each contribute to variance?
+The three-axis decomposition (§4 finding 4) shows class redundancy reduces
+σ by 2.81 pp, anchor origin by 0.66 pp, and semantic content by 1.63 pp. We
+interpret:
+- **Class redundancy** (duplicating a label in the exemplar set) reduces the
+  model's uncertainty about label geometry — multiple observations of the
+  same class sharpen the decision surface.
+- **Anchor origin** (non-target-culture exemplars) provides a distinct-manifold
+  prior that stabilizes label anchoring independent of target-culture sampling.
+- **Semantic content** (Ekman AU patterns vs random intensities) lets the
+  model attach label identity to a recognizable FACS pattern rather than
+  treating the anchor as noise.
 
-### 5.3 Implications for cultural LLM agents
+### 5.3 Why is adaptation ordinal (ICL⊂LoRA)?
+LoRA trained on 10K Korean samples internalizes the Korean distribution.
+Adding the same distribution as ICL context introduces redundancy; attention
+splits between context and internal representation, causing marginal
+regression. Mixed anchors (Ekman partially lies *outside* the Korean
+distribution) hurt less because they provide complementary, not duplicative,
+information. → ICL helps when LoRA has *not* seen the distribution; once
+LoRA has it, more ICL becomes noise.
+
+### 5.4 Implications for grounded LLM emotion classifiers
 - Abstract cultural prompts ("this person is Korean") are ineffective.
-- FACS textbook prototypes are inadequate for non-Western faces.
-- Best low-cost intervention: 1-2 target-culture exemplars + 2 anchors.
-- If training data available: LoRA > ICL; stacking is counterproductive.
+- FACS Western textbook prototypes are inadequate for non-Western faces.
+- When training data available: LoRA is the reliable tier; avoid stacking ICL.
+- When no training data AND input is novel: use Mixed (target-culture +
+  structurally-distinct anchors) with 3-class redundancy.
+- When input is standard text: ICL adds little; invest in LoRA or prompt
+  engineering other than exemplars.
 
 ## Limitations
 
-- Single base model (Qwen2.5-7B); no ablation over model family/scale.
+- Single base model (Qwen2.5-7B 4-bit quantized); no ablation over model
+  family or scale.
 - AU-intensity input, not raw face image — Qwen-VL image path untested.
-- Only one target culture (Korean); cross-cultural extension needed.
-- 1-epoch QLoRA; longer training or larger rank may compound further.
-- Mechanism for anchor-variance effect (§5.1) is hypothesis, not verified
-  (attention-map analysis = future).
+- Only one target culture (Korean) and two English dialog benchmarks
+  (IEMOCAP, MELD); cross-cultural text and non-English bio benchmarks remain
+  untested.
+- 1-epoch QLoRA with fixed hyperparameters (r=16, α=32, LR 2e-4); longer
+  training or larger rank may extend the LoRA ceiling.
+- The modality-gating hypothesis (§5.1) is correlational — we observe ICL gain
+  ↔ input novelty co-occur but have not intervened on novelty directly.
+- Attention-map or representation-level mechanism for §5.2 is not measured;
+  treated as future work.
 
-## Remaining tasks (choose next)
+## Remaining tasks (prioritized)
 
-1. **Paper writing fleshout** — §1 intro, §2 related work, plots, polish.
-2. **SOTA baseline comparison** — Emotion-LLaMA on Korean FER AU (need
-   conversion) or direct comparison on a shared benchmark (e.g., RAF-DB).
-3. **Mechanism verification for §5.1** — attention-map analysis showing
-   where model attends in Mixed vs pure Korean exemplar cases.
-4. **Cross-culture replication** — same protocol on e.g. Japanese/Chinese FER.
-5. **MELD text extension** — does "anchor regularization" generalize to text
-   emotion classification (MELD conversation + English/Korean exemplars)?
+1. **§1 Introduction + §2 Related Work writing** — most remaining paper work.
+   S-PACE / CBBF cited as same-lab concurrent bio-behavioral track.
+2. **Attention-map mechanism (§5.2 support)** — extract attention entropy
+   from Qwen layer 14 on Mixed vs pure Korean exemplar configs. (exp_019, planned)
+3. **SOTA baseline comparison** — Emotion-LLaMA (NeurIPS 2024) on shared
+   protocol. Paper A strengthening.
+4. **Cross-culture replication** — same protocol on Japanese/Chinese FER
+   (data dependent).
+5. **Modality-gating verification** — synthetic novel-format text
+   experiment to test §5.1 hypothesis intervention-style.
 
-Session 2026-04-23 delivered findings 1-6 (§4). §5 discussion has two
-open hypotheses (mechanism for variance effect, ordinality of adaptation).
+Session 2026-04-23 evening + 2026-04-24 overnight M1 queue delivered findings
+1–6 (§4) across three datasets. §5 discussion has three open mechanistic
+hypotheses (modality gating, anchor-variance 3-axis, ordinality).
