@@ -1,0 +1,34 @@
+{
+  "task": "Prompt engineering ablation zero-shot",
+  "seed": 42,
+  "N": 400,
+  "prompts": {
+    "P1_facs_baseline": "You are a facial emotion classifier using FACS action units (AUs). Given detected AU intensities (0-100) of a Korean subject, classify into: angry, happy, neutral, sad. FACS prototypes: Happy=AU6+12; ",
+    "P2_no_facs": "You are a facial emotion classifier. Given detected facial action unit (AU) intensities (0-100) of a Korean subject, classify into: angry, happy, neutral, sad.",
+    "P3_minimal": "Classify the emotion from these AU intensities. Options: angry, happy, neutral, sad.",
+    "P4_cultural": "You are a facial emotion classifier using FACS action units (AUs). The subject is Korean; cultural factors may influence expression. Classify into: angry, happy, neutral, sad. FACS prototypes: Happy=A",
+    "P5_dimensional": "You are a facial emotion classifier. Analyze the AU intensities (0-100) along arousal (activation level) and valence (positive/negative) dimensions, then classify the subject's emotion into: angry (hi"
+  },
+  "results": {
+    "P1_facs_baseline": {
+      "acc": 0.2925,
+      "f1": 0.2184062658394561
+    },
+    "P2_no_facs": {
+      "acc": 0.275,
+      "f1": 0.1619025749489862
+    },
+    "P3_minimal": {
+      "acc": 0.375,
+      "f1": 0.305245494958172
+    },
+    "P4_cultural": {
+      "acc": 0.395,
+      "f1": 0.34679097838008865
+    },
+    "P5_dimensional": {
+      "acc": 0.265,
+      "f1": 0.14360079575596818
+    }
+  }
+}

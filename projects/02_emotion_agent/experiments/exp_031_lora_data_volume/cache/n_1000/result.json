@@ -1,0 +1,17 @@
+{
+  "n_total": 1000,
+  "n_per_class": 250,
+  "seed": 42,
+  "config": {
+    "r": 16,
+    "alpha": 32,
+    "epochs": 1,
+    "bs": 4,
+    "grad_accum": 4,
+    "lr": 0.0002
+  },
+  "finetuned": {
+    "acc": 0.5425,
+    "f1": 0.5453975046585746
+  }
+}
