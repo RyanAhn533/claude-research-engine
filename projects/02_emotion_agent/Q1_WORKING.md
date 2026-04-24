@@ -125,6 +125,110 @@ decomposition above correctly separates these effects.
 4. **fig4_lora_icl_substitute.png**: LoRA+ICL substitutability regression.
 5. **fig5_cross_domain_3tier.png** ⭐: Korean FER / IEMOCAP / MELD × 3 tiers (main result).
 
+## §1 Introduction (draft)
+
+Emotion recognition from faces is a well-studied task, but a central open
+question is how to adapt general-purpose large language models (LLMs) to
+specific domains — in particular, to **non-Western facial expression** data
+where the default training distribution of LLMs is dominated by Western
+English and American-collected corpora. Existing work injects cultural
+information into LLMs via (a) abstract system prompts ("the subject is
+Korean"), (b) in-context exemplars of the target culture, or (c) parameter
+adaptation via fine-tuning. Surprisingly little is known about *which of
+these three interventions actually works* and *why* on a shared evaluation.
+
+We study this question on Korean facial emotion recognition from Facial
+Action Unit (FACS AU) intensities — a concrete, culturally-situated domain
+with a large publicly-available Korean corpus (237K images, Yonsei 298-person
+consensus labels). Using Qwen2.5-7B-Instruct as base LLM and a multi-seed
+(n=3) evaluation protocol, we ask three questions:
+
+1. **Do the three adaptation tiers (prompt / in-context / LoRA) stack
+   cumulatively, and by how much each?** Prior work reports single-tier
+   comparisons but rarely a matched protocol across all three.
+2. **Does ICL benefit generalize across input modalities, or is it
+   modality-specific?** We test on two additional English dialog text
+   datasets (IEMOCAP, MELD) with matched evaluation.
+3. **When exemplars help, what property makes them work?** We ablate
+   exemplar origin (target culture vs Western prototype vs random), class
+   coverage (3-class vs 4-class), and semantic content separately.
+
+Our primary empirical findings are:
+
+(i) **Parametric adaptation (LoRA) is the only robust tier.** It yields
++6 to +26 pp gains over zero-shot across three datasets. By contrast,
+in-context learning (ICL) produces a large +12.75 pp gain on Korean FER AU
+but collapses (≤ 1 pp gain) on English dialog text. A k-sweep confirms ICL
+on text is truly flat, not merely sub-saturating.
+
+(ii) **The exemplar-variance effect decomposes into three independent axes.**
+Under pure Korean exemplars, changing from 4-class to 3-class coverage
+reduces accuracy standard deviation by 2.81 pp; further switching 2 of those
+to non-target-culture (Ekman Western prototype) anchors reduces variance by
+another 0.66 pp; replacing Ekman anchors with random AU intensities
+*increases* variance by 1.63 pp, implying semantic anchor content also
+contributes. A previous "Western-count ≥ 2" threshold claim is superseded
+by this decomposition.
+
+(iii) **ICL and LoRA are substitutes, not complements.** When we combine
+both on the same Korean distribution, the stacked model performs 0.75–4.00
+pp below LoRA alone, with pure target-culture exemplars causing the larger
+regression.
+
+(iv) **Western FACS prototypes (Ekman canonical) perform at random
+(25.42 ± 0.38 %) on Korean faces**, robust across seeds — a strong negative
+result motivating the decomposition in (ii).
+
+Taken together, our results challenge the common practice of injecting
+cultural metadata via system prompts and provide a concrete recipe for
+grounded LLM emotion classifiers. We release all scripts, multi-seed
+results, and paper figures.
+
+## §2 Related Work (draft)
+
+### LLMs and in-context learning for emotion recognition
+Recent work has leveraged large language models for affective tasks via
+zero-shot or in-context prompting [EmoLLM, Zheng 2024; Emotion-LLaMA,
+Cheng et al., NeurIPS 2024; BeMERC, 2025]. These studies primarily report
+accuracy gains from instruction tuning or multimodal fusion. We contribute
+a **controlled three-tier comparison** (prompt / ICL / LoRA) with matched
+evaluation protocol, finding that ICL gain is input-modality-dependent —
+a conclusion not reachable from prior work that studies single tiers or
+single domains.
+
+### Exemplar design in ICL
+ICL research has examined exemplar selection [Liu et al., 2022; Wu et al.,
+2023], ordering [Lu et al., 2022], and format. Most studies treat exemplars
+as monolithic. We show that even with matched exemplar count and class
+structure, variance reduction is driven by three orthogonal factors —
+class redundancy, anchor origin, and anchor semantic content.
+
+### Cultural grounding and Western bias in emotion models
+Jack et al. (2012, PNAS) famously showed that East Asian observers use
+different face regions for emotion perception than Western observers,
+challenging the universality of Ekman's FACS-based prototypes. Prior work
+on culturally-situated facial emotion recognition [Park et al. 2020
+K-EmoCon; KEMDy20; various Korean FER corpora] largely treats cultural
+adaptation as a data problem. Our result — that Ekman FACS prototypes
+perform at random on Korean faces — gives a direct LLM-era confirmation
+of Jack et al.'s thesis.
+
+### Parameter-efficient fine-tuning
+LoRA [Hu et al., 2022] and its quantized variant QLoRA [Dettmers et al.,
+2023] enable efficient domain adaptation of LLMs. Our Tier-3 experiments
+use QLoRA r=16; the key finding relative to prior work is that LoRA
+*subsumes* ICL (finding iii), a relationship previously not quantified.
+
+### Physiological-behavioral fusion (same-lab concurrent work)
+This paper's focus is on behavioral/textual input. Concurrent work from
+our lab addresses the complementary physiological-grounding axis: S-PACE
+[our prior work] introduces bio-anchored cross-attention for multimodal
+emotion recognition, and CBBF [our concurrent work] extends this with
+explicit causal temporal masking grounded in autonomic-nervous-system
+precedence (Lazarus 1991; Kreibig 2010). These bio-grounded approaches
+and the contextual grounding we study here are orthogonal: a future system
+could combine both (see §6 Future Work).
+
 ## §3 Method outline
 
 ### 3.1 Agent architecture
@@ -204,6 +308,24 @@ interpret:
 - **Semantic content** (Ekman AU patterns vs random intensities) lets the
   model attach label identity to a recognizable FACS pattern rather than
   treating the anchor as noise.
+
+**Negative result — attention entropy is NOT the mechanism.** We tested
+whether D_mixed's lower output variance corresponds to more uniform
+attention distribution over exemplars (vs E_kor4). For 50 seed=42 test
+samples, we extracted layer-14 attention from the last input token to the
+4 exemplar token-ranges and computed entropy over the 4-way distribution.
+
+| Config | attention entropy (layer 14) | per-exemplar weight |
+|---|---|---|
+| D_mixed (σ_out=0.87) | 0.645 ± 0.014 | [0.084, 0.044, 0.046, 0.826] |
+| E_kor4 (σ_out=4.34)  | 0.639 ± 0.012 | [0.085, 0.044, 0.043, 0.828] |
+
+Both configurations show strong **recency bias** (last exemplar gets 83%
+of attention) and near-identical entropy (ratio to uniform ln 4 ≈ 1.386
+is 47%). The 5× difference in *output* variance between D and E therefore
+does NOT arise at the attention-weight level at this layer. This suggests
+the mechanism operates at the hidden-representation or output-projection
+level — a target for future mechanistic follow-up.
 
 ### 5.3 Why is adaptation ordinal (ICL⊂LoRA)?
 LoRA trained on 10K Korean samples internalizes the Korean distribution.
