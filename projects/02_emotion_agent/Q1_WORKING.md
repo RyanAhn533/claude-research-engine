@@ -124,18 +124,19 @@ decomposition above correctly separates these effects.
 3. **fig3_kshot_cross_domain.png**: k-sweep — Korean FER saturation vs IEMOCAP flat.
 4. **fig4_lora_icl_substitute.png**: LoRA+ICL substitutability regression.
 5. **fig5_cross_domain_3tier.png** ⭐: Korean FER / IEMOCAP / MELD × 3 tiers (main result).
+6. **fig6_hidden_cluster_mechanism.png**: §5.2 mechanism — per-class + overall cluster stats.
 
 ## §1 Introduction (draft)
 
-Emotion recognition from faces is a well-studied task, but a central open
-question is how to adapt general-purpose large language models (LLMs) to
-specific domains — in particular, to **non-Western facial expression** data
-where the default training distribution of LLMs is dominated by Western
-English and American-collected corpora. Existing work injects cultural
-information into LLMs via (a) abstract system prompts ("the subject is
-Korean"), (b) in-context exemplars of the target culture, or (c) parameter
-adaptation via fine-tuning. Surprisingly little is known about *which of
-these three interventions actually works* and *why* on a shared evaluation.
+How should large language models (LLMs) be adapted to a culturally-specific
+emotion-classification task when their training data is dominated by Western
+English corpora? Practitioners commonly reach for three tools: (a) abstract
+system prompts ("the subject is Korean"), (b) in-context exemplars of the
+target culture, or (c) parameter-efficient fine-tuning such as LoRA. Yet
+these three options are rarely compared on a shared protocol, and the
+mechanisms that determine when each actually helps remain unclear. Prior
+culturally-situated emotion-recognition work either focuses on a single
+tier or presents single-seed results whose trends reverse under replication.
 
 We study this question on Korean facial emotion recognition from Facial
 Action Unit (FACS AU) intensities — a concrete, culturally-situated domain
@@ -272,6 +273,13 @@ sampling and test sampling reseeded per run. Report mean ± std across 3 seeds.
    than pure target-culture anchors (consistent with finding 4).
 6. **k-saturation on Korean FER (not inverted-U).** Multi-seed shows flat k≥2
    plateau; the previously reported k=16 drop (36%) was a single-seed artifact.
+7. **Anchor-variance mechanism is at hidden-representation scale, not attention.**
+   Attention entropy is identical across 5 layers (1, 7, 14, 21, 27) between
+   Mixed (σ_out=0.87) and pure Korean (σ_out=4.34) configurations. However,
+   last-layer hidden states differ in absolute compactness: Mixed anchors
+   produce representations ~22% more compact in within-class L2 distance
+   while preserving class-separability ratio. This compression, not attention
+   redistribution, is what stabilizes downstream predictions under Mixed.
 
 ## §5 Discussion
 
