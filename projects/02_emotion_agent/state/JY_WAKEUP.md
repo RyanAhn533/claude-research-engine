@@ -1,152 +1,127 @@
-# JY 일어나서 확인 (2026-04-24 morning — M1 overnight + dawn 세션 완료)
+# JY 기상 summary (2026-04-24 morning, Claude dawn-세션 종료)
 
 ## TL;DR
 
-- M1 queue (exp_018~025) ✅ 완료 02:11
-- Follow-up (exp_026 MELD k-sweep + exp_019 + exp_019b attention) 진행 중
-- **Q1_WORKING v2 대폭 재작성** (§1/§2 draft + §4 revised + §5 expanded + §6 future)
-- **5 figures** regenerated (cross-domain 3-tier 포함)
-- Commits pushed: a6765d1, dd02cb9, 256aae4 (3 batches)
-- **Major revision**: "ICL universal 3-tier" → "ICL modality-gated, LoRA universal"
+**Queue 완전 종료 04:17경. 모든 실험 완료. 18 commits 누적 push.**
 
-
-
-## 확인 순서 (우선순위)
+## 🎯 한 번에 보기
 
 ```bash
-# 1) 모든 실험 종합 결과
-cat /home/ajy/claude-research-engine/projects/02_emotion_agent/state/m1_queue.log
-
-# 2) 최신 paper draft
-less /home/ajy/claude-research-engine/projects/02_emotion_agent/Q1_WORKING.md
-
-# 3) 새 figures (5개)
-ls -la /home/ajy/claude-research-engine/projects/02_emotion_agent/figures/*.png
-
-# 4) Git log 최근 추가 commit
-cd /home/ajy/claude-research-engine && git log --oneline -10
+cd /home/ajy/claude-research-engine
+git log --oneline -18
+cat projects/02_emotion_agent/state/m1_queue.log
+less projects/02_emotion_agent/Q1_WORKING.md
+ls projects/02_emotion_agent/figures/*.png
 ```
 
-## 핵심 Headline Results
+## 📊 최종 Headline Results
+
+### Cross-domain 3-tier (LoRA universal, ICL modality-gated)
 
 | Dataset | T1 zero-shot | T2 ICL k=4 | T3 LoRA |
 |---------|-------------|-----------|---------|
-| Korean FER AU | 29.08 ± 0.76 | 41.83 ± 3.41 (**+12.75**) | 55.00 ± 2.61 (**+13.17**) |
-| IEMOCAP text | 47.83 ± 2.50 | 48.92 ± 4.25 (**+1.09**) | 70.00 ± 3.70 (**+21.08**) |
-| MELD text | 55.50 ± 3.27 | 55.17 ± 5.65 (**−0.33**) | 61.75 ± 1.15 (+6.58) |
+| Korean FER AU | 29.08 ± 0.76 | **41.83 ± 3.41** (+12.75) | **55.00 ± 2.61** (+13.17) |
+| IEMOCAP text | 47.83 ± 2.50 | 48.92 ± 4.25 (+1.09) | **70.00 ± 3.70** (+21.08) |
+| MELD text | 55.50 ± 3.27 | 55.17 ± 5.65 (−0.33) | **61.75 ± 1.15** (+6.58) |
 
-**LoRA universal, ICL Korean-FER-only**.
+### k-sweep across domains
 
-## 추가 발견
+| k | Korean FER AU | IEMOCAP | MELD |
+|---|--------------|---------|------|
+| 0 | 29.08 ± 0.76 | 46.67 ± 4.06 | 55.75 ± 0.43 |
+| 4 | 44.25 ± 2.82 | 46.17 ± 6.39 | 56.50 ± 1.80 |
+| 8 | 42.75 ± 5.02 | 47.00 ± 4.67 | 55.17 ± 0.76 |
 
-- **exp_018 random-token anchor**: σ 2.50 (중간) → Ekman 의미 있음 (1.63pp σ 기여)
-- **exp_020 class-coverage**: H1 3-class σ=1.53 vs H2 4-class σ=4.34 — **class redundancy가 σ 주 요인 (2.81pp)**
-- **exp_023 IEMOCAP k-sweep**: FLAT (46.67/46.17/47.00) — ICL 진짜 flat
-- **exp_019 attention entropy**: D vs E 거의 동일 (0.645 vs 0.639) — **attention level 아닌 mechanism**
+→ **Text domain (IEMOCAP/MELD) 완전 FLAT**, Korean FER AU만 saturation.
 
+### Anchor variance 3-axis decomposition
 
+| Config | Acc ± σ | σ attribution |
+|---|---|---|
+| Kor4 4-class (E) | 41.00 ± 4.34 | baseline |
+| Kor4 3-class (H1) | 40.67 ± 1.53 | class redundancy −2.81pp |
+| Kor2+Random (G1) | 41.08 ± 2.50 | (reference for semantic) |
+| Kor2+Ekman (D) | 41.25 ± 0.87 | origin −0.66pp / content −1.63pp |
+| Wes4 (C) | 25.42 ± 0.38 | (0 Korean → low mean) |
 
-## 전체 Queue 계획 (9AM까지 ~10.5h packed)
+### Attention mechanism — REJECTED (5-layer ablation)
 
-### 현재 러닝 중 (m1_queue.sh)
-1. **exp_018** Random-token anchor control — Paper B mechanism (~22:55 종료)
-2. **exp_020** Class-coverage dissociation — Paper B H_COVERAGE vs H_ORIGIN (~23:10)
-3. **exp_021** IEMOCAP T1+T2 cross-domain 3-tier (~00:30)
+| Layer | D entropy | E entropy | D recency bias | E recency bias |
+|-------|-----------|-----------|----------------|----------------|
+| 1 | 0.491 | 0.528 | 88% | 87% |
+| 7 | 0.457 | 0.455 | 89% | 89% |
+| 14 | 0.643 | 0.638 | 83% | 83% |
+| 21 | 0.424 | 0.394 | 90% | 91% |
+| 27 | 0.558 | 0.567 | 85% | 84% |
 
-### 대기 중 (m1_queue_ext.sh — 자동 이어받음)
-4. **exp_022** MELD T1+T2 cross-domain (~01:50)
-5. **exp_023** IEMOCAP k-sweep (k=0,4,8, 3 seeds) — saturation 일반화 (~03:20)
-6. **exp_024** IEMOCAP LoRA × 3 seeds — 3-tier 완성 on IEMOCAP (~05:00)
-7. **exp_025** MELD LoRA × 3 seeds — 3-tier 완성 on MELD (~06:40)
-8. 9AM까지 ~2h 버퍼
+→ 모든 depth identical. Mechanism은 hidden-representation level.
 
-## 각 실험 의미 요약
+## 📝 Paper status (Q1_WORKING.md v2)
 
-| exp | Paper | 질문 | 기대 |
-|-----|-------|------|------|
-| 018 | B §4 | random anchor 효과? | G1 σ<1.5pp면 "structure matters, content irrelevant" 확정 |
-| 020 | B §4 | σ 차이가 class-coverage냐 anchor origin이냐 | 분리 |
-| 021 | A §4 | 3-tier가 IEMOCAP text에서도? | T2-T1 ≥ +5pp면 cross-domain 확증 |
-| 022 | A §4 | MELD text에서도? | 비슷한 tier gap |
-| 023 | A §4.2 | k-saturation IEMOCAP에서 재현? | k=0<<k=4≈k=8 |
-| 024 | A §4.3 | IEMOCAP LoRA가 ICL 뛰어넘나? | +13pp over T2면 3-tier 완성 |
-| 025 | A §4.3 | MELD도? | 동일 패턴 |
+- **Abstract v2** ✓ (250w, 4 findings)
+- **§1 Introduction** ✓ (draft, 4 contributions)
+- **§2 Related Work** ✓ (LLM ICL + cultural grounding + PEFT + S-PACE/CBBF cited)
+- **§3 Method** ✓ (4 subsections: architecture / variants / LoRA config / eval)
+- **§4 Findings** ✓ (6 findings, revised narrative)
+- **§5 Discussion** ✓ (4 subsections: modality-gating / 3-axis decomp / ICL⊂LoRA / implications)
+- **§6 Future Work** ✓ (5 subsections: bio-integration / mechanism / interventional / scale / cross-culture)
+- **Limitations** ✓
+- **Remaining**: Final polish + references BibTeX + §1 hook paragraph can be sharper
 
-## 결과 확인 스크립트
+~95% completion. Writing-ready state.
 
-```bash
-# 종합 결과
-grep -A2 "FINAL\|EXT FINAL" /home/ajy/claude-research-engine/projects/02_emotion_agent/state/m1_queue.log
+## 🖼 Figures (figures/)
 
-# 개별 실험 JSON
-ls /home/ajy/claude-research-engine/projects/02_emotion_agent/experiments/exp_{018,020,021,022,023,024,025}_*/cache/*.json 2>/dev/null
+1. `fig1_3tier_korean_fer.png` — Korean FER 3-tier
+2. `fig2_anchor_variance_revised.png` — 5-config decomposition
+3. `fig3_kshot_cross_domain.png` — k-sweep across domains
+4. `fig4_lora_icl_substitute.png` — substitutability
+5. `fig5_cross_domain_3tier.png` ⭐ main result
 
-# 각 실험 마지막 DONE 라인
-for e in exp_018_random_token_anchor exp_020_class_coverage exp_021_iemocap_multiseed \
-         exp_022_meld_multiseed exp_023_iemocap_kshot; do
-  echo "=== $e ==="
-  grep -A5 "^\[DONE\]" /home/ajy/claude-research-engine/projects/02_emotion_agent/experiments/$e/cache/run.log 2>/dev/null | head -8
-done
+All 300 DPI.
 
-# LoRA per-seed 확인
-for s in 42 123 777; do
-  for exp in exp_024_iemocap_lora exp_025_meld_lora; do
-    rj=/home/ajy/claude-research-engine/projects/02_emotion_agent/experiments/$exp/cache/seed_$s/result.json
-    [ -f "$rj" ] && echo "$exp seed=$s:" && cat "$rj"
-  done
-done
+## 🔬 Experiments done (9 new this session beyond exp_017)
 
-# GPU 현황
-nvidia-smi --query-gpu=memory.used,utilization.gpu,temperature.gpu --format=csv,noheader,nounits
+| exp | 결과 요약 |
+|-----|----------|
+| 018 | Random-token anchor G1 σ=2.50 / G2 random-mean |
+| 019 | Layer-14 attention entropy — mechanism REJECTED |
+| 019b | Multi-layer {1,7,14,21,27} — mechanism REJECTED at all depths |
+| 020 | Class-coverage H1 3-class σ=1.53 — main variance driver |
+| 021 | IEMOCAP T1/T2 — ICL +1.09pp |
+| 022 | MELD T1/T2 — ICL −0.33pp |
+| 023 | IEMOCAP k-sweep FLAT |
+| 024 | IEMOCAP LoRA 70.00 ± 3.70% |
+| 025 | MELD LoRA 61.75 ± 1.15% |
+| 026 | MELD k-sweep FLAT (confirmation) |
+
+## ⏭ 다음 (JY 판단)
+
+1. **Paper §1 hook refinement + §2 reference search** — writing polish
+2. **SOTA baseline comparison** — Emotion-LLaMA 재현 or reported number 인용
+3. **Mechanism follow-up** (exp_019 후속) — hidden representation cluster tightness
+4. **r-value ablation** — LoRA r=8/32 on Korean FER
+5. **Venue decision** — ESWA/KBS submit timing
+
+## Git log (18 commits today total)
+
+```
+0b6ca76 M1 dawn final — exp_026 MELD k-sweep + exp_019b multi-layer attention
+c959e7e HANDOFF.md updated — final cross-domain + revised anchor decomposition
+e5c9b71 §6 Future work + JY_WAKEUP v2 update + exp_019b multi-layer attention queued
+256aae4 §1/§2 draft + exp_019 attention entropy (NEGATIVE MECHANISM result)
+dd02cb9 Q1_WORKING v2 + 5 updated figures + exp_026 MELD k-sweep launched
+a6765d1 M1 overnight queue — 7 experiments (exp_018~025), major narrative revisions
+25b1212 exp_016 anchor-variance — novel two-effect finding for §4.4
+...
+ea5f277 Multi-seed A: exp_012 complete (3 seeds × 2 configs)
 ```
 
-## Process 확인
+## 🌡 GPU 상태
 
-```bash
-ps -ef | grep -E "m1_queue|run.py|run_seed" | grep -v grep
-# m1_queue.sh (이어받기 대기 중인 EXT 포함)
-# 현재 running python
-```
+지난 밤 내내 sustained load. 최고 87-88°C (thermal alert). 모든 실험 완료 후 idle. 9AM 현재 free.
 
-## 긴급 중단
+## 💤 Claude 상태
 
-```bash
-pkill -f m1_queue
-pkill -f "run.py\|run_seed.py"
-```
-
-## 결과 해석 가이드 — Paper 작성 시
-
-### Paper B (SCI journal — Anchor Decomposition)
-- exp_018: random-token 실험 → §4.3 mechanism figure
-  - G1 σ<1.5: "structural diversity" 가설 확정 → strong paper
-  - G1 σ>3: semantic content 필요 → weaker but still interesting
-- exp_020: class-coverage 실험 → §4.4 dissociation figure
-  - H_COVERAGE 입증 시: 기존 two-effect 해석 수정 필요
-  - H_ORIGIN 입증 시: 기존 주장 강화
-
-### Paper A (Conference — Adaptation Hierarchy)
-- exp_021, 022: Text domain T1+T2 → §4.2 cross-domain table
-- exp_023: k-sweep → §4.2 saturation figure on IEMOCAP
-- exp_024, 025: LoRA → §4.3 cross-domain 3-tier 확정
-
-### 최종 paper Table (expected)
-```
-Dataset       | T1 zero-shot | T2 ICL k=4 | T3 LoRA
-Korean FER AU |  29.08±0.76  |  41.83±3.41 |  55.00±2.61   (exp_012/015)
-IEMOCAP       |  TBD         |  TBD        |  TBD          (exp_021/024)
-MELD          |  TBD         |  TBD        |  TBD          (exp_022/025)
-```
-
-모든 domain에서 T1<<T2<<T3 패턴 재현되면 **"adaptation hierarchy is universal"** claim 가능.
-
-## 주의
-
-- GPU 48GB, 일부 실험 병렬 실행 가능 (exp_018 + exp_020 현재 병렬 중)
-- LoRA 실험은 30min training으로 무겁지만 OOM 위험 낮음
-- Queue 전체 log: `state/m1_queue.log`
-- 각 실험 stdout: `experiments/exp_NNN/cache/run.log` (또는 `seed_N.log`)
-
-## Plan 참조
-- `/home/ajy/.claude/plans/woolly-sniffing-karp.md` — master plan
-- S-PACE/CBBF 엮기 layer 포함 (Paper B/A 각각 어떻게 인용할지)
+exp_026 + exp_019b 완료 후 queue 종료. 추가 실험 launch 안 함. Token conservation.
+JY 일어나면 이 파일 + git log + Q1_WORKING 확인하면 됨.
