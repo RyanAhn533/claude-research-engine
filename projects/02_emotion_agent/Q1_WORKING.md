@@ -67,19 +67,22 @@ and the input modality is novel to the base LLM.
 
 ### ⭐ Main: Cross-domain 3-tier hierarchy (n=3 seeds per cell, N=400 test each)
 
-| Dataset | T1a FACS-only | T1b best prompt (P4) | T2 ICL k=4 | T3 LoRA r=16 | T2−T1b | T3−T1b |
-|---------|---------------|----------------------|-----------|--------------|--------|--------|
-| Korean FER AU | 31.67 ± 2.65 | **40.92 ± 2.04** | 41.83 ± 3.41 | **55.00 ± 2.61** | **+0.91** | **+14.08** |
-| IEMOCAP text | 47.83 ± 2.50 | (n/a, no prompt sweep) | 48.92 ± 4.25 | **70.00 ± 3.70** | +1.09 | — |
-| MELD text | 55.50 ± 3.27 | (n/a, no prompt sweep) | 55.17 ± 5.65 | **61.75 ± 1.15** | −0.33 | — |
+| Dataset | T1a sub-optimal | **T1b best prompt** | T2 ICL k=4 | T3 LoRA r=16 | T2−T1b | T3−T1b |
+|---------|-----------------|---------------------|-----------|--------------|--------|--------|
+| Korean FER AU | 31.67 ± 2.65 (FACS-only) | **40.92 ± 2.04** (FACS+cultural P4) | 41.83 ± 3.41 | **55.00 ± 2.61** | +0.91 | **+14.08** |
+| IEMOCAP text | 47.83 ± 2.50 | **47.50 ± 2.63** (P1 = best) | 48.92 ± 4.25 | **70.00 ± 3.70** | +1.42 | **+22.50** |
+| MELD text | 55.50 ± 3.27 | **54.75 ± 3.04** (P1 = best) | 55.17 ± 5.65 | **61.75 ± 1.15** | +0.42 | **+7.00** |
 
-**Revised key observations** (after exp_030b multi-seed prompt ablation):
-- **LoRA tier-3** robust everywhere: +14 pp over best-engineered zero-shot on Korean FER, +22 pp on IEMOCAP, +6 pp on MELD.
-- **ICL tier-2 gain is essentially nil under proper baselines.** Korean FER ICL +0.91 pp is statistically tied with strong-prompt zero-shot. Earlier reported +12.75 pp gain reflected weak FACS-only baseline, not ICL benefit.
-- **Prompt engineering > exemplar selection**: best zero-shot prompt (P4 FACS+cultural) reaches 40.92 % on Korean FER AU, the same level as 4-shot ICL.
-- IEMOCAP/MELD k-sweep flat (46.67/46.17/47.00 ; 55.75/56.50/55.17) — ICL truly absent on standard text regardless of k.
+(For IEMOCAP/MELD, exp_032 multi-seed prompt ablation confirmed P1 baseline > P2 minimal > P3 rich — text domains do not benefit from elaborate prompt engineering. The slightly lower T1b vs T1a on these rows reflects different multi-seed exemplar pools used in exp_021/022 vs exp_032; the same prompt was used in both.)
 
-→ Combined claim: **only parameter adaptation reliably exceeds well-engineered prompts**.
+**Revised key observations** (after exp_030b + exp_032 multi-seed prompt ablations):
+- **LoRA tier-3** is the only tier with substantial gain over best-engineered zero-shot:
+  +14.08 pp (Korean FER), +22.50 pp (IEMOCAP), +7.00 pp (MELD).
+- **ICL tier-2 gain ≤ +1.5 pp on all three domains** under proper baselines. Korean FER +0.91, IEMOCAP +1.42, MELD +0.42 — all within seed-noise. Earlier "+12.75 pp" Korean FER ICL claim reflected a sub-optimal FACS-only baseline.
+- **Prompt-engineering payoff is domain-specific**: FACS + cultural-framing helps Korean FER (+9.25 pp over FACS-only), but elaborate prompts hurt IEMOCAP/MELD (P1 baseline > P2 minimal > P3 rich). On text, current "baseline" prompt is already near-optimal.
+- IEMOCAP/MELD k-sweeps flat (46.67/46.17/47.00 ; 55.75/56.50/55.17) — ICL absent regardless of k.
+
+→ Combined claim across three datasets: **only parameter adaptation (LoRA) reliably exceeds well-engineered zero-shot prompts**. ICL appears to compensate for weak prompts rather than add genuine new information.
 
 ### Anchor-variance three-axis decomposition (n=3 seeds, k=4 exemplars, Korean FER AU)
 
