@@ -1,0 +1,147 @@
+{
+  "task": "IEMOCAP+MELD prompt ablation 3 seeds",
+  "seeds": [
+    42,
+    123,
+    777
+  ],
+  "prompts": {
+    "P1_baseline": "You are an emotion classifier for spoken English utterances. Given a transcription, classify the speaker's emotion into: angry, happy, neutral, sad.",
+    "P2_minimal": "Classify the emotion. Options: angry, happy, neutral, sad.",
+    "P3_rich": "You are an emotion classifier for English dialog. Analyze the utterance for tone, word choice, and emotional content. Consider context and speaker intent. Classify into: angry (frustrated/aggressive),"
+  },
+  "results": {
+    "IEMOCAP": {
+      "per_seed": {
+        "42": {
+          "P1_baseline": {
+            "acc": 0.4775,
+            "f1": 0.46474459399218787
+          },
+          "P2_minimal": {
+            "acc": 0.4575,
+            "f1": 0.4396988938912891
+          },
+          "P3_rich": {
+            "acc": 0.465,
+            "f1": 0.43327161312056217
+          }
+        },
+        "123": {
+          "P1_baseline": {
+            "acc": 0.4475,
+            "f1": 0.42434609801733536
+          },
+          "P2_minimal": {
+            "acc": 0.445,
+            "f1": 0.4181059983928489
+          },
+          "P3_rich": {
+            "acc": 0.44,
+            "f1": 0.4013067384267841
+          }
+        },
+        "777": {
+          "P1_baseline": {
+            "acc": 0.5,
+            "f1": 0.49201853621513214
+          },
+          "P2_minimal": {
+            "acc": 0.4675,
+            "f1": 0.4588731725351513
+          },
+          "P3_rich": {
+            "acc": 0.46,
+            "f1": 0.4322769206210924
+          }
+        }
+      },
+      "aggregate": {
+        "P1_baseline": {
+          "acc_mean": 0.47500000000000003,
+          "acc_std": 0.02633913438213184,
+          "f1_mean": 0.4603697427415518,
+          "f1_std": 0.034047675625621644
+        },
+        "P2_minimal": {
+          "acc_mean": 0.4566666666666667,
+          "acc_std": 0.011273124382057246,
+          "f1_mean": 0.4388926882730964,
+          "f1_std": 0.02039554111837454
+        },
+        "P3_rich": {
+          "acc_mean": 0.455,
+          "acc_std": 0.013228756555322966,
+          "f1_mean": 0.4222850907228129,
+          "f1_std": 0.018174592212326188
+        }
+      }
+    },
+    "MELD": {
+      "per_seed": {
+        "42": {
+          "P1_baseline": {
+            "acc": 0.5125,
+            "f1": 0.49834368705727927
+          },
+          "P2_minimal": {
+            "acc": 0.5025,
+            "f1": 0.48770776199466515
+          },
+          "P3_rich": {
+            "acc": 0.4725,
+            "f1": 0.4408311671008504
+          }
+        },
+        "123": {
+          "P1_baseline": {
+            "acc": 0.5675,
+            "f1": 0.5600598624709764
+          },
+          "P2_minimal": {
+            "acc": 0.5575,
+            "f1": 0.5484203938786559
+          },
+          "P3_rich": {
+            "acc": 0.5425,
+            "f1": 0.5162823569340437
+          }
+        },
+        "777": {
+          "P1_baseline": {
+            "acc": 0.5625,
+            "f1": 0.5538606684394952
+          },
+          "P2_minimal": {
+            "acc": 0.54,
+            "f1": 0.5281390376928768
+          },
+          "P3_rich": {
+            "acc": 0.51,
+            "f1": 0.46735383339897235
+          }
+        }
+      },
+      "aggregate": {
+        "P1_baseline": {
+          "acc_mean": 0.5475,
+          "acc_std": 0.030413812651491123,
+          "f1_mean": 0.5374214059892503,
+          "f1_std": 0.03398394605331439
+        },
+        "P2_minimal": {
+          "acc_mean": 0.5333333333333333,
+          "acc_std": 0.02809952550014564,
+          "f1_mean": 0.5214223978553992,
+          "f1_std": 0.0309085887028191
+        },
+        "P3_rich": {
+          "acc_mean": 0.5083333333333333,
+          "acc_std": 0.03502974926163951,
+          "f1_mean": 0.47482245247795546,
+          "f1_std": 0.03827604623026462
+        }
+      }
+    }
+  }
+}
