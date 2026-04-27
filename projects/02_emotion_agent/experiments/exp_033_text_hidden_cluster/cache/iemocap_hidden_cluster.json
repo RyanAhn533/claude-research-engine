@@ -1,0 +1,57 @@
+{
+  "task": "IEMOCAP T1 vs T2 hidden cluster (cross-domain mechanism)",
+  "N": 80,
+  "results": {
+    "T1_zero_shot": {
+      "within_class_dist": {
+        "angry": 22.451820373535156,
+        "happy": 24.763261795043945,
+        "neutral": 25.437847137451172,
+        "sad": 27.312841415405273
+      },
+      "between_class_dist": {
+        "angry": 18.522031784057617,
+        "happy": 13.470524787902832,
+        "neutral": 13.904335975646973,
+        "sad": 13.377558708190918
+      },
+      "tightness_ratio": {
+        "angry": 0.8249679302570166,
+        "happy": 0.5439721511403958,
+        "neutral": 0.5466003432018486,
+        "sad": 0.4897900773020843
+      },
+      "within_overall": 24.991442680358887,
+      "between_overall": 14.818612813949585,
+      "tightness_overall": 0.6013326254753364
+    },
+    "T2_icl_k4": {
+      "within_class_dist": {
+        "angry": 27.75250244140625,
+        "happy": 28.66019058227539,
+        "neutral": 27.300701141357422,
+        "sad": 28.916095733642578
+      },
+      "between_class_dist": {
+        "angry": 18.94856834411621,
+        "happy": 14.958732604980469,
+        "neutral": 15.085671424865723,
+        "sad": 15.211463928222656
+      },
+      "tightness_ratio": {
+        "angry": 0.6827697208250769,
+        "happy": 0.521934163767618,
+        "neutral": 0.5525745052024568,
+        "sad": 0.5260552485488144
+      },
+      "within_overall": 28.15737247467041,
+      "between_overall": 16.051109075546265,
+      "tightness_overall": 0.5708334095859915
+    }
+  },
+  "comparison": {
+    "T1_within": 24.991442680358887,
+    "T2_within": 28.15737247467041,
+    "T2_over_T1": 1.126680553612044
+  }
+}
