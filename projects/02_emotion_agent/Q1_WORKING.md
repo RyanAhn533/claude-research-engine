@@ -387,6 +387,16 @@ is **absolute representation scale**: D_mixed produces representations that are
 level — despite identical attention distributions — explains the 5× smaller
 output variance: compact representations yield more stable downstream predictions.
 
+**Cross-domain confirmation (exp_033, IEMOCAP).** Replicating the same hidden-cluster
+analysis on IEMOCAP text shows the *opposite* pattern: ICL k=4 *expands* within-class
+distance from 24.99 (T1 zero-shot) to 28.16 (+12.7 %), with tightness ratio dropping
+from 0.601 to 0.571. This causal-chain confirmation — *compact representations →
+stable predictions → ICL benefit* — explains why ICL helps Korean FER AU but does
+not help IEMOCAP. Where the compression mechanism is absent (or reversed), the
+output benefit is absent too. The mechanism story therefore holds beyond the
+single-domain Mixed-vs-Korean comparison and naturally accounts for finding 2
+(ICL modality-gating).
+
 ### 5.3 Why is adaptation ordinal (ICL⊂LoRA)?
 LoRA trained on 10K Korean samples internalizes the Korean distribution.
 Adding the same distribution as ICL context introduces redundancy; attention
