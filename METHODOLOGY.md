@@ -1,6 +1,8 @@
 # Claude 사용 방법론 — JY's Research Engine
 
 > **"Claude를 연구 파트너로 쓰는 운영 방침."** 새 프로젝트 시작 시, 신규 Claude 세션 시 이 문서 먼저 읽기.
+>
+> 📎 **도구 레이어 보강**: `.global/protocol/claude_leverage_2026.md` (Plan mode / Subagent / Adaptive thinking / Prompt caching 등 2026 트렌드 적용 룰)
 
 ---
 
