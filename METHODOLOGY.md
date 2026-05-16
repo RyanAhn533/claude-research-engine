@@ -25,17 +25,18 @@
 
 ## 1. Engine loop (v2 phase flow)
 
-The State Machine walks the phases below. Each phase has fixed entry preconditions, an intra-phase Task DAG, and exit postconditions. Spec: `.global/protocol/state_machine.md`.
+The State Machine walks the phases below. Each phase has fixed entry preconditions, an intra-phase Task DAG, and exit postconditions. Spec: `.global/protocol/state_machine.md`. Toolbox routing: `.global/protocol/claude_toolbox.md`.
 
 ```
 BOOTSTRAP
-  → METHOD_SEARCH
+  → METHOD_SEARCH                 [plan mode + 5 subagent strategies, high thinking]
   → HYPOTHESIS_REGISTRATION       [pre-register falsifiable claim]
   → HUMAN_APPROVAL                [JY gate]
   → IMPLEMENTATION                [Gate B, repair router on fail]
   → EVALUATION                    [Gate C, prototype/paper_ready]
-  → LOGGING                       [Gate D advisory, append-only writes]
-  → INSIGHT_UPDATE (every 5 iter)
+  → SELF_ATTACK                   [3 adversarial subagents, max thinking]
+  → LOGGING                       [hook-driven appends, Gate D advisory]
+  → INSIGHT_UPDATE (every 5 iter) [subagent + high thinking]
   → METHOD_SEARCH (loop)
 ```
 
@@ -78,6 +79,16 @@ JY reviews 3 candidates + their hypotheses. Picks one, or rejects all → re-ent
 - `prototype` stage: ≥ 3 seeds, mean ± std, directional decision only.
 - `paper_ready` stage: ≥ 7 seeds, bootstrap 95% CI, Cohen's d, Wilcoxon signed-rank, TOST against the pre-registered `delta_threshold`. Decision rule in `.global/protocol/gate_c_revised.md`.
 - Project chooses stage via `rules/gate_c_stage.txt`.
+
+### Phase 4.5 — SELF_ATTACK (new in v2)
+Claude attacks Claude. Three adversarial personas, parallel subagents, `max` thinking:
+- **Method Skeptic** — challenge design choices ("why this hyperparameter? why this baseline?").
+- **Reviewer Simulator** — ICLR/NeurIPS reviewer persona, simulated critique with `estimated_review_score`.
+- **Novelty Critic** — challenge "first to do X" claims by name-and-cite.
+
+All output is appended to `state/gate_log.jsonl` with `gate: "D"`, `is_advisory: true`. Concerns auto-attach to the leaderboard row. **The phase cannot block** — its only job is surfacing blind spots before LOGGING. This is where Claude's depth is most expensive and most worth it.
+
+Subagent contract: each adversary returns < 2K tokens with a structured concerns list.
 
 ### Phase 5 — LOGGING
 - Append to `leaderboard.jsonl` (`engine/schemas/experiment.schema.json`).
@@ -210,18 +221,57 @@ State Machine HALTs on next pre-transition check. Resume: `rm scripts/kill_switc
 
 ---
 
-## 11. v1 → v2 migration status (2026-05-16)
+## 11. Claude Toolbox — how Claude is invoked
 
-Adopted (this commit):
-- ARCHITECTURE.md
+> `ARCHITECTURE.md` §13 holds the full Agent × Tool matrix. `.global/protocol/claude_toolbox.md` is the operational spec. This section is the daily-use summary.
+
+Six operational surfaces:
+
+| # | Surface | One-line |
+|---|---------|----------|
+| 1 | **Subagent** | Spawn isolated Claude → returns < 2K-token summary. Use for heavy reads + adversarial isolation |
+| 2 | **Plan mode** | Read-only Claude. Required for METHOD_SEARCH; banned in IMPLEMENTATION / LOGGING |
+| 3 | **Adaptive thinking** | Budget `low / medium / high / max`. Per-call, not per-session |
+| 4 | **Prompt caching** | Stable prefix (CLAUDE.md / METHODOLOGY.md / ARCHITECTURE.md) cached automatically in Claude Code |
+| 5 | **Skills + Hooks** | `/loop`, `/schedule`, `/review`. Hooks for pre-commit / post-experiment / pre-phase-transition |
+| 6 | **Memory bridge** | `~/.claude/projects/-home-ajy/memory/` ↔ engine state. **Engine never writes user memory; user memory never writes engine state** |
+
+Thinking-budget rules (short form):
+- `low` — syntactic repair, mechanical JSONL append, short log read
+- `medium` — semantic repair, hypothesis registration
+- `high` — METHOD_SEARCH, failure analysis, Insight Summarizer
+- `max` — SELF_ATTACK (each of 3 personas), 3-persona debate, first-principles redesign
+
+Subagent always-on:
+- Strategy a (paper survey)
+- Insight Summarizer (5-iter leaderboard read)
+- All three SELF_ATTACK personas (in parallel)
+- Leaderboard / paper_tried stats
+
+Subagent never:
+- Live code editing
+- Hypothesis row fill
+- Direction row append
+
+Plan mode required: METHOD_SEARCH, large refactor previews, any external-state mutation.
+Plan mode banned: IMPLEMENTATION, LOGGING, repair patches.
+
+---
+
+## 12. v1 → v2 migration status (2026-05-16)
+
+Adopted:
+- ARCHITECTURE.md (incl. §13 Claude Toolbox Layer + §14 differentiator)
 - engine/schemas/*.json (6 schemas)
-- .global/protocol/{state_machine, repair_categories, gate_c_revised}.md
+- .global/protocol/{state_machine, repair_categories, gate_c_revised, claude_toolbox}.md
 - METHODOLOGY v2 (this file)
+- SELF_ATTACK phase added to FSM
 
 Pending code implementation (Tier 1 → 3, see `ARCHITECTURE.md` §11):
 - engine/core/{state_machine, task_dag, append_only_logger, compute_budget, reproducibility_manifest, leakage_auditor}.py
 - engine/gates/{a, b, c}.py
-- engine/agents/*.md (LLM worker prompts)
+- engine/agents/*.md (LLM worker prompts — Method Planner, Failure Analyzer, Repair Planner, Novelty Critic, Reviewer Simulator, Insight Summarizer)
 - engine/cli/jy.py
+- Hooks in settings.json (pre_commit, post_experiment, pre_phase_transition)
 
 Until the code lands, projects can opt into v2 schemas voluntarily — new `paper_tried.jsonl` rows include `config_fingerprint`, new experiments register hypotheses, etc. v1 rows remain valid.

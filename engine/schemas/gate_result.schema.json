@@ -15,6 +15,7 @@
         "METHOD_SEARCH",
         "IMPLEMENTATION",
         "EVALUATION",
+        "SELF_ATTACK",
         "LOGGING"
       ]
     },

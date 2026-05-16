@@ -12,6 +12,7 @@ BOOTSTRAP
   → HUMAN_APPROVAL
   → IMPLEMENTATION
   → EVALUATION
+  → SELF_ATTACK              [adversarial; cannot block; advisory only]
   → LOGGING
   → INSIGHT_UPDATE (every 5 iterations)
   → METHOD_SEARCH (loop)
@@ -59,7 +60,8 @@ Every phase has:
 | `HUMAN_APPROVAL` | hypotheses registered | one candidate selected (or all rejected → re-enter METHOD_SEARCH) |
 | `IMPLEMENTATION` | approved candidate | Gate B `pass` |
 | `EVALUATION` | run artifacts present | Gate C verdict written |
-| `LOGGING` | Gate C verdict | leaderboard.jsonl + paper_tried.jsonl appended; hypothesis outcome updated |
+| `SELF_ATTACK` | Gate C verdict written | 3 adversarial subagent reports appended to gate_log.jsonl with `gate: "D"`, `is_advisory: true` |
+| `LOGGING` | SELF_ATTACK reports present | leaderboard.jsonl + paper_tried.jsonl appended; hypothesis outcome updated |
 | `INSIGHT_UPDATE` | iteration % 5 == 0 | insights.md updated |
 
 ## Append-only enforcement

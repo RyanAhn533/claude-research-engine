@@ -18,6 +18,7 @@
         "HUMAN_APPROVAL",
         "IMPLEMENTATION",
         "EVALUATION",
+        "SELF_ATTACK",
         "LOGGING",
         "INSIGHT_UPDATE",
         "REPAIR",

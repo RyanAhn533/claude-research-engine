@@ -33,12 +33,20 @@
                       ↕
 ┌─────────────────────────────────────────────────┐
 │ Layer 2: LLM Reasoning Layer (Non-deterministic)│
+│  Agents (6 simultaneous personas):              │
 │  • Method Planner (5 strategies)                │
 │  • Failure Analyzer                             │
 │  • Repair Planner (3 categories)  [REVISED]     │
 │  • Novelty Critic (advisory)      [REVISED]     │
 │  • Reviewer Simulator             [NEW]         │
 │  • Insight Summarizer                           │
+│  Claude Toolbox (operational surface) [§13]:    │
+│  • Subagent (context isolation, parallel)       │
+│  • Plan mode (read-only pre-analysis)           │
+│  • Adaptive thinking (low/medium/high/max)      │
+│  • Prompt caching (stable context)              │
+│  • Skills / Hooks (codified workflows)          │
+│  • Memory bridge (~/.claude ↔ engine)           │
 └─────────────────────────────────────────────────┘
                       ↕
 ┌─────────────────────────────────────────────────┐
@@ -76,6 +84,7 @@
   → [HUMAN_APPROVAL]
   → [IMPLEMENTATION]
   → [EVALUATION]
+  → [SELF_ATTACK]                    [NEW — adversarial Claude vs Claude]
   → [LOGGING]
   → [INSIGHT_UPDATE] (every 5 iter)
   → [METHOD_SEARCH] (loop)
@@ -356,6 +365,16 @@ Phase 4: EVALUATION
   - pre-registered criterion (TOST)
   - Gate C
 
+Phase 4.5: SELF_ATTACK                 [NEW]
+  - 3 adversarial personas, parallel subagents:
+      • Method Skeptic   — attack design choices
+      • Reviewer Simulator — ICLR/NeurIPS critique
+      • Novelty Critic   — challenge novelty claim
+  - all attacks written to gate_log.jsonl with gate="D", is_advisory=true
+  - concerns auto-attached to leaderboard row
+  - phase cannot block — purely surfaces blind spots before LOGGING
+  - thinking budget: max  (this is where Claude depth matters most)
+
 Phase 5: LOGGING
   - append leaderboard.jsonl
   - append paper_tried.jsonl (with config_fingerprint)
@@ -529,4 +548,81 @@ engine/gates/gate_d_research_value.py
 | 9–11 | Gate A/B/C implemented; dummy experiment runs end-to-end |
 | 12–14 | Method Planner agent + Hypothesis Registry + one real experiment full iteration |
 
-**Acceptance**: on day 14, a single `jy run-next` walks method_search → human_approval → implementation → evaluation → logging, leaves append-only artifacts, and the manifest reproduces.
+**Acceptance**: on day 14, a single `jy run-next` walks method_search → human_approval → implementation → evaluation → self_attack → logging, leaves append-only artifacts, and the manifest reproduces.
+
+---
+
+## 13. Claude Toolbox Layer
+
+> Layer 2 lists *which agents* exist. This section lists *how Claude is invoked* — the operational surface of Claude itself.
+> Spec detail: `.global/protocol/claude_toolbox.md`. Heritage: `.global/protocol/claude_leverage_2026.md`.
+
+### 13.1 Operational tools (six surfaces)
+
+| Tool | What it does | When to use |
+|------|--------------|-------------|
+| **Subagent** | Spawns isolated Claude with own context window; returns summary only | Heavy reads (paper survey, leaderboard stats), parallel attacks, side-tasks that would pollute main context |
+| **Plan mode** | Read-only Claude — no file mutation possible | Phase 1 method search; any large code change preview; satisfies "JY approval before destructive" by construction |
+| **Adaptive thinking** | Effort budget {low / medium / high / max} → Claude self-titrates reasoning depth | Per-phase, per-agent rule (see matrix below) |
+| **Prompt caching** | Stable context (CLAUDE.md, METHODOLOGY.md, ARCHITECTURE.md, leaderboard tail) cached server-side | Every long-running phase. Caches ~10% the cost of re-tokenizing |
+| **Skills + Hooks** | Codified workflows (`/distill`, `/debate`) and lifecycle scripts (pre-commit validate, post-experiment log) | Repetitive workflows; deterministic guard-rails |
+| **Memory bridge** | `~/.claude/projects/.../memory/` ↔ engine state | Cross-session facts (user profile, feedback rules); never stores live state |
+
+### 13.2 Agent × Tool matrix
+
+| Agent | Subagent? | Plan mode? | Thinking | Cached context | Skill / Hook |
+|-------|-----------|-----------|----------|----------------|--------------|
+| **Method Planner** | ✅ for paper survey (Strategy a) | ✅ recommended | **high** | CLAUDE.md + insights_global.md | — |
+| **Failure Analyzer** | optional | — | high | last experiment artifacts | — |
+| **Repair Planner — syntactic** | ❌ | — | low | run.py + traceback | — |
+| **Repair Planner — semantic** | ❌ | — | medium | run.py + design.md | — |
+| **Repair Planner — dynamics** | ✅ (long failure analysis) | — | high | run.py + loss curve | — |
+| **Novelty Critic** | ✅ (parallel with Reviewer) | — | high | design.md + recent literature | — |
+| **Reviewer Simulator** | ✅ (always — adversarial isolation) | — | **max** | design.md + paper claims | — |
+| **Insight Summarizer** | ✅ (large window: 5 iters of leaderboard) | — | high | last 5 iter rows | — |
+| **3-persona debate** | ✅ × 3 parallel | — | **max** | CLAUDE.md only (force first-principles) | `/debate` skill |
+| **Direction logging** | ❌ | — | low | — | append-only hook |
+
+### 13.3 Phase × Toolbox routing
+
+| Phase | Primary tools | Why |
+|-------|---------------|-----|
+| `BOOTSTRAP` | hook (pre-flight checks) | Deterministic, no Claude needed |
+| `METHOD_SEARCH` | Plan mode + Subagent × 5 strategies | Strategies a/b/c/d/e run as parallel subagents → main gets summary |
+| `HYPOTHESIS_REGISTRATION` | Main + low thinking | Mechanical fill of pre-registered fields |
+| `HUMAN_APPROVAL` | — | Human only. Claude waits |
+| `IMPLEMENTATION` | Main + medium/high thinking, **no plan mode** | Mutation needed. Plan mode used only for the diff preview, not the patch |
+| `EVALUATION` | Hook (run script) → Main reads numbers | No reasoning during the run |
+| `SELF_ATTACK` | Subagent × 3 (Skeptic / Reviewer / Novelty) + **max thinking** | Where Claude attacks Claude. Parallel adversaries. Highest depth |
+| `LOGGING` | Hook (validate schema, append) + Main writes Direction row | Deterministic file writes; one prose row from Main |
+| `INSIGHT_UPDATE` | Subagent (reads 5-iter leaderboard) + high thinking | Heavy read → summary returned |
+
+### 13.4 Hard rules
+
+1. **Mutation phases (IMPLEMENTATION, LOGGING) cannot use Plan mode** — Plan mode is read-only by design.
+2. **`SELF_ATTACK` always runs subagents** — adversarial personas must not share context with the design they attack.
+3. **Adaptive thinking budget is per-call, not per-session** — `low` for a syntactic patch even if the iteration is on `max` overall.
+4. **Subagent results are summaries, not blobs** — if a subagent returns >2K tokens, it has failed its contract.
+5. **Direction IDs are appended via hook, not by Claude in prose** — prompt-level rule was unreliable; v2 has a post-response hook that scans for `EMA-D###` claims and appends to `directions.jsonl`.
+6. **Memory bridge is read-mostly** — engine never writes user memory; user memory never writes engine state. They cross-reference via slugs.
+
+### 13.5 What this layer is *not*
+
+- Not a wrapper around Anthropic SDK — Claude Code is the runtime.
+- Not a router that decides "which model" — model selection is left to Claude Code's defaults.
+- Not a place to put method-level prompts — agent prompts live in `engine/agents/*.md`.
+
+This layer specifies **how to invoke Claude**, not **what to ask Claude**.
+
+---
+
+## 14. Why this is the actual differentiator
+
+Other autonomous-research systems use Claude as a single role: "generate the next idea." This engine uses Claude as:
+
+- **6 concurrent personas** (Method Planner, Failure Analyzer, Repair Planner, Novelty Critic, Reviewer Simulator, Insight Summarizer)
+- **3 adversaries against itself** in `SELF_ATTACK` (Method Skeptic, Reviewer Simulator, Novelty Critic — parallel subagents)
+- **A data source** — every Direction and Logic Chain Claude emits is logged to `directions.jsonl` / `logic_chains.jsonl`, hindsight-scored, and extractable as DPO pairs
+- **A bounded worker** — code-level invariants (append-only, config_fingerprint dedup, pre-registered hypotheses) prevent Claude's typical failure modes (narrative shopping, false termination, self-overwrite)
+
+The leverage isn't "smarter Claude." The leverage is **simultaneously running Claude in many roles, with Claude attacking Claude, while every output becomes training data — and none of it can corrupt the research record.**
