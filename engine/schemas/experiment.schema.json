@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "jy-engine/experiment.schema.json",
+  "title": "Experiment Leaderboard Entry",
+  "description": "One row per evaluated experiment, appended to projects/NN/state/leaderboard.jsonl. Append-only; corrections must be new rows with notes.",
+  "type": "object",
+  "required": [
+    "exp_id",
+    "iteration",
+    "method",
+    "metric_name",
+    "constraints_passed",
+    "timestamp"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "exp_id": { "type": "string", "pattern": "^exp_[0-9]{3}(_.+)?$" },
+    "iteration": { "type": "integer", "minimum": 0 },
+    "method": { "type": "string" },
+    "method_id": {
+      "type": "string",
+      "description": "Stable canonical name shared with paper_tried_entry.method_id"
+    },
+    "config_fingerprint": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{16,64}$",
+      "description": "SHA hash of the canonical sorted-key config dict"
+    },
+    "paper_ref": { "type": "string" },
+    "feature": { "type": "string" },
+    "metric_name": { "type": "string" },
+    "n_seeds": { "type": "integer", "minimum": 1 },
+    "n_samples": { "type": "integer", "minimum": 1 },
+    "stage": {
+      "type": "string",
+      "enum": ["prototype", "paper_ready"],
+      "default": "prototype"
+    },
+    "results": {
+      "type": "object",
+      "description": "Free-form metric dictionary. Cross-checked against metric_name by Gate A."
+    },
+    "aggregate": {
+      "type": "object",
+      "description": "Per-condition mean/std/CI/Cohen-d aggregated across seeds"
+    },
+    "statistical_evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "bootstrap_95_CI": { "type": "array", "minItems": 2, "maxItems": 2 },
+        "cohen_d": { "type": "number" },
+        "wilcoxon_p": { "type": "number" },
+        "tost_passed": { "type": "boolean" },
+        "delta_threshold": { "type": "number" }
+      }
+    },
+    "baseline_candidate": { "type": "boolean", "default": false },
+    "constraints_passed": { "type": "boolean" },
+    "gate_results": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "gate_a": { "type": "string", "enum": ["pass", "fail", "skipped"] },
+        "gate_b": { "type": "string", "enum": ["pass", "fail", "skipped"] },
+        "gate_c": { "type": "string", "enum": ["pass", "fail", "neutral", "skipped"] },
+        "gate_d": {
+          "type": "string",
+          "enum": ["strong_accept", "accept_with_concerns", "flag_for_human_review", "skipped"]
+        }
+      }
+    },
+    "manifest_path": { "type": "string" },
+    "hypothesis_id": { "type": "string" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "notes": { "type": "string" },
+    "supersedes_exp_id": {
+      "type": "string",
+      "description": "If this entry corrects a prior one, reference its exp_id here"
+    }
+  }
+}

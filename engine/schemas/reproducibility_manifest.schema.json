@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "jy-engine/reproducibility_manifest.schema.json",
+  "title": "Reproducibility Manifest",
+  "description": "One YAML/JSON file per experiment under projects/NN/reproducibility_manifests/exp_NNN.yaml. Generated in Phase 3 before any code runs. Quarterly audit reproduces from this alone.",
+  "type": "object",
+  "required": [
+    "exp_id",
+    "created_at",
+    "git_sha",
+    "data_hash",
+    "env_lock",
+    "random_state",
+    "hardware"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "exp_id": { "type": "string", "pattern": "^exp_[0-9]{3}(_.+)?$" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "git_sha": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{7,40}$",
+      "description": "HEAD of the engine repo when the manifest was generated"
+    },
+    "data_hash": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$",
+      "description": "Hash of the dataset split files actually used"
+    },
+    "env_lock": {
+      "type": "string",
+      "description": "Path to poetry.lock / uv.lock / requirements.lock used"
+    },
+    "env_lock_hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "random_state": {
+      "type": "object",
+      "required": ["python", "numpy", "torch"],
+      "additionalProperties": false,
+      "properties": {
+        "python": { "type": "integer" },
+        "numpy": { "type": "integer" },
+        "torch": { "type": "integer" },
+        "cuda_deterministic": { "type": "boolean", "default": true },
+        "torch_use_deterministic_algorithms": { "type": "boolean", "default": true }
+      }
+    },
+    "hardware": {
+      "type": "object",
+      "required": ["gpu"],
+      "additionalProperties": false,
+      "properties": {
+        "gpu": { "type": "string" },
+        "vram_gb": { "type": "number" },
+        "driver": { "type": "string" },
+        "cuda": { "type": "string" },
+        "cpu": { "type": "string" },
+        "ram_gb": { "type": "number" }
+      }
+    },
+    "container_digest": {
+      "type": ["string", "null"],
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "data_split": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "train_indices_hash": { "type": "string" },
+        "val_indices_hash": { "type": "string" },
+        "test_indices_hash": { "type": "string" },
+        "split_strategy": { "type": "string" }
+      }
+    },
+    "audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "last_reproduced_at": { "type": ["string", "null"], "format": "date-time" },
+        "last_reproduction_verdict": {
+          "type": ["string", "null"],
+          "enum": [null, "match", "drift", "fail"]
+        },
+        "reproduction_log": { "type": "string" }
+      }
+    }
+  }
+}

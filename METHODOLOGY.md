@@ -1,204 +1,227 @@
-# Claude 사용 방법론 — JY's Research Engine
+# JY Research Engine — Methodology (v2)
 
-> **"Claude를 연구 파트너로 쓰는 운영 방침."** 새 프로젝트 시작 시, 신규 Claude 세션 시 이 문서 먼저 읽기.
+> Operating manual. Load first when a new Claude session opens this repo.
 >
-> 📎 **도구 레이어 보강**: `.global/protocol/claude_leverage_2026.md` (Plan mode / Subagent / Adaptive thinking / Prompt caching 등 2026 트렌드 적용 룰)
+> Architecture spec → `ARCHITECTURE.md` · Tool-layer rules → `.global/protocol/claude_leverage_2026.md`
+>
+> v1 (5-phase loop) is preserved at `.global/protocol/engine_loop.md` for historical trace. Active engine is v2.
 
 ---
 
-## 0. 핵심 원칙 (절대)
+## 0. Core invariants (non-negotiable)
 
-1. **JY 승인 후 실행**: 중요 실험/destructive action 전 계획 설명 + 승인
-2. **양비론 금지**: 확률, 수치, 냉정한 판단 제시. "좋아보여요" X
-3. **선행연구 먼저**: 방법 제안 전 WebSearch로 관련 논문 확인
-4. **IP 보호**: POPR/특허/개인 asset은 공용 드라이브 이관 금지
-5. **용어 혼용 금지**: 층위(예: AU vs region) 명시적 구분
-6. **수치는 납득 가능해야**: Random baseline 대비 %p로 보고, silhouette 같은 간접 metric 단독 X
-
----
-
-## 1. 엔진 운영 방법 (5-phase iteration loop)
-
-매 실험은 **한 iteration**이고, 아래 5 phase 순서로 돈다.
-
-### Phase 1 — 방법론 탐색
-- `state/leaderboard.jsonl`에서 현재 best 확인
-- `state/paper_tried.jsonl` 로드 (중복 방지)
-- 다음 전략 중 하나로 새 방법 1개:
-  - **a** 최근 논문 조사 (WebSearch)
-  - **b** 인접 분야 기법 이식
-  - **c** 현재 best의 failure case 분석
-  - **d** Top 2-5위 조합 (ensemble/hybrid)
-- 4 iter마다 a/b/c/d 최소 1번씩 (다양성 강제)
-- `experiments/exp_NNN/design.md` 작성 (템플릿: `.global/templates/experiment.md`)
-
-### Phase 2 — 구현
-- Baseline을 `experiments/exp_NNN/`로 복사
-- `design.md`대로 수정
-- Unit test (구현 정합성)
-- 실행 에러 시 최대 3회 디버그 후 포기
-
-### Phase 3 — 평가
-- 동일 프로토콜 (split, seed, metric)
-- 최소 3 seed (3-fold CV로 대체 가능)
-- mean ± std
-- 통계 유의성 (bootstrap 1000 또는 std 기반)
-- `rules/constraints.md` 위반 체크
-
-### Phase 4 — 기록
-- `state/leaderboard.jsonl` append (JSON one-liner)
-- `state/paper_tried.jsonl` append (성공/실패 무관)
-- 개선 시: `baseline_candidate: true` 표시 (JY 승인 후 baseline 교체)
-- 악화 시: `experiments/exp_NNN/postmortem.md`에 3가지 이상 원인
-
-### Phase 5 — 인사이트
-- 매 5 iter마다 `state/insights.md` 업데이트
-- "먹히는 패턴 / 안 먹히는 패턴" 분리
-- 다음 탐색에서 활용
+1. **LLM is a worker, not an orchestrator.** Phase transitions are decided by code (`engine/core/state_machine.py`), never by an LLM.
+2. **Protocol lives in code and files.** If a rule cannot be expressed as a Gate check, it is a guideline, not a protocol.
+3. **All records are append-only.** Corrections are new rows with `supersedes`. In-place edits to `*.jsonl` are detected and halt the engine.
+4. **Non-reproducible runs are not experiments.** Every experiment has a `reproducibility_manifest`; missing manifest blocks LOGGING.
+5. **Humans enter via named gates.** `HUMAN_APPROVAL` is the only point where Claude waits for explicit consent. No silent deletion.
+6. **All rejects are advisory. Kills happen only on protocol violation.** Gate D (research-value) can flag but never block.
+7. **Falsifiability is pre-registered.** Hypothesis with `falsifiability_check: FAIL` is rejected before HUMAN_APPROVAL.
+8. **JY approval before destructive / shared-state actions.** Never push, never delete branches, never rm -rf without explicit consent.
+9. **Prior-research search before proposing a new method / metric.** WebSearch first. Pattern: "X et al. 2024" beats "I propose".
+10. **Claude does not score its own directions.** `hindsight_score` is JY-only. Self-censoring is also banned.
 
 ---
 
-## 2. Direction ID + Logic Chain (RLHF 데이터 축적)
+## 1. Engine loop (v2 phase flow)
 
-### Direction (단일 제안 단위)
-매 제안마다 ID 부여: `{PROJECT}-D###` (예: `AUR-D001`)
-- `directions.jsonl`에 append (local + `methodology/` global 둘 다)
-- 구조:
-  ```json
-  {"id": "AUR-D001", "date": "2026-04-21", "context": "...",
-   "direction": "...", "rationale": "...", "risk": "...",
-   "accepted": true, "hindsight_score": null, "outcome": null}
-  ```
-- `hindsight_score` (1-10): 1주 후 JY가 매김. **Claude 자가 평가 금지** (bias).
+The State Machine walks the phases below. Each phase has fixed entry preconditions, an intra-phase Task DAG, and exit postconditions. Spec: `.global/protocol/state_machine.md`.
 
-### Logic Chain (reasoning sequence 단위)
-한 응답 전체의 추론 흐름을 단계별로 기록:
+```
+BOOTSTRAP
+  → METHOD_SEARCH
+  → HYPOTHESIS_REGISTRATION       [pre-register falsifiable claim]
+  → HUMAN_APPROVAL                [JY gate]
+  → IMPLEMENTATION                [Gate B, repair router on fail]
+  → EVALUATION                    [Gate C, prototype/paper_ready]
+  → LOGGING                       [Gate D advisory, append-only writes]
+  → INSIGHT_UPDATE (every 5 iter)
+  → METHOD_SEARCH (loop)
+```
+
+### Phase 0 — BOOTSTRAP
+Load `engine_state.json`. Check budget. Validate protocol files. Refuse to proceed if any check fails.
+
+### Phase 1 — METHOD_SEARCH
+Five strategies. At least one of each per 4 iterations (diversity is enforced by code, not by prompt):
+- **a** Recent paper survey (WebSearch — required)
+- **b** Adjacent-domain transplant
+- **c** Failure-case analysis (reads `negative_results/`, not just `paper_tried.jsonl`)
+- **d** Top-k hybrid / ensemble
+- **e** First-principles redesign (new in v2)
+
+Dedup is by `(method_id, config_fingerprint)` — not by method name alone. If the same `method_id` reappears with a new config, the Method Planner must justify why a different outcome is expected.
+
+Output: 3 candidates → `experiments/exp_NNN/design.md` (draft).
+
+### Phase 1.5 — HYPOTHESIS_REGISTRATION
+For each candidate, write the `hypothesis` block in `design.md`:
+- primary claim (falsifiable)
+- null hypothesis
+- `success_criterion.delta_threshold` (the TOST equivalence margin — pre-registered)
+- failure implication
+
+Append the row to `state/hypothesis_registry.jsonl`. The `falsifiability_check` field is computed automatically; `FAIL` blocks the candidate from HUMAN_APPROVAL.
+
+### Phase 2 — HUMAN_APPROVAL
+JY reviews 3 candidates + their hypotheses. Picks one, or rejects all → re-enter METHOD_SEARCH. No silent advance.
+
+### Phase 3 — IMPLEMENTATION
+1. Generate `reproducibility_manifest` first (git sha, data hash, env lock, random state).
+2. Write `run.py`.
+3. Run leakage audit (`engine/core/leakage_auditor.py`).
+4. Unit / dry-run / smoke test.
+5. Gate B verdict.
+6. On fail → repair router classifies the failure into `syntactic` / `semantic` / `dynamics` / `protocol` and applies the matching budget (see `.global/protocol/repair_categories.md`).
+
+### Phase 4 — EVALUATION
+- `prototype` stage: ≥ 3 seeds, mean ± std, directional decision only.
+- `paper_ready` stage: ≥ 7 seeds, bootstrap 95% CI, Cohen's d, Wilcoxon signed-rank, TOST against the pre-registered `delta_threshold`. Decision rule in `.global/protocol/gate_c_revised.md`.
+- Project chooses stage via `rules/gate_c_stage.txt`.
+
+### Phase 5 — LOGGING
+- Append to `leaderboard.jsonl` (`engine/schemas/experiment.schema.json`).
+- Append to `paper_tried.jsonl` (`engine/schemas/paper_tried_entry.schema.json` — config-aware).
+- Update `hypothesis_registry.jsonl::outcome`.
+- On failure → archive run artifacts to `negative_results/exp_NNN_failed/`.
+- Reviewer Simulator runs → Gate D verdict (advisory).
+- Direction IDs + Logic Chains appended to local + global (`methodology/directions.jsonl`, `methodology/logic_chains.jsonl`).
+
+### Phase 6 — INSIGHT_UPDATE (every 5 iter)
+Read the last 5 iterations. Extract works / doesn't-work patterns. Update `state/insights.md`. Bias next METHOD_SEARCH (Strategy c reads this).
+
+---
+
+## 2. Quality Gates
+
+| Gate | Fires at | Authority | On fail |
+|------|----------|-----------|---------|
+| **A** Protocol | METHOD_SEARCH end, EVALUATION end | metric / split / seed / baseline comparability, leakage | `protocol_violation` → HALT |
+| **B** Implementation | IMPLEMENTATION end | code runs, output well-formed, leakage audit | repair router (3 categories) |
+| **C** Evaluation | EVALUATION end | statistical rigor at current stage | `neutral` or `failed` verdict |
+| **D** Research Value | before LOGGING | novelty, ablation depth, reviewer defense | **advisory only — cannot block** |
+
+Spec: `ARCHITECTURE.md` §3, `.global/protocol/gate_c_revised.md`.
+
+---
+
+## 3. Direction ID + Logic Chain (RLHF accumulation)
+
+Unchanged in mechanism. v2 only adds: Direction rows include the `phase` and `gate` context, so DPO pairs can condition on phase. See `ARCHITECTURE.md` §11 Tier 3.
+
 ```json
-{"chain_id": "LC007", "trigger": "JY 원문",
- "steps": [{"n": 1, "reasoning": "...", "action": "...", "outcome": "...", "sign": "+"}],
- "final": "success | partial | failure",
- "jy_feedback": "원문", "lesson": "...",
- "good_pattern": "...", "bad_pattern": "...", "dpo_extractable": true}
+{"id": "EMA-D042", "date": "2026-05-16", "phase": "METHOD_SEARCH",
+ "context": "...", "direction": "...", "rationale": "...", "risk": "...",
+ "accepted": true, "hindsight_score": null, "outcome": null}
 ```
-- `sign`: **+** (결과 개선) / **−** (시간낭비/오류) / **~** (중립)
-- DPO pair 추출: good/bad pattern 쌍을 chosen/rejected로
 
-### 전역 vs 로컬
-- 각 프로젝트 `research_log/claude_evaluation/` = 로컬 상세
-- `methodology/directions.jsonl`, `methodology/logic_chains.jsonl` = 전역 누적 (프로젝트 횡단 분석용)
+`hindsight_score` is set by JY ≥ 7 days after. Claude never sets it (bias).
 
 ---
 
-## 3. 보고서 8섹션 포맷 (실험 문서 표준)
+## 4. Experiment report format
 
-매 experiment md 파일은 아래 구조 (`.global/templates/experiment.md` 참조):
-
-```
-0. 이전 단계와의 연결  ← 이 실험이 왜 필요한가
-1. 목적               ← primary question + paper § 매핑 + 성공 조건
-2. 방법               ← data, metric, baseline, reproducibility
-3. 결과               ← 명확한 수치 표 + 그림
-4. 해석               ← findings + 선행연구 대조
-5. 판정               ← GO/MARGINAL/NO-GO + 다음 실험 justification
-6. Risks/Caveats
-7. Paper section으로 이관  ← § draft 한 단락
-8. Claude direction 평가  ← LC### + hindsight_score
-```
+`design.md` (one per experiment) follows `.global/protocol/report_format.md` 8-section template, **plus** the v2-required `hypothesis` block (Phase 1.5).
 
 ---
 
-## 4. 수치 신뢰성 규칙 (JY 학습한 lesson)
+## 5. Numerical trust rules (kept from v1)
 
-| ❌ 하지 말 것 | ✅ 할 것 |
-|-------------|---------|
-| Silhouette/cos sim 단독으로 "NO-GO" 판정 | Linear probe accuracy (Random baseline 대비 %p) |
-| 고차원 raw feature에 바로 distance metric | L2 norm + PCA + Standardize 전처리 |
-| 절대값만 보고 성공 판단 | Random/선행연구 baseline 대비 상대값 |
-| "이상해 보이지만 그냥 넘어가기" | 직관 불일치 시 metric 재검토 |
-
----
-
-## 5. 통신 스타일 (JY 선호)
-
-- **짧고 직설**: 한 문장으로 될 걸 세 문장 X
-- **바로 실행**: "~할 수 있습니다" 대신 코드 먼저
-- **불필요한 요약 X**: JY는 diff 읽을 수 있음
-- **이모지 남발 X** (요청 시에만)
-- **시간 예측 X** ("약 2시간 소요" X)
-- **"ㄱ" = 진행, "ㄱㄱㄱ" = 빠르게**
+| ❌ Don't | ✅ Do |
+|---------|-----|
+| Silhouette / cos-sim alone for NO-GO | Linear probe accuracy vs random baseline (%p) |
+| Raw high-dim distance metrics | L2 norm + PCA + Standardize first |
+| Absolute values alone | Relative to random / prior-work baseline |
+| "Looks weird but moving on" | Intuition mismatch → re-examine metric |
 
 ---
 
-## 6. 토론 프레임워크 (중요 결정 시)
+## 6. Communication style (JY preference)
 
-JY가 "토론해줘"/"리뷰해줘" 류 요청 시:
+- 짧고 직설. 한 문장으로 될 걸 세 문장 X.
+- 바로 실행. "할 수 있습니다" 대신 코드.
+- 불필요한 요약 X (JY는 diff 읽음).
+- 이모지 / 시간 예측 X.
+- "ㄱ" = 진행. "ㄱㄱㄱ" = 빠르게.
+
+---
+
+## 7. Debate framework (for major decisions)
+
 ```
-라운드 1: 3 페르소나 초기 입장 (2-3문장씩)
-  - Method Skeptic
-  - Data-Centric
-  - Strategic
-라운드 2: 교차 반박 (논리 + 근거)
-라운드 3: 수정 입장 + 합의점
-총괄 리뷰: Claude 본체
-  - 내 판단 (양비론 금지)
-  - 합의 사항
-  - 미해결 쟁점
-  - 권장 액션 3가지
-  - 블라인드 스팟
+Round 1: 3 personas (Method Skeptic / Data-Centric / Strategic) — 2-3 sentences each
+Round 2: cross-rebuttal with logic + evidence
+Round 3: revised stances + consensus
+Final review (Claude main):
+  - my call (no both-sides-ism)
+  - agreed
+  - unresolved
+  - 3 recommended actions
+  - blind spots
 ```
 
 ---
 
-## 7. Venue / 확률 보고 원칙
+## 8. New project bootstrap
 
-논문 대상 venue 판단 시:
-- 구체 수치 % 필수 (예: "TAFFC 50-60%")
-- 현실 (realistic) / 도전 (stretch) / 드림 (dream) 구분
-- 확률 올릴 조건을 **행동 가능한** 리스트로
-- 드림 venue 집착 시 reject 리스크 경고
+```bash
+scripts/init_project.sh NN_new_project
+```
 
-현재 활성 프로젝트 venue 전략: 각 프로젝트 `projects/NN/rules/target_metrics.md` 참조.
+Generates:
+```
+projects/NN_xxx/
+├── README.md
+├── rules/{target_metrics.md, constraints.md, gate_c_stage.txt}
+├── state/{leaderboard.jsonl, paper_tried.jsonl, hypothesis_registry.jsonl,
+│         gate_log.jsonl, engine_state.json, insights.md}
+├── experiments/
+├── negative_results/
+├── reproducibility_manifests/
+└── research_log/{sessions/, references/, claude_evaluation/}
+```
 
----
-
-## 8. 새 프로젝트 추가 프로토콜
-
-1. `scripts/init_project.sh 02_new_project` 실행 (또는 수동 mkdir)
-2. 아래 구조 생성:
-   ```
-   projects/NN_xxx/
-   ├── README.md            (프로젝트 대시보드)
-   ├── rules/target_metrics.md
-   ├── rules/constraints.md
-   ├── state/leaderboard.jsonl (빈)
-   ├── state/paper_tried.jsonl (빈)
-   ├── state/insights.md
-   ├── experiments/
-   └── research_log/sessions/, references/, claude_evaluation/
-   ```
-3. Direction ID prefix 결정 (예: SPC for S-PACE, BIO for BioToken)
-4. 이 METHODOLOGY.md 전체 적용
+Pick a Direction ID prefix (≤ 5 uppercase letters, e.g. `EMA`, `SPC`).
 
 ---
 
-## 9. Kill Switch / 비상 정지
+## 9. Kill switch
 
 ```bash
 touch scripts/kill_switch
 ```
-→ 자동 루프 즉시 중단 (다음 iter 시작 안 함).
 
-재개: `rm scripts/kill_switch`
+State Machine HALTs on next pre-transition check. Resume: `rm scripts/kill_switch` then `jy bootstrap`.
 
 ---
 
-## 10. Claude가 하지 말 것 (명시적 금지)
+## 10. Hard nos (Claude must not)
 
-1. 자기 direction에 hindsight_score 매기기 (bias)
-2. 자기 약점 숨기려 self-censoring
-3. 거부된 direction 삭제 (blind spot 역검증 데이터)
-4. 데이터 split 변경 (평가 프로토콜 훼손)
-5. 같은 방법 재시도 (paper_tried 체크)
-6. 학습 데이터 leakage 의심 시 그냥 진행 (→ review_queue/로 flag)
-7. 실험 전 JY 승인 없이 destructive action
-8. 선행연구 조사 없이 방법 제안 (트리거 조건 해당 시)
+1. Score its own directions (`hindsight_score` is JY-only).
+2. Hide its own weaknesses via self-censoring.
+3. Delete rejected directions (blind-spot data).
+4. Change data split / metric / seed count mid-iteration (Gate A violation).
+5. Re-try a `(method_id, config_fingerprint)` pair already in `paper_tried.jsonl`.
+6. Proceed past suspected data leakage — flag and HALT.
+7. Run destructive / shared-state actions (push, rm, force) without JY's explicit consent for that specific action.
+8. Propose a method without prior-research search (when triggered).
+9. Set `method_globally_blocked: true` — that is human-only.
+10. Edit any `*.jsonl` in place. Only append, only `supersedes`.
+
+---
+
+## 11. v1 → v2 migration status (2026-05-16)
+
+Adopted (this commit):
+- ARCHITECTURE.md
+- engine/schemas/*.json (6 schemas)
+- .global/protocol/{state_machine, repair_categories, gate_c_revised}.md
+- METHODOLOGY v2 (this file)
+
+Pending code implementation (Tier 1 → 3, see `ARCHITECTURE.md` §11):
+- engine/core/{state_machine, task_dag, append_only_logger, compute_budget, reproducibility_manifest, leakage_auditor}.py
+- engine/gates/{a, b, c}.py
+- engine/agents/*.md (LLM worker prompts)
+- engine/cli/jy.py
+
+Until the code lands, projects can opt into v2 schemas voluntarily — new `paper_tried.jsonl` rows include `config_fingerprint`, new experiments register hypotheses, etc. v1 rows remain valid.

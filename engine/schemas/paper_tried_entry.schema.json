@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "jy-engine/paper_tried_entry.schema.json",
+  "title": "Paper-Tried Entry (v2, config-aware)",
+  "description": "One row per attempted method, appended to projects/NN/state/paper_tried.jsonl. v2 dedup key is (method_id, config_fingerprint), not method alone.",
+  "type": "object",
+  "required": ["method_id", "config_fingerprint", "result", "iter", "timestamp"],
+  "additionalProperties": false,
+  "properties": {
+    "method_id": {
+      "type": "string",
+      "description": "Stable canonical method name (e.g. 'au_8node_graph'). Same method across configs shares this id."
+    },
+    "config_fingerprint": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{16,64}$",
+      "description": "SHA hash of the canonical sorted-key config dict. Dedup key together with method_id."
+    },
+    "config_summary": {
+      "type": "object",
+      "description": "Human-readable subset of the config — for debugging; not used for dedup"
+    },
+    "result": {
+      "type": "string",
+      "enum": ["success", "neutral", "failed", "rejected_pre_run"]
+    },
+    "failure_mode": { "type": "string" },
+    "failure_category": {
+      "type": ["string", "null"],
+      "enum": [null, "syntactic", "semantic", "dynamics", "protocol"]
+    },
+    "retryable_with_changes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Names of config knobs that, if changed, justify a retry"
+    },
+    "blocked_configs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "method_globally_blocked": {
+      "type": "boolean",
+      "default": false,
+      "description": "Only humans set this to true. Once true, no config retry permitted."
+    },
+    "exp_id": { "type": "string", "pattern": "^exp_[0-9]{3}(_.+)?$" },
+    "iter": { "type": "integer", "minimum": 0 },
+    "reason": { "type": "string" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "supersedes": {
+      "type": "string",
+      "description": "If this entry corrects/updates a prior one, reference its timestamp+method_id key"
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "jy-engine/state.schema.json",
+  "title": "Engine State",
+  "description": "Current iteration state held by the State Machine. Single object per project. Persisted to projects/NN/state/engine_state.json.",
+  "type": "object",
+  "required": ["project_id", "iteration", "phase", "updated_at"],
+  "additionalProperties": false,
+  "properties": {
+    "project_id": { "type": "string", "pattern": "^[0-9]{2}_[a-z0-9_]+$" },
+    "iteration": { "type": "integer", "minimum": 0 },
+    "phase": {
+      "type": "string",
+      "enum": [
+        "BOOTSTRAP",
+        "METHOD_SEARCH",
+        "HYPOTHESIS_REGISTRATION",
+        "HUMAN_APPROVAL",
+        "IMPLEMENTATION",
+        "EVALUATION",
+        "LOGGING",
+        "INSIGHT_UPDATE",
+        "REPAIR",
+        "POSTMORTEM",
+        "HALT"
+      ]
+    },
+    "phase_history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["phase", "entered_at"],
+        "properties": {
+          "phase": { "type": "string" },
+          "entered_at": { "type": "string", "format": "date-time" },
+          "exited_at": { "type": ["string", "null"], "format": "date-time" },
+          "transition_reason": { "type": "string" }
+        }
+      }
+    },
+    "active_exp_id": { "type": ["string", "null"] },
+    "current_best_exp_id": { "type": ["string", "null"] },
+    "halt_reason": {
+      "type": ["string", "null"],
+      "enum": [null, "protocol_violation", "budget_exhausted", "kill_switch", "human_request"]
+    },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "git_sha": { "type": "string" },
+    "engine_version": { "type": "string", "default": "2.0" }
+  }
+}

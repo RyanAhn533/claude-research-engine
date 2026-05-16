@@ -43,6 +43,9 @@ projects/02_emotion_agent/experiments/*/cache/multiseed_run.log
 projects/02_emotion_agent/experiments/*/cache/run.log
 projects/02_emotion_agent/experiments/*/cache/checkpoints/
 projects/02_emotion_agent/experiments/*/cache/adapter/
+projects/02_emotion_agent/experiments/*/cache/seed*.log
+projects/02_emotion_agent/state/*.nohup.out
+projects/02_emotion_agent/state/m1_queue.log
 
 # === Allow small result files (override above) ===
 !projects/*/results/**/*.png

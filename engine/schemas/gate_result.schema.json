@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "jy-engine/gate_result.schema.json",
+  "title": "Gate Result",
+  "description": "Output of any Quality Gate (A/B/C/D). Appended to projects/NN/state/gate_log.jsonl.",
+  "type": "object",
+  "required": ["gate", "exp_id", "verdict", "checks", "evaluated_at"],
+  "additionalProperties": false,
+  "properties": {
+    "gate": { "type": "string", "enum": ["A", "B", "C", "D"] },
+    "exp_id": { "type": "string", "pattern": "^exp_[0-9]{3}(_.+)?$" },
+    "phase": {
+      "type": "string",
+      "enum": [
+        "METHOD_SEARCH",
+        "IMPLEMENTATION",
+        "EVALUATION",
+        "LOGGING"
+      ]
+    },
+    "stage": { "type": "string", "enum": ["prototype", "paper_ready"] },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "pass",
+        "fail",
+        "neutral",
+        "strong_accept",
+        "accept_with_concerns",
+        "flag_for_human_review"
+      ]
+    },
+    "is_advisory": {
+      "type": "boolean",
+      "description": "True for Gate D (advisory only). False blocks the phase transition."
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "result"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string" },
+          "result": { "type": "string", "enum": ["pass", "fail", "warn", "skipped"] },
+          "evidence": { "type": "string" },
+          "severity": { "type": "string", "enum": ["info", "warn", "error", "critical"] }
+        }
+      }
+    },
+    "concerns": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "For Gate D: reviewer-style concerns. Advisory."
+    },
+    "violation_type": {
+      "type": ["string", "null"],
+      "enum": [
+        null,
+        "metric_change_mid_iter",
+        "seed_count_below_min",
+        "data_leakage",
+        "baseline_drift",
+        "missing_manifest",
+        "config_fingerprint_collision"
+      ]
+    },
+    "evaluated_at": { "type": "string", "format": "date-time" },
+    "evaluator": {
+      "type": "string",
+      "enum": ["protocol_validator", "leakage_auditor", "statistical_evaluator", "reviewer_simulator", "human"]
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "jy-engine/hypothesis.schema.json",
+  "title": "Pre-registered Hypothesis",
+  "description": "One row per experiment, appended to projects/NN/state/hypothesis_registry.jsonl during HYPOTHESIS_REGISTRATION. Locked before HUMAN_APPROVAL.",
+  "type": "object",
+  "required": [
+    "hypothesis_id",
+    "exp_id",
+    "primary",
+    "null_hypothesis",
+    "success_criterion",
+    "registered_at",
+    "falsifiability_check"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "hypothesis_id": { "type": "string", "pattern": "^H-[A-Z]{2,5}-[0-9]{3}$" },
+    "exp_id": { "type": "string", "pattern": "^exp_[0-9]{3}(_.+)?$" },
+    "primary": {
+      "type": "string",
+      "description": "The directional claim being tested. Must be falsifiable."
+    },
+    "null_hypothesis": { "type": "string" },
+    "success_criterion": {
+      "type": "object",
+      "required": ["metric", "direction", "delta_threshold"],
+      "additionalProperties": false,
+      "properties": {
+        "metric": { "type": "string" },
+        "direction": { "type": "string", "enum": ["higher_is_better", "lower_is_better", "two_sided"] },
+        "delta_threshold": {
+          "type": "number",
+          "description": "Equivalence margin used by TOST. Pre-registered; cannot be changed post-hoc."
+        },
+        "baseline_exp_id": { "type": "string" }
+      }
+    },
+    "failure_implication": {
+      "type": "string",
+      "description": "Required: what does failing this hypothesis tell us scientifically?"
+    },
+    "falsifiability_check": {
+      "type": "string",
+      "enum": ["PASS", "FAIL"],
+      "description": "FAIL means primary is not testable; HYPOTHESIS_REGISTRATION rejects it"
+    },
+    "registered_at": { "type": "string", "format": "date-time" },
+    "locked_at": { "type": ["string", "null"], "format": "date-time" },
+    "outcome": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "verdict": { "type": "string", "enum": ["supported", "refuted", "inconclusive"] },
+        "evidence_exp_id": { "type": "string" },
+        "decided_at": { "type": "string", "format": "date-time" }
+      }
+    }
+  }
+}
