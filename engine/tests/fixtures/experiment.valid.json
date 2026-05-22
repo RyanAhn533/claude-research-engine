@@ -18,7 +18,7 @@
   "paired_delta_ci_95": [18.4, 25.9],
   "cohen_d_paired": 1.85,
   "wilcoxon_p": 0.008,
-  "tost_passed": true,
+  "practical_effect_passed": true,
   "gate_c_verdict": "improvement_candidate",
   "gate_b_verdict": "pass",
   "linked_claims": ["C1_lora_universal"],

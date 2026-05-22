@@ -65,7 +65,7 @@
           "enum": ["supported", "rejected", "neutral", "pending"]
         },
         "observed_delta": {"type": ["number", "null"]},
-        "tost_passed": {"type": ["boolean", "null"]},
+        "practical_effect_passed": {"type": ["boolean", "null"], "description": "Renamed from tost_passed — not a true TOST."},
         "scored_at": {"type": ["string", "null"], "format": "date-time"}
       },
       "additionalProperties": false

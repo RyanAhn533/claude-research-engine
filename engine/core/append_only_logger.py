@@ -54,37 +54,45 @@ class AppendOnlyLog:
     # ------ Public ------
 
     def append(self, row: dict[str, Any]) -> dict[str, Any]:
-        """Validate, chain, write atomically. Returns the written row (with row_id + prev_hash)."""
-        # Detect in-place edit BEFORE writing.
-        self._verify_not_tampered()
+        """Validate, chain, write atomically. Returns the written row (with row_id + prev_hash).
 
-        prev = self._last_row()
-        row = dict(row)
-        row.setdefault("row_id", self._make_row_id())
-        if prev is not None:
-            row["prev_hash"] = row_hash(prev)
-        else:
-            row["prev_hash"] = None
-
-        # schema check
-        errors = list(self._validator.iter_errors(row))
-        if errors:
-            msg = "; ".join(f"{list(e.absolute_path)}:{e.message}" for e in errors[:5])
-            raise AppendOnlyViolation(f"schema reject for {self.path.name}: {msg}")
-
-        # write under flock
-        line = json.dumps(row, sort_keys=False, ensure_ascii=False)
-        with self.path.open("a", encoding="utf-8") as f:
-            fcntl.flock(f.fileno(), fcntl.LOCK_EX)
+        Concurrency: the entire op (tamper-check → last_row read → prev_hash compute →
+        schema validate → write → state record) runs inside a flock on `_state_file` so
+        two concurrent writers cannot read the same prev_hash and corrupt the chain.
+        """
+        # Use the state file as the serialization lock. Touch to ensure it exists.
+        self._state_file.touch(exist_ok=True)
+        with self._state_file.open("r+", encoding="utf-8") as lockf:
+            fcntl.flock(lockf.fileno(), fcntl.LOCK_EX)
             try:
-                f.write(line + "\n")
-                f.flush()
-                os.fsync(f.fileno())
-            finally:
-                fcntl.flock(f.fileno(), fcntl.LOCK_UN)
+                # Detect in-place edit BEFORE writing.
+                self._verify_not_tampered()
 
-        self._record_state()
-        return row
+                prev = self._last_row()
+                row = dict(row)
+                row.setdefault("row_id", self._make_row_id())
+                if prev is not None:
+                    row["prev_hash"] = row_hash(prev)
+                else:
+                    row["prev_hash"] = None
+
+                # schema check
+                errors = list(self._validator.iter_errors(row))
+                if errors:
+                    msg = "; ".join(f"{list(e.absolute_path)}:{e.message}" for e in errors[:5])
+                    raise AppendOnlyViolation(f"schema reject for {self.path.name}: {msg}")
+
+                # write (inside outer lock; no nested flock needed)
+                line = json.dumps(row, sort_keys=False, ensure_ascii=False)
+                with self.path.open("a", encoding="utf-8") as f:
+                    f.write(line + "\n")
+                    f.flush()
+                    os.fsync(f.fileno())
+
+                self._record_state()
+                return row
+            finally:
+                fcntl.flock(lockf.fileno(), fcntl.LOCK_UN)
 
     def iter_rows(self) -> Iterator[dict[str, Any]]:
         if not self.path.exists():

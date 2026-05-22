@@ -136,10 +136,18 @@ def generate(
 
     repo_root = repo_root or Path.cwd()
     env_lock_p = Path(env_lock_path)
+    git_sha = _git_sha(repo_root)
+    if not git_sha:
+        raise ValueError(
+            f"git_sha could not be resolved at {repo_root}. "
+            "reproducibility_manifest requires a git repository; non-git contexts are "
+            "not allowed (would silently produce schema-invalid manifests with "
+            "git_sha='unknown'). Initialize the repo or pass a repo_root that is one."
+        )
     return Manifest(
         exp_id=exp_id,
         created_at=datetime.now(timezone.utc).isoformat(),
-        git_sha=_git_sha(repo_root) or "unknown",
+        git_sha=git_sha,
         git_dirty=_git_dirty(repo_root),
         data_hash=data_hash,
         env_lock=str(env_lock_p),

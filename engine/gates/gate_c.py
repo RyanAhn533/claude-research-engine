@@ -32,7 +32,7 @@ class GateCResult:
     paired_delta_ci_95: tuple[float, float] | None = None
     cohen_d_paired: float | None = None
     wilcoxon_p: float | None = None
-    tost_passed: bool | None = None
+    practical_effect_passed: bool | None = None
     reason: str = ""
 
     def to_dict(self) -> dict:
@@ -123,13 +123,13 @@ def evaluate(
         except Exception as e:
             p = math.nan
 
-        # TOST against pre-registered delta_threshold (equivalence margin)
-        tost_pass = None
+        # Practical-effect check against pre-registered delta_threshold.
+        # NOTE: this is NOT a true TOST (two one-sided test for equivalence). It's a
+        # minimum-effect-size gate: "directional + practically large enough." Renamed
+        # to avoid statistical mislabeling. True TOST can be added later as a separate field.
+        practical_pass = None
         if delta_threshold is not None and delta_threshold > 0:
-            # Symmetric TOST: reject if both one-sided tests at α=0.05 reject
-            # We adapt: claim improvement iff lower CI > 0 AND |mean delta| > delta_threshold
-            # (delta_threshold is the smallest effect of practical interest)
-            tost_pass = bool(ci_lo > 0 and abs(mean) >= delta_threshold)
+            practical_pass = bool(ci_lo > 0 and abs(mean) >= delta_threshold)
 
         # Decision rule (external review §3 problem 4 fix)
         is_improvement = (
@@ -138,7 +138,7 @@ def evaluate(
             and (not math.isnan(p) and p < p_threshold)
         )
         if delta_threshold is not None and delta_threshold > 0:
-            is_improvement = is_improvement and (tost_pass or abs(mean) >= delta_threshold)
+            is_improvement = is_improvement and (practical_pass or abs(mean) >= delta_threshold)
 
         verdict: Verdict = "improvement_candidate" if is_improvement else "neutral"
         # explicit "failed" only if statistically worse
@@ -151,7 +151,7 @@ def evaluate(
             paired_delta_ci_95=(ci_lo, ci_hi),
             cohen_d_paired=d,
             wilcoxon_p=p if not math.isnan(p) else None,
-            tost_passed=tost_pass,
+            practical_effect_passed=practical_pass,
             reason=(
                 f"paired_delta_mean={mean:.3f}, ci_95=[{ci_lo:.3f},{ci_hi:.3f}], "
                 f"cohen_d={d:.3f}, wilcoxon_p={p:.4f}"

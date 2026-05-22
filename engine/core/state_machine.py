@@ -94,28 +94,60 @@ def _check_implementation(sm: "StateMachine") -> tuple[bool, str]:
 
 
 def _check_evaluation(sm: "StateMachine") -> tuple[bool, str]:
+    """EVALUATION *entry* condition. results.json is the *output* of EVALUATION,
+    so it cannot be required here. Require what IMPLEMENTATION should have produced:
+    run.py + reproducibility_manifest.
+    """
     exp = sm.last_state().get("current_exp")
-    results = sm.repo_root / "projects" / sm.project / "experiments" / exp / "results.json"
-    if not results.exists():
-        return False, f"results.json missing for {exp}"
-    return True, "results.json present"
+    if not exp:
+        return False, "no current_exp"
+    exp_dir = sm.repo_root / "projects" / sm.project / "experiments" / exp
+    run_py = exp_dir / "run.py"
+    if not run_py.exists():
+        return False, f"run.py missing at {run_py.relative_to(sm.repo_root)}"
+    manifest_dir = sm.repo_root / "projects" / sm.project / "reproducibility_manifests"
+    if not list(manifest_dir.glob(f"{exp}*")):
+        return False, f"no reproducibility_manifest for {exp} (must exist before EVALUATION)"
+    return True, "run.py + manifest present"
 
 
 def _check_logging(sm: "StateMachine") -> tuple[bool, str]:
-    # Manifest must exist (this is the v2 hard rule from external review).
+    # Manifest must exist (v2 hard rule from external review).
+    # Plus: results.json must now exist (it was produced by EVALUATION).
     exp = sm.last_state().get("current_exp")
+    if not exp:
+        return False, "no current_exp"
     manifest_dir = sm.repo_root / "projects" / sm.project / "reproducibility_manifests"
     candidates = list(manifest_dir.glob(f"{exp}*"))
     if not candidates:
         return False, f"no reproducibility_manifest for {exp} (blocks LOGGING per METHODOLOGY §0.4)"
-    return True, f"manifest present: {candidates[0].name}"
+    results = sm.repo_root / "projects" / sm.project / "experiments" / exp / "results.json"
+    if not results.exists():
+        return False, f"results.json missing for {exp} (EVALUATION must produce it before LOGGING)"
+    return True, f"manifest + results.json present"
+
+
+def _check_auto_safe_approval(sm: "StateMachine") -> tuple[bool, str]:
+    """AUTO_SAFE_APPROVAL must NOT be reachable from manual mode. Distinct from
+    HUMAN_APPROVAL: requires last_state.auto_mode == True. The hypothesis check
+    is identical to HUMAN_APPROVAL (both need a PASS-falsifiability row).
+    """
+    ok, reason = _check_human_approval(sm)
+    if not ok:
+        return False, reason
+    if not sm.last_state().get("auto_mode"):
+        return False, (
+            "AUTO_SAFE_APPROVAL requires auto_mode=true; current state has auto_mode=false. "
+            "Manual mode must go via HUMAN_APPROVAL."
+        )
+    return True, "auto_mode=true + hypothesis registered"
 
 
 PRECONDITIONS = {
     "METHOD_SEARCH":              _check_method_search,
     "HYPOTHESIS_REGISTRATION":    _check_hypothesis_registration,
     "HUMAN_APPROVAL":             _check_human_approval,
-    "AUTO_SAFE_APPROVAL":         _check_human_approval,  # same: needs registered hypothesis
+    "AUTO_SAFE_APPROVAL":         _check_auto_safe_approval,
     "IMPLEMENTATION":             _check_implementation,
     "EVALUATION":                 _check_evaluation,
     "LOGGING":                    _check_logging,

@@ -57,7 +57,7 @@
     },
     "cohen_d_paired": {"type": ["number", "null"]},
     "wilcoxon_p": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
-    "tost_passed": {"type": ["boolean", "null"]},
+    "practical_effect_passed": {"type": ["boolean", "null"], "description": "Renamed from tost_passed — this is a minimum-effect-size gate, not a true TOST."},
     "gate_c_verdict": {
       "type": "string",
       "enum": ["improvement_candidate", "neutral", "failed", "pending"]

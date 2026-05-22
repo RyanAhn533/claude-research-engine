@@ -1,21 +1,33 @@
 {
-  "$schema": "https://docs.claude.com/en/docs/claude-code/settings.schema.json",
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "hooks": {
     "PreToolUse": [
       {
         "matcher": "Edit",
-        "command": ".claude/hooks/block_jsonl_in_place.sh",
-        "description": "Block in-place edit of any *.jsonl file (v2 append-only invariant)"
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/block_jsonl_in_place.sh"
+          }
+        ]
       },
       {
         "matcher": "Write",
-        "command": ".claude/hooks/block_jsonl_in_place.sh",
-        "description": "Block overwrite of any *.jsonl file"
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/block_jsonl_in_place.sh"
+          }
+        ]
       },
       {
         "matcher": "Bash",
-        "command": ".claude/hooks/require_human_gate.sh",
-        "description": "Require JY consent for git push / rm -rf / branch -D etc."
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/require_human_gate.sh"
+          }
+        ]
       }
     ]
   }

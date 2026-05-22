@@ -15,7 +15,7 @@
   "outcome": {
     "result": "supported",
     "observed_delta": 22.17,
-    "tost_passed": true,
+    "practical_effect_passed": true,
     "scored_at": "2026-04-24T03:30:00Z"
   },
   "linked_claim": "C1_lora_universal"
