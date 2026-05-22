@@ -1,0 +1,6 @@
+{
+  "task_id": "bad_id_no_prefix",
+  "phase": "IMPLEMENTATION",
+  "depends_on": ["also_bad"],
+  "status": "unknown_status"
+}

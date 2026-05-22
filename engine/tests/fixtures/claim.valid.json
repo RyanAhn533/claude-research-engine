@@ -1,0 +1,19 @@
+{
+  "row_id": "claim_C1_001",
+  "claim_id": "C1_lora_universal",
+  "statement": "LoRA produces universal accuracy gains across both visual (FER AU) and text (IEMOCAP, MELD) modalities; in-context learning is modality-gated and only helps when the modality is novel to the LLM.",
+  "status": "active",
+  "supporting_exps": [
+    "exp_024_iemocap_lora_multiseed",
+    "exp_025_meld_lora_multiseed",
+    "exp_014_korean_fer_cross_cultural"
+  ],
+  "contradicting_exps": [],
+  "required_for_submission": true,
+  "venue": "NeurIPS 2026",
+  "claim_role": "primary",
+  "self_attack_required": true,
+  "self_attack_runs": ["sa_exp_024_001"],
+  "created_at": "2026-04-24T03:30:00Z",
+  "updated_at": "2026-04-24T03:30:00Z"
+}

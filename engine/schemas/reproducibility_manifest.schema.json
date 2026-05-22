@@ -1,8 +1,8 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "jy-engine/reproducibility_manifest.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/RyanAhn533/claude-research-engine/schemas/reproducibility_manifest.schema.json",
   "title": "Reproducibility Manifest",
-  "description": "One YAML/JSON file per experiment under projects/NN/reproducibility_manifests/exp_NNN.yaml. Generated in Phase 3 before any code runs. Quarterly audit reproduces from this alone.",
+  "description": "One per experiment. Generated in Phase 3 IMPLEMENTATION before run.py. Missing manifest blocks LOGGING (METHODOLOGY §0.4).",
   "type": "object",
   "required": [
     "exp_id",
@@ -13,75 +13,63 @@
     "random_state",
     "hardware"
   ],
-  "additionalProperties": false,
   "properties": {
-    "exp_id": { "type": "string", "pattern": "^exp_[0-9]{3}(_.+)?$" },
-    "created_at": { "type": "string", "format": "date-time" },
+    "exp_id": {
+      "type": "string",
+      "pattern": "^exp_[0-9]{3,}_[a-z_0-9]+$"
+    },
+    "created_at": {"type": "string", "format": "date-time"},
     "git_sha": {
       "type": "string",
       "pattern": "^[a-f0-9]{7,40}$",
-      "description": "HEAD of the engine repo when the manifest was generated"
+      "description": "Full or short git commit sha at experiment creation"
+    },
+    "git_dirty": {
+      "type": "boolean",
+      "description": "true if uncommitted changes exist. paper_ready stage requires false."
     },
     "data_hash": {
       "type": "string",
       "pattern": "^sha256:[a-f0-9]{64}$",
-      "description": "Hash of the dataset split files actually used"
+      "description": "Hash of the exact data slice used (train/val/test indices, not raw files)"
     },
     "env_lock": {
       "type": "string",
-      "description": "Path to poetry.lock / uv.lock / requirements.lock used"
+      "description": "Path to poetry.lock / uv.lock / conda env export / pip freeze"
     },
-    "env_lock_hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "env_lock_hash": {
+      "type": ["string", "null"],
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
     "random_state": {
       "type": "object",
       "required": ["python", "numpy", "torch"],
-      "additionalProperties": false,
       "properties": {
-        "python": { "type": "integer" },
-        "numpy": { "type": "integer" },
-        "torch": { "type": "integer" },
-        "cuda_deterministic": { "type": "boolean", "default": true },
-        "torch_use_deterministic_algorithms": { "type": "boolean", "default": true }
-      }
+        "python": {"type": "integer"},
+        "numpy": {"type": "integer"},
+        "torch": {"type": "integer"},
+        "cuda_deterministic": {"type": "boolean"}
+      },
+      "additionalProperties": false
     },
     "hardware": {
       "type": "object",
       "required": ["gpu"],
-      "additionalProperties": false,
       "properties": {
-        "gpu": { "type": "string" },
-        "vram_gb": { "type": "number" },
-        "driver": { "type": "string" },
-        "cuda": { "type": "string" },
-        "cpu": { "type": "string" },
-        "ram_gb": { "type": "number" }
-      }
+        "gpu": {"type": "string", "description": "e.g. 'A6000 48GB'"},
+        "driver": {"type": "string"},
+        "cuda": {"type": "string"},
+        "host": {"type": "string"}
+      },
+      "additionalProperties": false
     },
     "container_digest": {
       "type": ["string", "null"],
       "pattern": "^sha256:[a-f0-9]{64}$"
     },
-    "data_split": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "train_indices_hash": { "type": "string" },
-        "val_indices_hash": { "type": "string" },
-        "test_indices_hash": { "type": "string" },
-        "split_strategy": { "type": "string" }
-      }
-    },
-    "audit": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "last_reproduced_at": { "type": ["string", "null"], "format": "date-time" },
-        "last_reproduction_verdict": {
-          "type": ["string", "null"],
-          "enum": [null, "match", "drift", "fail"]
-        },
-        "reproduction_log": { "type": "string" }
-      }
-    }
-  }
+    "supersedes": {"type": ["string", "null"]},
+    "prev_hash": {"type": ["string", "null"]},
+    "row_id": {"type": "string"}
+  },
+  "additionalProperties": false
 }

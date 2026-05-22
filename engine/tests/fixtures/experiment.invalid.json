@@ -1,0 +1,13 @@
+{
+  "exp_id": "exp_024_iemocap_lora_multiseed",
+  "iteration": 24,
+  "method": "LoRA",
+  "method_id": "lora",
+  "config_fingerprint": "not-a-sha256",
+  "metric_name": "accuracy",
+  "constraints_passed": true,
+  "timestamp": "2026-04-24T03:15:00Z",
+  "stage": "paper_ready",
+  "n_seeds": 3,
+  "manifest_ref": "x"
+}

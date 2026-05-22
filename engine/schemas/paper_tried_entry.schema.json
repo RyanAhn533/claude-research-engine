@@ -1,55 +1,77 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "jy-engine/paper_tried_entry.schema.json",
-  "title": "Paper-Tried Entry (v2, config-aware)",
-  "description": "One row per attempted method, appended to projects/NN/state/paper_tried.jsonl. v2 dedup key is (method_id, config_fingerprint), not method alone.",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/RyanAhn533/claude-research-engine/schemas/paper_tried_entry.schema.json",
+  "title": "paper_tried entry (config-aware)",
+  "description": "v2 fix for v1 false-negative accumulation. Dedup is (method_id, config_fingerprint) not method name (ARCHITECTURE §4).",
   "type": "object",
-  "required": ["method_id", "config_fingerprint", "result", "iter", "timestamp"],
-  "additionalProperties": false,
+  "required": [
+    "method_id",
+    "config_fingerprint",
+    "result",
+    "iter",
+    "method_globally_blocked",
+    "linked_exp"
+  ],
   "properties": {
     "method_id": {
       "type": "string",
-      "description": "Stable canonical method name (e.g. 'au_8node_graph'). Same method across configs shares this id."
+      "pattern": "^[a-z][a-z_0-9]*$"
     },
     "config_fingerprint": {
       "type": "string",
-      "pattern": "^[a-f0-9]{16,64}$",
-      "description": "SHA hash of the canonical sorted-key config dict. Dedup key together with method_id."
-    },
-    "config_summary": {
-      "type": "object",
-      "description": "Human-readable subset of the config — for debugging; not used for dedup"
+      "pattern": "^sha256:[a-f0-9]{64}$"
     },
     "result": {
       "type": "string",
-      "enum": ["success", "neutral", "failed", "rejected_pre_run"]
+      "enum": ["success", "failed", "neutral", "rejected"]
     },
-    "failure_mode": { "type": "string" },
+    "failure_mode": {
+      "type": ["string", "null"],
+      "description": "Short label, e.g. 'gradient_explosion_at_epoch_3'"
+    },
     "failure_category": {
       "type": ["string", "null"],
-      "enum": [null, "syntactic", "semantic", "dynamics", "protocol"]
+      "enum": ["syntactic", "semantic", "dynamics", "protocol", null]
     },
     "retryable_with_changes": {
       "type": "array",
-      "items": { "type": "string" },
-      "description": "Names of config knobs that, if changed, justify a retry"
+      "items": {"type": "string"},
+      "description": "Knobs that, if changed, justify retry. e.g. ['lr', 'init', 'warmup']"
     },
     "blocked_configs": {
       "type": "array",
-      "items": { "type": "string" }
+      "items": {"type": "string"},
+      "description": "Specific config_fingerprints that are blocked"
     },
     "method_globally_blocked": {
       "type": "boolean",
-      "default": false,
-      "description": "Only humans set this to true. Once true, no config retry permitted."
+      "description": "true blocks ALL configs of this method_id. Human-only field — engine cannot set this to true."
     },
-    "exp_id": { "type": "string", "pattern": "^exp_[0-9]{3}(_.+)?$" },
-    "iter": { "type": "integer", "minimum": 0 },
-    "reason": { "type": "string" },
-    "timestamp": { "type": "string", "format": "date-time" },
-    "supersedes": {
+    "blocked_by": {
+      "type": ["string", "null"],
+      "description": "Required when method_globally_blocked=true. Human name (e.g. 'JY')."
+    },
+    "blocked_at": {"type": ["string", "null"], "format": "date-time"},
+    "iter": {"type": "integer", "minimum": 0},
+    "linked_exp": {
       "type": "string",
-      "description": "If this entry corrects/updates a prior one, reference its timestamp+method_id key"
+      "pattern": "^exp_[0-9]{3,}_[a-z_0-9]+$"
+    },
+    "supersedes": {"type": ["string", "null"]},
+    "prev_hash": {"type": ["string", "null"]},
+    "row_id": {"type": "string"}
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "description": "method_globally_blocked=true requires human attribution",
+      "if": {"properties": {"method_globally_blocked": {"const": true}}},
+      "then": {
+        "required": ["blocked_by", "blocked_at"],
+        "properties": {
+          "blocked_by": {"type": "string", "minLength": 1}
+        }
+      }
     }
-  }
+  ]
 }

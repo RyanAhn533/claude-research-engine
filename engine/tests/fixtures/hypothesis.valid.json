@@ -1,0 +1,22 @@
+{
+  "row_id": "hyp_001",
+  "hypothesis_id": "H_lora_universal_iemocap",
+  "exp_id": "exp_024_iemocap_lora_multiseed",
+  "primary": "Qwen2.5-7B LoRA r=16 raises IEMOCAP 4-class accuracy by >= 10pp vs zero-shot, replicating across 7 seeds.",
+  "null_hypothesis": "LoRA delivers no statistically significant gain (paired CI lower <= 0).",
+  "success_criterion": {
+    "metric": "accuracy",
+    "direction": "higher_is_better",
+    "delta_threshold": 10.0
+  },
+  "failure_implication": "If LoRA fails on IEMOCAP text, the 'LoRA universal' claim collapses to FER-only.",
+  "falsifiability_check": "PASS",
+  "registered_at": "2026-04-23T14:00:00Z",
+  "outcome": {
+    "result": "supported",
+    "observed_delta": 22.17,
+    "tost_passed": true,
+    "scored_at": "2026-04-24T03:30:00Z"
+  },
+  "linked_claim": "C1_lora_universal"
+}

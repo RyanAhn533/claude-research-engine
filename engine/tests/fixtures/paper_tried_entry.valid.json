@@ -1,0 +1,15 @@
+{
+  "row_id": "pt_001",
+  "method_id": "au_8node_graph",
+  "config_fingerprint": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+  "result": "failed",
+  "failure_mode": "trivially_equivalent_to_set_transformer",
+  "failure_category": "semantic",
+  "retryable_with_changes": ["graph_construction", "node_definition"],
+  "blocked_configs": ["sha256:1111111111111111111111111111111111111111111111111111111111111111"],
+  "method_globally_blocked": false,
+  "blocked_by": null,
+  "blocked_at": null,
+  "iter": 1,
+  "linked_exp": "exp_001_au_graph_pilot"
+}

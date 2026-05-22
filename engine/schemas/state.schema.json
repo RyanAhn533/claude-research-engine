@@ -1,52 +1,76 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "jy-engine/state.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/RyanAhn533/claude-research-engine/schemas/state.schema.json",
   "title": "Engine State",
-  "description": "Current iteration state held by the State Machine. Single object per project. Persisted to projects/NN/state/engine_state.json.",
+  "description": "Single-row engine state. State Machine reads/writes this. Append-only via supersedes chain.",
   "type": "object",
-  "required": ["project_id", "iteration", "phase", "updated_at"],
-  "additionalProperties": false,
+  "required": ["project", "current_phase", "iter", "updated_at", "auto_mode"],
   "properties": {
-    "project_id": { "type": "string", "pattern": "^[0-9]{2}_[a-z0-9_]+$" },
-    "iteration": { "type": "integer", "minimum": 0 },
-    "phase": {
+    "project": {
+      "type": "string",
+      "pattern": "^[0-9]{2}_[a-z_0-9]+$",
+      "description": "e.g. 02_emotion_agent"
+    },
+    "current_phase": {
       "type": "string",
       "enum": [
         "BOOTSTRAP",
+        "STATUS_SYNC",
         "METHOD_SEARCH",
         "HYPOTHESIS_REGISTRATION",
         "HUMAN_APPROVAL",
+        "AUTO_SAFE_APPROVAL",
         "IMPLEMENTATION",
+        "REPAIR",
         "EVALUATION",
-        "SELF_ATTACK",
+        "CLAIM_LINKING",
+        "CONDITIONAL_SELF_ATTACK",
         "LOGGING",
         "INSIGHT_UPDATE",
-        "REPAIR",
+        "PAPER_QUEUE_UPDATE",
         "POSTMORTEM",
         "HALT"
       ]
     },
-    "phase_history": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": ["phase", "entered_at"],
-        "properties": {
-          "phase": { "type": "string" },
-          "entered_at": { "type": "string", "format": "date-time" },
-          "exited_at": { "type": ["string", "null"], "format": "date-time" },
-          "transition_reason": { "type": "string" }
-        }
-      }
+    "iter": {"type": "integer", "minimum": 0},
+    "current_exp": {"type": ["string", "null"]},
+    "direction_prefix": {
+      "type": "string",
+      "pattern": "^[A-Z]{2,5}$",
+      "description": "e.g. EMA, AUR, SPC"
     },
-    "active_exp_id": { "type": ["string", "null"] },
-    "current_best_exp_id": { "type": ["string", "null"] },
-    "halt_reason": {
+    "kill_switch_present": {
+      "type": "boolean",
+      "description": "If true, state machine HALTs before next phase transition"
+    },
+    "auto_mode": {"type": "boolean"},
+    "budget": {
+      "type": "object",
+      "properties": {
+        "gpu_hours_used": {"type": "number", "minimum": 0},
+        "gpu_hours_total": {"type": "number", "minimum": 0},
+        "cost_usd_used": {"type": "number", "minimum": 0},
+        "cost_usd_total": {"type": "number", "minimum": 0},
+        "wall_clock_hours_used": {"type": "number", "minimum": 0},
+        "wall_clock_hours_total": {"type": "number", "minimum": 0},
+        "per_experiment_cap_gpu_hours": {"type": "number", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "pending_human_gate": {
       "type": ["string", "null"],
-      "enum": [null, "protocol_violation", "budget_exhausted", "kill_switch", "human_request"]
+      "description": "Action class waiting for JY approval. Null when none."
     },
-    "updated_at": { "type": "string", "format": "date-time" },
-    "git_sha": { "type": "string" },
-    "engine_version": { "type": "string", "default": "2.0" }
-  }
+    "updated_at": {"type": "string", "format": "date-time"},
+    "supersedes": {
+      "type": ["string", "null"],
+      "description": "Previous row id this corrects. Append-only correction mechanism."
+    },
+    "prev_hash": {
+      "type": ["string", "null"],
+      "description": "sha256 of previous row for hash chain integrity"
+    },
+    "row_id": {"type": "string"}
+  },
+  "additionalProperties": false
 }
