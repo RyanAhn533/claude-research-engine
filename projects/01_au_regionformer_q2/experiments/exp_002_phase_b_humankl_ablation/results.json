@@ -1,0 +1,36 @@
+{
+  "exp_id": "exp_002_phase_b_humankl_ablation",
+  "seeds": [
+    42,
+    123,
+    777
+  ],
+  "baseline_val_f1_macro": [
+    0.9255,
+    0.9243,
+    0.9256
+  ],
+  "treatment_val_f1_macro": [
+    0.9264,
+    0.9242,
+    0.9252
+  ],
+  "paired_delta_per_seed": [
+    0.0009000000000000119,
+    -9.999999999998899e-05,
+    -0.00039999999999995595
+  ],
+  "paired_delta_mean": 0.00013333333333335565,
+  "paired_delta_std": 0.0006806859285553922,
+  "paired_delta_ci_95": [
+    -0.00039999999999995595,
+    0.0009000000000000119
+  ],
+  "cohen_d_paired": 0.19588055498043164,
+  "wilcoxon_p": 1.0,
+  "delta_threshold": 0.003,
+  "practical_effect_passed": false,
+  "direction_supported": false,
+  "verdict": "neutral",
+  "timestamp": "2026-05-25T09:37:46.238126+00:00"
+}

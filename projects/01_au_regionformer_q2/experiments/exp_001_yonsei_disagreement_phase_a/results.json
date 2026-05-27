@@ -1,0 +1,114 @@
+{
+  "exp_id": "exp_001_yonsei_disagreement_phase_a",
+  "n_total_evaluated": 225596,
+  "data_hash": "sha256:88327a306a035339699634a586715ddf200fb6af6a6e338f6941a7446cd99b34",
+  "seed": 42,
+  "bootstrap_B": 1000,
+  "marginal": {
+    "per_emotion": {
+      "angry": {
+        "n": 58998,
+        "reject_rate": 0.1513610630868843
+      },
+      "happy": {
+        "n": 56903,
+        "reject_rate": 0.04238792330808569
+      },
+      "neutral": {
+        "n": 58230,
+        "reject_rate": 0.062373347071956034
+      },
+      "sad": {
+        "n": 51465,
+        "reject_rate": 0.16164383561643836
+      }
+    },
+    "chi2": {
+      "stat": 6697.521725903537,
+      "dof": 3,
+      "p": 0.0
+    }
+  },
+  "reliability_bound": {
+    "n_multi_rater": 4385,
+    "unanimous_overall_pct": 98.92816419612315,
+    "per_emotion": {
+      "angry": {
+        "n": 1134,
+        "unanimous_pct": 98.94179894179894,
+        "mean_rate": 0.17372134038800705
+      },
+      "happy": {
+        "n": 1042,
+        "unanimous_pct": 99.52015355086372,
+        "mean_rate": 0.051343570057581576
+      },
+      "neutral": {
+        "n": 1157,
+        "unanimous_pct": 99.48141745894556,
+        "mean_rate": 0.06395851339671564
+      },
+      "sad": {
+        "n": 1052,
+        "unanimous_pct": 97.71863117870723,
+        "mean_rate": 0.188212927756654
+      }
+    }
+  },
+  "glm_cluster_robust": {
+    "n_sample": 48000,
+    "terms": {
+      "happy": {
+        "beta": -0.4569608024430098,
+        "se": 0.07745780333839339,
+        "z": -5.89948052679295,
+        "p": 3.646478070250328e-09,
+        "OR": 0.6332051596716554,
+        "OR_ci_lo": 0.5440167145579554,
+        "OR_ci_hi": 0.7370155429150743
+      },
+      "angry": {
+        "beta": 0.9437901683742848,
+        "se": 0.06569679521862064,
+        "z": 14.365847911357227,
+        "p": 8.476291643524433e-47,
+        "OR": 2.5697025897406474,
+        "OR_ci_lo": 2.2592362548690925,
+        "OR_ci_hi": 2.922833495385108
+      },
+      "sad": {
+        "beta": 1.01623181311811,
+        "se": 0.06622756022556621,
+        "z": 15.34454552843105,
+        "p": 3.852479053035836e-53,
+        "OR": 2.76276451174539,
+        "OR_ci_lo": 2.426447322297555,
+        "OR_ci_hi": 3.1456968701600867
+      }
+    },
+    "intercept_logodds": -2.686913350792897
+  },
+  "within_subject_paired": {
+    "n_subjects_with_all_4_emotions": 948,
+    "mean_delta_pp": 11.716785418159834,
+    "median_delta_pp": 9.308772158687365,
+    "bootstrap_ci_95_pp": [
+      10.922693998661538,
+      12.549979488424718
+    ],
+    "pct_subjects_delta_positive": 84.915611814346,
+    "wilcoxon": {
+      "stat": 29119.0,
+      "p": 1.7726998336712687e-117
+    }
+  },
+  "gate_c": {
+    "practical_effect_passed": true,
+    "tost_equivalent": null,
+    "direction_supported": true,
+    "verdict": "improvement_candidate",
+    "primary_metric": "or_angry_vs_neutral",
+    "primary_value": 2.5697025897406474,
+    "delta_threshold": 0.5
+  }
+}
