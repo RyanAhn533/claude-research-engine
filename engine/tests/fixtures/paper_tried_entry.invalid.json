@@ -1,0 +1,8 @@
+{
+  "method_id": "au_8node_graph",
+  "config_fingerprint": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+  "result": "failed",
+  "method_globally_blocked": true,
+  "iter": 1,
+  "linked_exp": "exp_001_au_graph_pilot"
+}

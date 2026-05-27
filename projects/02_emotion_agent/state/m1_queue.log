@@ -53,3 +53,24 @@
   seed=42: acc=60.75%, f1=0.605
   seed=123: acc=61.50%, f1=0.612
   seed=777: acc=63.00%, f1=0.624
+[09:49:02] exp_019 chain: waiting for exp_026...
+[09:49:02] exp_026 done, starting exp_019...
+[09:49:33] exp_019 done (exit=0)
+[09:53:12] exp_019b chain: waiting for exp_026 Python...
+[09:53:49] exp_019b waiting for PID 2174765 (exp_026)...
+[10:16:30] exp_026 finished (exit=0)
+[10:16:49] exp_026 exited, starting exp_019b...
+[10:17:09] exp_019b done (exit=0)
+[11:27:10] exp_029 r=8,32 done
+[12:39:32] exp_030 waiting for exp_031...
+[12:42:44] exp_031 n=250 done (exit=0)
+[12:52:50] exp_031 n=750 done (exit=0)
+[13:08:40] exp_031 n=1250 done (exit=0)
+[13:09:03] exp_031 done, starting exp_030...
+[13:28:19] mistral download done
+[13:33:40] exp_030 done (exit=0)
+[10:05:56] exp_030b done (exit=0)
+[11:56:22] exp_032 done (exit=0)
+[18:30:27] exp_033 done (exit=0)
+[21:02:06] exp_034 zeroshot+drop done (exit=0)
+[21:46:38] exp_034 zeroshot+drop done v2 (exit=0)

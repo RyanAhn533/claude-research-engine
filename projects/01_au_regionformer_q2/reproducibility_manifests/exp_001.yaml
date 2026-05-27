@@ -1,0 +1,39 @@
+exp_id: exp_001_congruence_head
+date: 2026-05-23
+direction_id: AURP6-D010
+
+git:
+  repo: /home/ajy/AU-RegionFormer
+  branch: master
+  sha: fff026dd2914  # short
+
+data:
+  train_csv: /home/ajy/AU-RegionFormer/experiments/phase6_yonsei_paired/csvs/master_train_v_yonsei_pathfix.csv
+  train_md5: 07c1b40012b1f8d0c0e98e3ef4c27b1a
+  val_csv:   /home/ajy/AU-RegionFormer/experiments/phase6_yonsei_paired/csvs/master_val_v_yonsei_pathfix.csv
+  val_md5:   79f57ead025b6fc8ad9206d719716a77
+  train_n: 203191
+  val_n: 50805
+  yonsei_evaluated_n: 225596  # train+val Yonsei-evaluated rows
+
+env_lock:
+  python: 3.12
+  torch: 2.6.0+cu124
+  cuda: "12.4"
+  conda_env: base
+  gpu: NVIDIA RTX A6000 48GB
+
+random_state:
+  seeds: [999, 123, 777]
+  torch_deterministic: false  # cudnn.benchmark=true
+  tf32: true
+
+hardware:
+  device: cuda:0
+  precision: bfloat16 (autocast)
+  batch_size: 384
+
+baseline:
+  ckpt: /mnt/hdd/ajy_25/results/phase6_stage6_full/best.pth
+  baseline_f1: 0.9256
+  baseline_c2: 0.114

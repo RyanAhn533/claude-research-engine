@@ -1,0 +1,13 @@
+{
+  "hypothesis_id": "no_prefix",
+  "exp_id": "exp_024",
+  "primary": "short",
+  "null_hypothesis": "x",
+  "success_criterion": {
+    "metric": "acc",
+    "direction": "up",
+    "delta_threshold": "ten"
+  },
+  "falsifiability_check": "MAYBE",
+  "registered_at": "2026-04-23"
+}

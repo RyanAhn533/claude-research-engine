@@ -1,0 +1,8 @@
+{
+  "row_id": "perm_git_push",
+  "action_class": "git_push",
+  "default_policy": "human_gate_required",
+  "override_allowed": false,
+  "hook_enforcer": ".claude/hooks/require_human_gate.sh",
+  "rationale": "External review §3 problem 2. Auto mode must not push without JY consent."
+}

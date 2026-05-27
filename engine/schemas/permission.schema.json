@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/RyanAhn533/claude-research-engine/schemas/permission.schema.json",
+  "title": "Permission policy entry",
+  "description": "Resolves Auto mode <-> HUMAN_APPROVAL conflict (external review §3 problem 2). One row per action_class.",
+  "type": "object",
+  "required": ["action_class", "default_policy", "override_allowed"],
+  "properties": {
+    "action_class": {
+      "type": "string",
+      "enum": [
+        "read",
+        "analysis",
+        "design_draft",
+        "local_experiment_run",
+        "local_result_parse",
+        "local_report_generation",
+        "jsonl_append",
+        "schema_validate",
+        "git_push",
+        "git_force_push",
+        "branch_delete",
+        "rm",
+        "overwrite",
+        "baseline_replacement",
+        "paper_claim_update",
+        "claim_status_change",
+        "public_release",
+        "expensive_full_run",
+        "global_method_block",
+        "in_place_jsonl_edit",
+        "schema_modification",
+        "kill_switch_remove"
+      ]
+    },
+    "default_policy": {
+      "type": "string",
+      "enum": ["auto_safe", "human_gate_required", "hard_block"],
+      "description": "auto_safe=proceed without prompt; human_gate_required=wait for JY; hard_block=never allowed even with JY."
+    },
+    "override_allowed": {
+      "type": "boolean",
+      "description": "Whether JY can flip the policy mid-session. hard_block always false."
+    },
+    "hook_enforcer": {
+      "type": ["string", "null"],
+      "description": "Path to .claude/hooks shell script that enforces this policy at PreToolUse"
+    },
+    "rationale": {
+      "type": "string",
+      "minLength": 5
+    },
+    "supersedes": {"type": ["string", "null"]},
+    "prev_hash": {"type": ["string", "null"]},
+    "row_id": {"type": "string"}
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "description": "hard_block actions cannot be overridden",
+      "if": {"properties": {"default_policy": {"const": "hard_block"}}},
+      "then": {
+        "properties": {"override_allowed": {"const": false}}
+      }
+    }
+  ]
+}

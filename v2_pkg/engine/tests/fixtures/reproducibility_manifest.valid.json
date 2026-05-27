@@ -1,0 +1,23 @@
+{
+  "row_id": "mf_024_001",
+  "exp_id": "exp_024_iemocap_lora_multiseed",
+  "created_at": "2026-04-23T14:23:01Z",
+  "git_sha": "a3f8c92",
+  "git_dirty": false,
+  "data_hash": "sha256:b91a000000000000000000000000000000000000000000000000000000000000",
+  "env_lock": "env.lock",
+  "env_lock_hash": "sha256:c8d2000000000000000000000000000000000000000000000000000000000000",
+  "random_state": {
+    "python": 42,
+    "numpy": 42,
+    "torch": 42,
+    "cuda_deterministic": true
+  },
+  "hardware": {
+    "gpu": "A6000 48GB",
+    "driver": "535.104",
+    "cuda": "12.1",
+    "host": "dell-precision-7960"
+  },
+  "container_digest": null
+}

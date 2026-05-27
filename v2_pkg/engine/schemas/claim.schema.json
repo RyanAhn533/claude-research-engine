@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/RyanAhn533/claude-research-engine/schemas/claim.schema.json",
+  "title": "Paper claim",
+  "description": "Links experiments to specific paper claims. Prevents narrative drift (external review §5.2). Required for paper_ready experiments.",
+  "type": "object",
+  "required": [
+    "claim_id",
+    "statement",
+    "status",
+    "required_for_submission",
+    "created_at"
+  ],
+  "properties": {
+    "claim_id": {
+      "type": "string",
+      "pattern": "^C[0-9]+_[a-z_]+$",
+      "description": "e.g. C1_lora_universal, C2_icl_modality_gated"
+    },
+    "statement": {
+      "type": "string",
+      "minLength": 10,
+      "description": "Paper claim in natural language. e.g. 'LoRA produces universal gains across modalities; ICL is modality-gated.'"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "active", "retired", "superseded", "contradicted"]
+    },
+    "supporting_exps": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^exp_[0-9]{3,}_[a-z_0-9]+$"}
+    },
+    "contradicting_exps": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^exp_[0-9]{3,}_[a-z_0-9]+$"}
+    },
+    "required_for_submission": {
+      "type": "boolean",
+      "description": "If true, CONDITIONAL_SELF_ATTACK is mandatory and paper_ready stage stats required."
+    },
+    "venue": {
+      "type": ["string", "null"],
+      "description": "Target venue, e.g. NeurIPS 2026, TAFFC"
+    },
+    "claim_role": {
+      "type": ["string", "null"],
+      "enum": ["primary", "secondary", "ablation", "robustness", "exploratory", null]
+    },
+    "self_attack_required": {"type": "boolean"},
+    "self_attack_runs": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Refs to SELF_ATTACK phase output rows"
+    },
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"},
+    "supersedes": {"type": ["string", "null"]},
+    "prev_hash": {"type": ["string", "null"]},
+    "row_id": {"type": "string"}
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "description": "Submission-required claims must declare a venue and require self-attack",
+      "if": {"properties": {"required_for_submission": {"const": true}}},
+      "then": {
+        "required": ["venue", "self_attack_required"],
+        "properties": {
+          "self_attack_required": {"const": true}
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "exp_id": "exp_024",
+  "created_at": "2026-04-23",
+  "git_sha": "NOT_HEX_AT_ALL_X",
+  "data_hash": "no-prefix",
+  "env_lock": "env.lock",
+  "random_state": {"python": "forty-two"},
+  "hardware": {}
+}

@@ -1,0 +1,14 @@
+{
+  "row_id": "task_001",
+  "task_id": "T_impl_3",
+  "phase": "IMPLEMENTATION",
+  "depends_on": ["T_impl_1", "T_impl_2"],
+  "status": "complete",
+  "started_at": "2026-05-22T10:00:00Z",
+  "completed_at": "2026-05-22T10:05:00Z",
+  "output_ref": "experiments/exp_027/run.py",
+  "error": null,
+  "retry_count": 0,
+  "thinking_budget": "medium",
+  "uses_subagent": false
+}

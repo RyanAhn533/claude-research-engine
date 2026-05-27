@@ -1,0 +1,6 @@
+{
+  "action_class": "git_push",
+  "default_policy": "hard_block",
+  "override_allowed": true,
+  "rationale": "x"
+}

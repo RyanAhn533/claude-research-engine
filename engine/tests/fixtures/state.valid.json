@@ -1,0 +1,21 @@
+{
+  "row_id": "state_2026-05-22T10:00:00Z_001",
+  "project": "02_emotion_agent",
+  "current_phase": "METHOD_SEARCH",
+  "iter": 27,
+  "current_exp": "exp_027_normwear_resnet_ablation",
+  "direction_prefix": "EMA",
+  "kill_switch_present": false,
+  "auto_mode": true,
+  "budget": {
+    "gpu_hours_used": 47.3,
+    "gpu_hours_total": 100,
+    "cost_usd_used": 234.50,
+    "cost_usd_total": 500,
+    "per_experiment_cap_gpu_hours": 8
+  },
+  "pending_human_gate": null,
+  "updated_at": "2026-05-22T10:00:00Z",
+  "supersedes": "state_2026-05-22T09:00:00Z_001",
+  "prev_hash": "sha256:abc"
+}

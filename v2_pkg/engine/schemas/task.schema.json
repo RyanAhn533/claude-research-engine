@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/RyanAhn533/claude-research-engine/schemas/task.schema.json",
+  "title": "Task DAG Node",
+  "description": "One task inside a phase DAG. DAGs do not cross phase boundaries (ARCHITECTURE §2.2).",
+  "type": "object",
+  "required": ["task_id", "phase", "depends_on", "status"],
+  "properties": {
+    "task_id": {
+      "type": "string",
+      "pattern": "^T_[a-z_]+_[0-9]+$",
+      "description": "e.g. T_impl_3"
+    },
+    "phase": {
+      "type": "string",
+      "enum": [
+        "BOOTSTRAP",
+        "STATUS_SYNC",
+        "METHOD_SEARCH",
+        "HYPOTHESIS_REGISTRATION",
+        "HUMAN_APPROVAL",
+        "AUTO_SAFE_APPROVAL",
+        "IMPLEMENTATION",
+        "REPAIR",
+        "EVALUATION",
+        "CLAIM_LINKING",
+        "CONDITIONAL_SELF_ATTACK",
+        "LOGGING",
+        "INSIGHT_UPDATE",
+        "PAPER_QUEUE_UPDATE",
+        "POSTMORTEM"
+      ]
+    },
+    "depends_on": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^T_[a-z_]+_[0-9]+$"}
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "running", "complete", "failed", "skipped", "blocked"]
+    },
+    "started_at": {"type": ["string", "null"], "format": "date-time"},
+    "completed_at": {"type": ["string", "null"], "format": "date-time"},
+    "output_ref": {
+      "type": ["string", "null"],
+      "description": "Path or id of task output. Inline blobs banned."
+    },
+    "error": {"type": ["string", "null"]},
+    "retry_count": {"type": "integer", "minimum": 0},
+    "thinking_budget": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "max"]
+    },
+    "uses_subagent": {"type": "boolean"},
+    "supersedes": {"type": ["string", "null"]},
+    "prev_hash": {"type": ["string", "null"]},
+    "row_id": {"type": "string"}
+  },
+  "additionalProperties": false
+}

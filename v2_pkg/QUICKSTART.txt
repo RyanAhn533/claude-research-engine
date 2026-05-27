@@ -1,0 +1,68 @@
+====================================================================
+  claude-research-engine v2 — quickstart
+====================================================================
+
+1) Unzip이 끝나면 repo 루트에 `v2_pkg/` 폴더가 생긴다.
+
+   cd ~/claude-research-engine
+   unzip ~/Downloads/claude_research_engine_v2_install.zip
+
+2) install 한 줄:
+
+   bash v2_pkg/install_v2.sh
+
+   이게:
+   - 기존 README.md, CLAUDE.md를 .v1_backup/ 으로 백업
+   - engine/, .claude/, docs/, install_v2.sh 를 repo 루트에 lay down
+   - jsonschema 자동 설치
+   - 24개 schema 검증 자동 실행
+
+3) 프로젝트 부트스트랩 (한 번만, 또는 새 프로젝트마다):
+
+   python -m engine.cli.jy bootstrap --project 02_emotion_agent --prefix EMA --gpu-hours 200
+
+4) Claude Code 진입:
+
+   claude
+   /status 02_emotion_agent
+   /validate 02_emotion_agent
+   /iter 02_emotion_agent 040
+
+5) (선택) git에 commit:
+
+   git add engine/ .claude/ docs/ README.md CLAUDE.md install_v2.sh .v1_backup/
+   git commit -m "v2 spine — schemas + append-only + permission policy + hooks"
+   git push     # ← 이건 너가 수동으로
+
+----------------------------------------
+설치 후 폴더 구조 (v1 위에 lay down 됨)
+----------------------------------------
+
+claude-research-engine/
+├── README.md                ← v2 (v1은 .v1_backup/README.md)
+├── CLAUDE.md                ← v2 prelude + v1 내용 보존
+├── docs/CHANGELOG_v1_to_v2.md
+├── install_v2.sh            ← 재설치/업그레이드용 (idempotent)
+│
+├── .claude/                 ← Claude Code 통합
+│   ├── settings.json
+│   ├── commands/            ← /iter /log /attack /status /validate
+│   └── hooks/               ← in-place edit + git push 차단
+│
+├── engine/
+│   ├── core/                ← append_only_logger / permission_policy / hashing
+│   ├── cli/jy.py            ← `python -m engine.cli.jy <cmd>`
+│   ├── schemas/             ← 8개 frozen schema
+│   └── tests/               ← 24개 validation (8 self + 8 valid + 8 invalid)
+│
+├── .v1_backup/              ← README.md, CLAUDE.md 원본 보존
+│
+└── projects/02_emotion_agent/   ← 부트스트랩 후 state/ 에 jsonl들 생김
+    └── state/
+        ├── engine_state.jsonl       (hash-chained)
+        ├── permission_policy.jsonl  (22 rows seeded)
+        ├── leaderboard.jsonl        (empty, 첫 LOGGING부터)
+        ├── paper_tried.jsonl
+        ├── hypothesis_registry.jsonl
+        ├── claim_registry.jsonl
+        └── task_log.jsonl

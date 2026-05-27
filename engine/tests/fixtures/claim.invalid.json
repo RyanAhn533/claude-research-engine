@@ -1,0 +1,9 @@
+{
+  "claim_id": "C1_lora_universal",
+  "statement": "LoRA is good across modalities and ICL is modality-gated.",
+  "status": "active",
+  "required_for_submission": true,
+  "venue": null,
+  "self_attack_required": false,
+  "created_at": "2026-04-24T03:30:00Z"
+}

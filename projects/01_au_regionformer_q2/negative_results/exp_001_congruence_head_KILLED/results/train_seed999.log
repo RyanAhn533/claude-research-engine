@@ -1,0 +1,41 @@
+[2026-05-23 14:22:10][train][INFO] Device: cuda
+[2026-05-23 14:22:11][train][INFO] Classes (4): {'angry': 0, 'happy': 1, 'neutral': 2, 'sad': 3}
+[2026-05-23 14:22:11][train][INFO] AU regions (8): ['cheek_left', 'cheek_right', 'chin', 'eyes_left', 'eyes_right', 'forehead', 'mouth', 'nose']
+[2026-05-23 14:22:12][train][INFO] [V2] global=mobilenetv4_conv_medium patch=mobilenetv4_conv_small A=True B=True combine=weighted tau_init=2.0
+[2026-05-23 14:22:14][train][INFO] [PCFER-CongruenceHead] attached. weight=0.3 d_emb=384 → 64 → 1, BCE(σ(W·g_feat), mean_is_selected)
+[2026-05-23 14:22:14][train][INFO] EMA enabled: decay=0.9997
+[2026-05-23 14:22:16][train][INFO] [BETA-ANCHOR] aux = 2.0 * MSE(mean(r), q) + 0.5 * (1 - var(r))
+[2026-05-23 14:27:17][train][INFO] [E001/30] train_loss=1.4875 acc=0.6106 | val_loss=1.3523 f1=0.3102 acc=0.3414 | lr=6.37e-04 | 243.2s/ep | ETA: 2h25m
+[2026-05-23 14:27:18][train][INFO]   ★ New best F1: 0.3102
+[2026-05-23 14:32:12][train][INFO] [E002/30] train_loss=1.1739 acc=0.7140 | val_loss=1.2563 f1=0.4326 acc=0.4451 | lr=2.19e-04 | 239.7s/ep | ETA: 2h19m
+[2026-05-23 14:32:14][train][INFO]   ★ New best F1: 0.4326
+[2026-05-23 14:37:08][train][INFO] [E003/30] train_loss=1.0792 acc=0.7455 | val_loss=1.1272 f1=0.5516 acc=0.5572 | lr=1.00e-06 | 240.2s/ep | ETA: 2h13m
+[2026-05-23 14:37:10][train][INFO]   ★ New best F1: 0.5516
+[2026-05-23 14:37:10][train][INFO] === Unfreezing backbone ===
+[2026-05-23 14:37:10][train][INFO] EMA re-initialized after backbone unfreeze
+[2026-05-23 14:47:16][train][INFO] [E004/30] train_loss=0.8160 acc=0.7980 | val_loss=0.5420 f1=0.8185 acc=0.8195 | lr=5.93e-05 | 551.2s/ep | ETA: 2h42m
+[2026-05-23 14:47:19][train][INFO]   ★ New best F1: 0.8185
+[2026-05-23 14:57:18][train][INFO] [E005/30] train_loss=0.8662 acc=0.8978 | val_loss=0.5029 f1=0.8479 acc=0.8486 | lr=7.99e-05 | 544.7s/ep | ETA: 2h55m
+[2026-05-23 14:57:21][train][INFO]   ★ New best F1: 0.8479
+[2026-05-23 15:07:20][train][INFO] [E006/30] train_loss=0.8636 acc=0.9251 | val_loss=0.4852 f1=0.8678 acc=0.8683 | lr=7.92e-05 | 544.4s/ep | ETA: 3h0m
+[2026-05-23 15:07:23][train][INFO]   ★ New best F1: 0.8678
+[2026-05-23 15:17:23][train][INFO] [E007/30] train_loss=0.8828 acc=0.9413 | val_loss=0.4763 f1=0.8857 acc=0.8861 | lr=7.79e-05 | 545.0s/ep | ETA: 3h1m
+[2026-05-23 15:17:26][train][INFO]   ★ New best F1: 0.8857
+[2026-05-23 15:27:25][train][INFO] [E008/30] train_loss=0.9401 acc=0.9497 | val_loss=0.4691 f1=0.8961 acc=0.8964 | lr=7.61e-05 | 544.7s/ep | ETA: 2h59m
+[2026-05-23 15:27:28][train][INFO]   ★ New best F1: 0.8961
+[2026-05-23 15:37:27][train][INFO] [E009/30] train_loss=0.9247 acc=0.9576 | val_loss=0.4607 f1=0.9040 acc=0.9043 | lr=7.37e-05 | 544.5s/ep | ETA: 2h55m
+[2026-05-23 15:37:30][train][INFO]   ★ New best F1: 0.9040
+[2026-05-23 15:47:29][train][INFO] [E010/30] train_loss=0.8924 acc=0.9644 | val_loss=0.4516 f1=0.9091 acc=0.9094 | lr=7.08e-05 | 544.9s/ep | ETA: 2h50m
+[2026-05-23 15:47:32][train][INFO]   ★ New best F1: 0.9091
+[2026-05-23 15:57:32][train][INFO] [E011/30] train_loss=0.8434 acc=0.9688 | val_loss=0.4411 f1=0.9126 acc=0.9129 | lr=6.74e-05 | 545.3s/ep | ETA: 2h44m
+[2026-05-23 15:57:35][train][INFO]   ★ New best F1: 0.9126
+[2026-05-23 16:07:33][train][INFO] [E012/30] train_loss=0.7410 acc=0.9679 | val_loss=0.4307 f1=0.9160 acc=0.9163 | lr=6.37e-05 | 544.0s/ep | ETA: 2h37m
+[2026-05-23 16:07:36][train][INFO]   ★ New best F1: 0.9160
+[2026-05-23 16:17:33][train][INFO] [E013/30] train_loss=0.7693 acc=0.9724 | val_loss=0.4194 f1=0.9186 acc=0.9189 | lr=5.96e-05 | 543.5s/ep | ETA: 2h30m
+[2026-05-23 16:17:36][train][INFO]   ★ New best F1: 0.9186
+[2026-05-23 16:27:34][train][INFO] [E014/30] train_loss=0.7647 acc=0.9748 | val_loss=0.4083 f1=0.9205 acc=0.9208 | lr=5.52e-05 | 544.0s/ep | ETA: 2h23m
+[2026-05-23 16:27:38][train][INFO]   ★ New best F1: 0.9205
+[2026-05-23 16:37:36][train][INFO] [E015/30] train_loss=0.8798 acc=0.9779 | val_loss=0.3974 f1=0.9215 acc=0.9218 | lr=5.05e-05 | 544.0s/ep | ETA: 2h15m
+[2026-05-23 16:37:39][train][INFO]   ★ New best F1: 0.9215
+[2026-05-23 16:47:39][train][INFO] [E016/30] train_loss=0.9381 acc=0.9799 | val_loss=0.3862 f1=0.9223 acc=0.9226 | lr=4.57e-05 | 545.1s/ep | ETA: 2h7m
+[2026-05-23 16:47:42][train][INFO]   ★ New best F1: 0.9223
