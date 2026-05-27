@@ -1,0 +1,18 @@
+exp_id: exp_002_phase_b_humankl_ablation
+created_at: 2026-05-24T21:51:39.921266+00:00
+git_sha: 6fe2f5f5bb04c10694946677f2b83a89746f4702
+git_dirty: true
+data_hash: sha256:0b21d71463817886e51f3e6b44f96dcee9c58d2d5a4a3a1cc6c9dc5f81a09fd4
+env_lock: /home/ajy/CLAUDE_RESEARCH_ENGINE/env.lock
+env_lock_hash: sha256:7c65c24538a0175597d6d7fb40efea329ef1dbd33d85e4d4c675dacfd46ab46b
+random_state:
+  python: 123
+  numpy: 123
+  torch: 123
+  cuda_deterministic: true
+hardware:
+  gpu: NVIDIA RTX A6000, 49140 MiB
+  driver: 550.144.03
+  cuda: Cuda compilation tools, release 11.5, V11.5.119
+  host: heartlab-Precision-7960-Tower
+container_digest: null
