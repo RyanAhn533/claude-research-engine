@@ -1,0 +1,106 @@
+{
+  "model": "qwen7b",
+  "seeds": [
+    42,
+    123,
+    777
+  ],
+  "renderer": {
+    "scale": 100.0,
+    "active_thr": 20.0,
+    "max_aus": 8,
+    "min_aus": 3
+  },
+  "results": {
+    "A_none_k4": {
+      "acc_mean": 41.083333333333336,
+      "acc_std": 0.3118047822311621,
+      "f1_mean": 0.33874015749285175,
+      "acc_seeds": [
+        41.0,
+        40.75,
+        41.5
+      ],
+      "per_emotion_acc": {
+        "angry": 17.333333333333336,
+        "happy": 87.66666666666666,
+        "neutral": 50.0,
+        "sad": 9.333333333333332
+      },
+      "parse_fail_total": 0,
+      "delta_vs_none_pp": 0.0
+    },
+    "B_textbook_k4": {
+      "acc_mean": 44.166666666666664,
+      "acc_std": 1.3123346456686362,
+      "f1_mean": 0.37589944098925904,
+      "acc_seeds": [
+        43.5,
+        43.0,
+        46.0
+      ],
+      "per_emotion_acc": {
+        "angry": 30.0,
+        "happy": 89.0,
+        "neutral": 52.33333333333333,
+        "sad": 5.333333333333334
+      },
+      "parse_fail_total": 0,
+      "delta_vs_none_pp": 3.0833333333333286
+    },
+    "C_derived_k4": {
+      "acc_mean": 42.416666666666664,
+      "acc_std": 2.5522321385189257,
+      "f1_mean": 0.3667111593695778,
+      "acc_seeds": [
+        45.5,
+        42.5,
+        39.25
+      ],
+      "per_emotion_acc": {
+        "angry": 24.333333333333332,
+        "happy": 81.0,
+        "neutral": 54.666666666666664,
+        "sad": 9.666666666666666
+      },
+      "parse_fail_total": 0,
+      "delta_vs_none_pp": 1.3333333333333286
+    },
+    "D_mouth_k4": {
+      "acc_mean": 41.75,
+      "acc_std": 1.4288690166235196,
+      "f1_mean": 0.32859924430519116,
+      "acc_seeds": [
+        41.75,
+        40.0,
+        43.5
+      ],
+      "per_emotion_acc": {
+        "angry": 11.0,
+        "happy": 90.66666666666667,
+        "neutral": 57.99999999999999,
+        "sad": 7.333333333333333
+      },
+      "parse_fail_total": 0,
+      "delta_vs_none_pp": 0.6666666666666643
+    },
+    "D_eyes_k4": {
+      "acc_mean": 44.5,
+      "acc_std": 0.7359800721939879,
+      "f1_mean": 0.39699289029799784,
+      "acc_seeds": [
+        43.75,
+        44.25,
+        45.5
+      ],
+      "per_emotion_acc": {
+        "angry": 27.666666666666668,
+        "happy": 82.33333333333333,
+        "neutral": 51.0,
+        "sad": 17.0
+      },
+      "parse_fail_total": 0,
+      "delta_vs_none_pp": 3.4166666666666643
+    }
+  }
+}

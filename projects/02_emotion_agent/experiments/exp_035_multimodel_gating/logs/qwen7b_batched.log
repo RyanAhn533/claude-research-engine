@@ -1,0 +1,225 @@
+[load] qwen7b bs=32 <- /mnt/hdd/ajy/caches/huggingface/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:39<01:57, 39.01s/it]Loading checkpoint shards:  50%|█████     | 2/4 [01:14<01:13, 36.80s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [01:49<00:36, 36.11s/it]Loading checkpoint shards: 100%|██████████| 4/4 [02:21<00:00, 34.48s/it]Loading checkpoint shards: 100%|██████████| 4/4 [02:21<00:00, 35.39s/it]
+[load] VRAM 5343 MB
+
+#### qwen7b / au (novel) / seed 42  N=400 {'angry': 100, 'happy': 100, 'neutral': 100, 'sad': 100}
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:628: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.7` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:633: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.8` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:650: UserWarning: `do_sample` is set to `False`. However, `top_k` is set to `20` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_k`.
+  warnings.warn(
+      [32/400] 4s
+      [160/400] 19s
+      [288/400] 34s
+      [400/400] 49s
+    zero_shot  acc=30.50% f1=0.238
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:628: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.7` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:633: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.8` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:650: UserWarning: `do_sample` is set to `False`. However, `top_k` is set to `20` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_k`.
+  warnings.warn(
+      [32/400] 5s
+      [160/400] 26s
+      [288/400] 46s
+      [400/400] 66s
+    icl_k4     acc=45.50% f1=0.410
+
+#### qwen7b / au (novel) / seed 123  N=400 {'angry': 100, 'happy': 100, 'neutral': 100, 'sad': 100}
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:628: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.7` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:633: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.8` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:650: UserWarning: `do_sample` is set to `False`. However, `top_k` is set to `20` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_k`.
+  warnings.warn(
+      [32/400] 4s
+      [160/400] 19s
+      [288/400] 35s
+      [400/400] 50s
+    zero_shot  acc=31.25% f1=0.253
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:628: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.7` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:633: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.8` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:650: UserWarning: `do_sample` is set to `False`. However, `top_k` is set to `20` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_k`.
+  warnings.warn(
+      [32/400] 5s
+      [160/400] 26s
+      [288/400] 46s
+      [400/400] 65s
+    icl_k4     acc=38.75% f1=0.335
+
+#### qwen7b / au (novel) / seed 777  N=400 {'angry': 100, 'happy': 100, 'neutral': 100, 'sad': 100}
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:628: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.7` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:633: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.8` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:650: UserWarning: `do_sample` is set to `False`. However, `top_k` is set to `20` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_k`.
+  warnings.warn(
+      [32/400] 4s
+      [160/400] 19s
+      [288/400] 35s
+      [400/400] 49s
+    zero_shot  acc=33.50% f1=0.269
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:628: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.7` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:633: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.8` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:650: UserWarning: `do_sample` is set to `False`. However, `top_k` is set to `20` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_k`.
+  warnings.warn(
+      [32/400] 5s
+      [160/400] 26s
+      [288/400] 46s
+      [400/400] 66s
+    icl_k4     acc=41.25% f1=0.348
+  >>> qwen7b/au: zero=31.75% icl=41.83%  GAIN=+10.08pp
+
+#### qwen7b / iemocap (familiar) / seed 42  N=400 {'angry': 100, 'happy': 100, 'neutral': 100, 'sad': 100}
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:628: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.7` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:633: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.8` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:650: UserWarning: `do_sample` is set to `False`. However, `top_k` is set to `20` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_k`.
+  warnings.warn(
+      [32/400] 3s
+      [160/400] 14s
+      [288/400] 24s
+      [400/400] 34s
+    zero_shot  acc=48.00% f1=0.465
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:628: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.7` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:633: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.8` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:650: UserWarning: `do_sample` is set to `False`. However, `top_k` is set to `20` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_k`.
+  warnings.warn(
+      [32/400] 3s
+      [160/400] 17s
+      [288/400] 31s
+      [400/400] 44s
+    icl_k4     acc=48.50% f1=0.484
+
+#### qwen7b / iemocap (familiar) / seed 123  N=400 {'angry': 100, 'happy': 100, 'neutral': 100, 'sad': 100}
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:628: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.7` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:633: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.8` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:650: UserWarning: `do_sample` is set to `False`. However, `top_k` is set to `20` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_k`.
+  warnings.warn(
+      [32/400] 3s
+      [160/400] 13s
+      [288/400] 22s
+      [400/400] 32s
+    zero_shot  acc=45.25% f1=0.430
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:628: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.7` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:633: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.8` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:650: UserWarning: `do_sample` is set to `False`. However, `top_k` is set to `20` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_k`.
+  warnings.warn(
+      [32/400] 4s
+      [160/400] 19s
+      [288/400] 33s
+      [400/400] 46s
+    icl_k4     acc=44.75% f1=0.432
+
+#### qwen7b / iemocap (familiar) / seed 777  N=400 {'angry': 100, 'happy': 100, 'neutral': 100, 'sad': 100}
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:628: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.7` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:633: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.8` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:650: UserWarning: `do_sample` is set to `False`. However, `top_k` is set to `20` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_k`.
+  warnings.warn(
+      [32/400] 3s
+      [160/400] 13s
+      [288/400] 23s
+      [400/400] 34s
+    zero_shot  acc=50.25% f1=0.497
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:628: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.7` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:633: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.8` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:650: UserWarning: `do_sample` is set to `False`. However, `top_k` is set to `20` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_k`.
+  warnings.warn(
+      [32/400] 3s
+      [160/400] 16s
+      [288/400] 29s
+      [400/400] 42s
+    icl_k4     acc=53.25% f1=0.535
+  >>> qwen7b/iemocap: zero=47.83% icl=48.83%  GAIN=+1.00pp
+
+#### qwen7b / meld (familiar) / seed 42  N=400 {'angry': 100, 'happy': 100, 'neutral': 100, 'sad': 100}
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:628: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.7` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:633: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.8` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:650: UserWarning: `do_sample` is set to `False`. However, `top_k` is set to `20` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_k`.
+  warnings.warn(
+      [32/400] 2s
+      [160/400] 13s
+      [288/400] 23s
+      [400/400] 32s
+    zero_shot  acc=51.25% f1=0.503
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:628: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.7` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:633: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.8` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:650: UserWarning: `do_sample` is set to `False`. However, `top_k` is set to `20` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_k`.
+  warnings.warn(
+      [32/400] 4s
+      [160/400] 16s
+      [288/400] 29s
+      [400/400] 41s
+    icl_k4     acc=49.50% f1=0.486
+
+#### qwen7b / meld (familiar) / seed 123  N=400 {'angry': 100, 'happy': 100, 'neutral': 100, 'sad': 100}
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:628: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.7` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:633: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.8` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:650: UserWarning: `do_sample` is set to `False`. However, `top_k` is set to `20` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_k`.
+  warnings.warn(
+      [32/400] 2s
+      [160/400] 12s
+      [288/400] 21s
+      [400/400] 31s
+    zero_shot  acc=56.50% f1=0.557
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:628: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.7` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:633: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.8` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:650: UserWarning: `do_sample` is set to `False`. However, `top_k` is set to `20` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_k`.
+  warnings.warn(
+      [32/400] 3s
+      [160/400] 17s
+      [288/400] 30s
+      [400/400] 43s
+    icl_k4     acc=56.00% f1=0.559
+
+#### qwen7b / meld (familiar) / seed 777  N=400 {'angry': 100, 'happy': 100, 'neutral': 100, 'sad': 100}
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:628: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.7` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:633: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.8` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:650: UserWarning: `do_sample` is set to `False`. However, `top_k` is set to `20` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_k`.
+  warnings.warn(
+      [32/400] 3s
+      [160/400] 12s
+      [288/400] 23s
+      [400/400] 32s
+    zero_shot  acc=57.00% f1=0.565
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:628: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.7` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:633: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.8` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:650: UserWarning: `do_sample` is set to `False`. However, `top_k` is set to `20` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_k`.
+  warnings.warn(
+      [32/400] 3s
+      [160/400] 16s
+      [288/400] 30s
+      [400/400] 42s
+    icl_k4     acc=61.25% f1=0.611
+  >>> qwen7b/meld: zero=54.92% icl=55.58%  GAIN=+0.67pp
+
+[SAVED] /home/ajy/CLAUDE_RESEARCH_ENGINE/projects/02_emotion_agent/experiments/exp_035_multimodel_gating/cache/gating_qwen7b.json
+[SUMMARY] au:+10.1pp(novel) | iemocap:+1.0pp(familiar) | meld:+0.7pp(familiar)

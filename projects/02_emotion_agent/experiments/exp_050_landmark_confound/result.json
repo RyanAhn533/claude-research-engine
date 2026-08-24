@@ -1,0 +1,12 @@
+{
+  "extractor": "landmark_geometric_17",
+  "overall_acc": 0.7740888982515273,
+  "macro_f1": 0.7726927298706576,
+  "per_emotion_acc": {
+    "happy": 0.8967604433077578,
+    "angry": 0.7159914361001317,
+    "sad": 0.649599862318217,
+    "neutral": 0.8336534446764092
+  },
+  "happy_minus_neg_gap": 0.214
+}

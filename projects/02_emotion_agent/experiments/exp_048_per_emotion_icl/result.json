@@ -1,0 +1,23 @@
+{
+  "happy": {
+    "zero": 0.056,
+    "icl": 0.762,
+    "gain_pp": 70.6
+  },
+  "angry": {
+    "zero": 0.058,
+    "icl": 0.202,
+    "gain_pp": 14.4
+  },
+  "sad": {
+    "zero": 0.01,
+    "icl": 0.192,
+    "gain_pp": 18.2
+  },
+  "neutral": {
+    "zero": 0.906,
+    "icl": 0.5,
+    "gain_pp": -40.6
+  },
+  "_ceiling_gap_happy_minus_neg": 0.565
+}

@@ -1,0 +1,52 @@
+
+##### qwen7b #####
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:01<00:03,  1.20s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:02<00:02,  1.26s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:03<00:01,  1.27s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:04<00:00,  1.21s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:04<00:00,  1.22s/it]
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:628: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.7` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:633: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.8` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:650: UserWarning: `do_sample` is set to `False`. However, `top_k` is set to `20` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_k`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:628: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.7` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:633: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.8` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:650: UserWarning: `do_sample` is set to `False`. However, `top_k` is set to `20` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_k`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:628: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.7` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:633: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.8` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:650: UserWarning: `do_sample` is set to `False`. However, `top_k` is set to `20` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_k`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:628: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.7` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:633: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.8` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:650: UserWarning: `do_sample` is set to `False`. However, `top_k` is set to `20` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_k`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:628: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.7` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:633: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.8` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+  warnings.warn(
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/configuration_utils.py:650: UserWarning: `do_sample` is set to `False`. However, `top_k` is set to `20` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_k`.
+  warnings.warn(
+>>> qwen7b: happy=0.762 angry=0.202 sad=0.192 neutral=0.5 GAP=0.565
+
+##### llama8b #####
+!!! llama8b FAIL: Can't load tokenizer for '/mnt/hdd/ajy/caches/huggingface/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659'. If you were trying to load it from 'https://huggingface.co/models', make sure you don't have a local directory with the same name. Otherwise, make sure '/mnt/hdd/ajy/caches/huggingface/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659' is the correct path to a directory containing all relevant files for a LlamaTokenizerFast tokenizer.
+
+##### mistral #####
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:41<01:23, 41.67s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [01:23<00:41, 41.98s/it]Loading checkpoint shards: 100%|██████████| 3/3 [02:02<00:00, 40.37s/it]Loading checkpoint shards: 100%|██████████| 3/3 [02:02<00:00, 40.77s/it]
+>>> mistral: happy=0.282 angry=0.14 sad=0.29 neutral=0.768 GAP=0.067
+
+##### yi6b #####
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:44<01:29, 44.78s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [01:30<00:45, 45.46s/it]Loading checkpoint shards: 100%|██████████| 3/3 [01:50<00:00, 33.96s/it]Loading checkpoint shards: 100%|██████████| 3/3 [01:50<00:00, 37.00s/it]
+>>> yi6b: happy=0.646 angry=0.18 sad=0.086 neutral=0.566 GAP=0.513
+
+##### falcon7b #####
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:43<02:11, 43.90s/it]Loading checkpoint shards:  50%|█████     | 2/4 [01:27<01:27, 43.91s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [02:06<00:41, 41.38s/it]Loading checkpoint shards: 100%|██████████| 4/4 [02:13<00:00, 27.91s/it]Loading checkpoint shards: 100%|██████████| 4/4 [02:13<00:00, 33.37s/it]
+>>> falcon7b: happy=0.702 angry=0.166 sad=0.11 neutral=0.58 GAP=0.564
+
+=== EXP_049 DONE — 3/5 모델 gap>0.15 ===
+{"qwen7b": 0.565, "llama8b": "ERR", "mistral": 0.067, "yi6b": 0.513, "falcon7b": 0.564}

@@ -1,0 +1,153 @@
+{
+  "qwen7b": {
+    "happy": 0.762,
+    "angry": 0.202,
+    "sad": 0.192,
+    "neutral": 0.5,
+    "_gap_happy_minus_neg": 0.565,
+    "_icl_confusion": {
+      "happy": {
+        "happy": 381,
+        "angry": 74,
+        "sad": 15,
+        "neutral": 30,
+        "other": 0
+      },
+      "angry": {
+        "happy": 272,
+        "angry": 101,
+        "sad": 41,
+        "neutral": 86,
+        "other": 0
+      },
+      "sad": {
+        "happy": 170,
+        "angry": 101,
+        "sad": 96,
+        "neutral": 133,
+        "other": 0
+      },
+      "neutral": {
+        "happy": 154,
+        "angry": 62,
+        "sad": 34,
+        "neutral": 250,
+        "other": 0
+      }
+    }
+  },
+  "llama8b": {
+    "error": "Can't load tokenizer for '/mnt/hdd/ajy/caches/huggingface/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659'. If you were trying to load it from 'https:/"
+  },
+  "mistral": {
+    "happy": 0.282,
+    "angry": 0.14,
+    "sad": 0.29,
+    "neutral": 0.768,
+    "_gap_happy_minus_neg": 0.067,
+    "_icl_confusion": {
+      "happy": {
+        "happy": 141,
+        "angry": 50,
+        "sad": 53,
+        "neutral": 256,
+        "other": 0
+      },
+      "angry": {
+        "happy": 33,
+        "angry": 70,
+        "sad": 99,
+        "neutral": 298,
+        "other": 0
+      },
+      "sad": {
+        "happy": 13,
+        "angry": 64,
+        "sad": 145,
+        "neutral": 278,
+        "other": 0
+      },
+      "neutral": {
+        "happy": 23,
+        "angry": 34,
+        "sad": 59,
+        "neutral": 384,
+        "other": 0
+      }
+    }
+  },
+  "yi6b": {
+    "happy": 0.646,
+    "angry": 0.18,
+    "sad": 0.086,
+    "neutral": 0.566,
+    "_gap_happy_minus_neg": 0.513,
+    "_icl_confusion": {
+      "happy": {
+        "happy": 323,
+        "angry": 46,
+        "sad": 4,
+        "neutral": 127,
+        "other": 0
+      },
+      "angry": {
+        "happy": 234,
+        "angry": 90,
+        "sad": 39,
+        "neutral": 137,
+        "other": 0
+      },
+      "sad": {
+        "happy": 202,
+        "angry": 35,
+        "sad": 43,
+        "neutral": 220,
+        "other": 0
+      },
+      "neutral": {
+        "happy": 131,
+        "angry": 53,
+        "sad": 33,
+        "neutral": 283,
+        "other": 0
+      }
+    }
+  },
+  "falcon7b": {
+    "happy": 0.702,
+    "angry": 0.166,
+    "sad": 0.11,
+    "neutral": 0.58,
+    "_gap_happy_minus_neg": 0.564,
+    "_icl_confusion": {
+      "happy": {
+        "happy": 351,
+        "angry": 63,
+        "sad": 15,
+        "neutral": 71,
+        "other": 0
+      },
+      "angry": {
+        "happy": 252,
+        "angry": 83,
+        "sad": 32,
+        "neutral": 133,
+        "other": 0
+      },
+      "sad": {
+        "happy": 156,
+        "angry": 76,
+        "sad": 55,
+        "neutral": 213,
+        "other": 0
+      },
+      "neutral": {
+        "happy": 141,
+        "angry": 49,
+        "sad": 20,
+        "neutral": 290,
+        "other": 0
+      }
+    }
+  }
+}

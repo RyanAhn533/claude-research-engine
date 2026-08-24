@@ -1,0 +1,13 @@
+[clean] === qwen7b 21:53:33 ===
+[clean] qwen7b:   >>> qwen7b: AU=+16.4 | ie=+1.6 | meld=-0.7
+[clean] === qwen14b 22:23:00 ===
+[clean] qwen14b:   >>> qwen14b: AU=+14.5 | ie=+4.9 | meld=+3.8
+[clean] === mistral 23:22:59 ===
+[clean] mistral:   >>> mistral: AU=+1.2 | ie=+2.4 | meld=-1.8
+[clean] === qwen3b 23:54:13 ===
+[clean] qwen3b:   >>> qwen3b: AU=+6.7 | ie=+1.8 | meld=-2.1
+[clean] === yi6b 00:09:45 ===
+[clean] yi6b:   >>> yi6b: AU=+10.5 | ie=+5.9 | meld=+2.0
+[clean] === falcon7b 00:37:19 ===
+[clean] falcon7b:   >>> falcon7b: AU=+14.7 | ie=+3.7 | meld=+1.5
+[clean] ALL DONE 01:01:08

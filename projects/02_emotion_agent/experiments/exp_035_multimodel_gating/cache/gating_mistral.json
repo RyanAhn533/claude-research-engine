@@ -1,0 +1,79 @@
+{
+  "model": "mistral",
+  "model_id": "mistralai--Mistral-7B-Instruct-v0.3",
+  "seeds": [
+    42,
+    123,
+    777
+  ],
+  "batched": true,
+  "batch_size": 32,
+  "results": {
+    "au": {
+      "novelty": "novel",
+      "zero_shot": {
+        "acc_mean": 0.2608333333333333,
+        "acc_std": 0.0014433756729740658,
+        "accs": [
+          0.2625,
+          0.26,
+          0.26
+        ]
+      },
+      "icl_k4": {
+        "acc_mean": 0.4124999999999999,
+        "acc_std": 0.049244289008980535,
+        "accs": [
+          0.4275,
+          0.3575,
+          0.4525
+        ]
+      },
+      "icl_gain_pp": 15.16666666666666
+    },
+    "iemocap": {
+      "novelty": "familiar",
+      "zero_shot": {
+        "acc_mean": 0.455,
+        "acc_std": 0.021794494717703367,
+        "accs": [
+          0.47,
+          0.43,
+          0.465
+        ]
+      },
+      "icl_k4": {
+        "acc_mean": 0.47583333333333333,
+        "acc_std": 0.031655699855370964,
+        "accs": [
+          0.4875,
+          0.44,
+          0.5
+        ]
+      },
+      "icl_gain_pp": 2.0833333333333313
+    },
+    "meld": {
+      "novelty": "familiar",
+      "zero_shot": {
+        "acc_mean": 0.5225,
+        "acc_std": 0.023848480035423645,
+        "accs": [
+          0.495,
+          0.535,
+          0.5375
+        ]
+      },
+      "icl_k4": {
+        "acc_mean": 0.5225,
+        "acc_std": 0.03473110997362454,
+        "accs": [
+          0.4825,
+          0.54,
+          0.545
+        ]
+      },
+      "icl_gain_pp": 0.0
+    }
+  }
+}

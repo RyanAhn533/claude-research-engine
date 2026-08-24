@@ -1,0 +1,117 @@
+[load] mistral bs=32 <- /mnt/hdd/ajy/caches/huggingface/hub/models--mistralai--Mistral-7B-Instruct-v0.3/snapshots/c170c708c41dac9275d15a8fff4eca08d52bab71
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:02,  1.49s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:02<00:01,  1.44s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:04<00:00,  1.36s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:04<00:00,  1.39s/it]
+[load] VRAM 3947 MB
+
+#### mistral / au (novel) / seed 42  N=400 {'angry': 100, 'happy': 100, 'neutral': 100, 'sad': 100}
+      [32/400] 4s
+      [160/400] 22s
+      [288/400] 39s
+      [400/400] 56s
+    zero_shot  acc=26.25% f1=0.125
+      [32/400] 6s
+      [160/400] 31s
+      [288/400] 56s
+      [400/400] 79s
+    icl_k4     acc=42.75% f1=0.387
+
+#### mistral / au (novel) / seed 123  N=400 {'angry': 100, 'happy': 100, 'neutral': 100, 'sad': 100}
+      [32/400] 4s
+      [160/400] 22s
+      [288/400] 39s
+      [400/400] 56s
+    zero_shot  acc=26.00% f1=0.125
+      [32/400] 6s
+      [160/400] 31s
+      [288/400] 56s
+      [400/400] 79s
+    icl_k4     acc=35.75% f1=0.339
+
+#### mistral / au (novel) / seed 777  N=400 {'angry': 100, 'happy': 100, 'neutral': 100, 'sad': 100}
+      [32/400] 4s
+      [160/400] 22s
+      [288/400] 39s
+      [400/400] 56s
+    zero_shot  acc=26.00% f1=0.124
+      [32/400] 6s
+      [160/400] 31s
+      [288/400] 55s
+      [400/400] 78s
+    icl_k4     acc=45.25% f1=0.446
+  >>> mistral/au: zero=26.08% icl=41.25%  GAIN=+15.17pp
+
+#### mistral / iemocap (familiar) / seed 42  N=400 {'angry': 100, 'happy': 100, 'neutral': 100, 'sad': 100}
+      [32/400] 4s
+      [160/400] 21s
+      [288/400] 37s
+      [400/400] 53s
+    zero_shot  acc=47.00% f1=0.453
+      [32/400] 5s
+      [160/400] 27s
+      [288/400] 48s
+      [400/400] 69s
+    icl_k4     acc=48.75% f1=0.479
+
+#### mistral / iemocap (familiar) / seed 123  N=400 {'angry': 100, 'happy': 100, 'neutral': 100, 'sad': 100}
+      [32/400] 4s
+      [160/400] 21s
+      [288/400] 37s
+      [400/400] 53s
+    zero_shot  acc=43.00% f1=0.394
+      [32/400] 6s
+      [160/400] 29s
+      [288/400] 51s
+      [400/400] 73s
+    icl_k4     acc=44.00% f1=0.414
+
+#### mistral / iemocap (familiar) / seed 777  N=400 {'angry': 100, 'happy': 100, 'neutral': 100, 'sad': 100}
+      [32/400] 4s
+      [160/400] 21s
+      [288/400] 37s
+      [400/400] 54s
+    zero_shot  acc=46.50% f1=0.453
+      [32/400] 5s
+      [160/400] 26s
+      [288/400] 47s
+      [400/400] 68s
+    icl_k4     acc=50.00% f1=0.496
+  >>> mistral/iemocap: zero=45.50% icl=47.58%  GAIN=+2.08pp
+
+#### mistral / meld (familiar) / seed 42  N=400 {'angry': 100, 'happy': 100, 'neutral': 100, 'sad': 100}
+      [32/400] 4s
+      [160/400] 20s
+      [288/400] 35s
+      [400/400] 50s
+    zero_shot  acc=49.50% f1=0.483
+      [32/400] 5s
+      [160/400] 26s
+      [288/400] 47s
+      [400/400] 67s
+    icl_k4     acc=48.25% f1=0.474
+
+#### mistral / meld (familiar) / seed 123  N=400 {'angry': 100, 'happy': 100, 'neutral': 100, 'sad': 100}
+      [32/400] 4s
+      [160/400] 19s
+      [288/400] 35s
+      [400/400] 50s
+    zero_shot  acc=53.50% f1=0.520
+      [32/400] 5s
+      [160/400] 26s
+      [288/400] 46s
+      [400/400] 66s
+    icl_k4     acc=54.00% f1=0.539
+
+#### mistral / meld (familiar) / seed 777  N=400 {'angry': 100, 'happy': 100, 'neutral': 100, 'sad': 100}
+      [32/400] 4s
+      [160/400] 20s
+      [288/400] 36s
+      [400/400] 51s
+    zero_shot  acc=53.75% f1=0.527
+      [32/400] 5s
+      [160/400] 27s
+      [288/400] 48s
+      [400/400] 68s
+    icl_k4     acc=54.50% f1=0.545
+  >>> mistral/meld: zero=52.25% icl=52.25%  GAIN=+0.00pp
+
+[SAVED] /home/ajy/CLAUDE_RESEARCH_ENGINE/projects/02_emotion_agent/experiments/exp_035_multimodel_gating/cache/gating_mistral.json
+[SUMMARY] au:+15.2pp(novel) | iemocap:+2.1pp(familiar) | meld:+0.0pp(familiar)

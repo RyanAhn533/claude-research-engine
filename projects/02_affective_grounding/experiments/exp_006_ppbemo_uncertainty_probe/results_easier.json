@@ -1,0 +1,58 @@
+{
+  "valence_bin": {
+    "bal_acc_per_seed": [
+      0.5698529411764706,
+      0.5797511312217194,
+      0.5687217194570136
+    ],
+    "bal_acc_mean": 0.5727752639517345,
+    "err_unc_auroc_per_seed": [
+      0.4954768858180782,
+      0.4716872664558781,
+      0.5048792649049078
+    ],
+    "err_unc_auroc_mean": 0.49068113905962135,
+    "err_unc_auroc_ci95": [
+      0.420629772341629,
+      0.5689981449196533
+    ],
+    "ece_mean": 0.2915276601910591,
+    "auc_mean": 0.5683092948717948,
+    "risk_coverage": {
+      "full": 0.5727752639517345,
+      "cov80": 0.5787626151820974,
+      "cov50": 0.5713286713286714
+    },
+    "supported_err_unc": false
+  },
+  "arousal_bin": {
+    "bal_acc_per_seed": [
+      0.5077014658828782,
+      0.4941587915767542,
+      0.4941587915767542
+    ],
+    "bal_acc_mean": 0.49867301634546224,
+    "err_unc_auroc_per_seed": [
+      0.495311167945439,
+      0.5077064479638009,
+      0.5098274886877827
+    ],
+    "err_unc_auroc_mean": 0.5042817015323409,
+    "err_unc_auroc_ci95": [
+      0.4157325465025764,
+      0.5725746164512576
+    ],
+    "ece_mean": 0.3086970872349209,
+    "auc_mean": 0.4809757670461592,
+    "risk_coverage": {
+      "full": 0.49867301634546224,
+      "cov80": 0.5194444444444444,
+      "cov50": 0.485426989215972
+    },
+    "supported_err_unc": false
+  },
+  "verdict": {
+    "valence_bin_uncertainty_informative": false,
+    "arousal_bin_uncertainty_informative": false
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "model": "trpakov/vit-face-expression",
+  "dataset": "AffectNet(Western)",
+  "per_emotion": {
+    "happy": {
+      "n": 300,
+      "acc": 0.897
+    },
+    "angry": {
+      "n": 300,
+      "acc": 0.447
+    },
+    "sad": {
+      "n": 300,
+      "acc": 0.367
+    },
+    "neutral": {
+      "n": 300,
+      "acc": 0.577
+    }
+  },
+  "confusion": {
+    "happy": {
+      "happy": 269,
+      "neutral": 26,
+      "angry": 4,
+      "sad": 1
+    },
+    "angry": {
+      "angry": 134,
+      "neutral": 100,
+      "sad": 33,
+      "other": 17,
+      "happy": 16
+    },
+    "sad": {
+      "neutral": 116,
+      "angry": 39,
+      "other": 20,
+      "sad": 110,
+      "happy": 15
+    },
+    "neutral": {
+      "neutral": 173,
+      "happy": 38,
+      "angry": 43,
+      "sad": 34,
+      "other": 12
+    }
+  },
+  "gap_happy_minus_neg": 0.49
+}

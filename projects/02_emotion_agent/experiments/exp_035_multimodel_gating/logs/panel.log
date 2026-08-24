@@ -1,0 +1,10 @@
+[panel] ==== mistral ====
+[panel] launching mistral 16:18:50
+[panel] mistral done 16:37:47: [SUMMARY] au:+15.2pp(novel) | iemocap:+2.1pp(familiar) | meld:+0.0pp(familiar)
+[panel] ==== phi35 ====
+[panel] launching phi35 16:37:47
+[panel] phi35 done 16:37:55: 
+[panel] ==== qwen14b ====
+[panel] launching qwen14b 16:37:55
+[panel] qwen14b done 17:09:21: [SUMMARY] au:+16.7pp(novel) | iemocap:+5.5pp(familiar) | meld:+4.7pp(familiar)
+[panel] ALL DONE 17:09:21

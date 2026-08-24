@@ -1,0 +1,94 @@
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:01<00:04,  1.56s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:03<00:03,  1.56s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:04<00:01,  1.60s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:06<00:00,  1.52s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:06<00:00,  1.54s/it]
+[task] en_fr neutral=True n_cand=20
+[zero] 0.667
+[icl ] 1.000
+[gain] 0.333
+[L=00 a=0.25] patched=0.667 abs_gain=+0.000 recovery=0.000
+[L=00 a=0.5] patched=0.667 abs_gain=+0.000 recovery=0.000
+[L=00 a=1.0] patched=0.667 abs_gain=+0.000 recovery=0.000
+[L=00 a=2.0] patched=0.667 abs_gain=+0.000 recovery=0.000
+[L=01 a=0.25] patched=0.667 abs_gain=+0.000 recovery=0.000
+[L=01 a=0.5] patched=0.667 abs_gain=+0.000 recovery=0.000
+[L=01 a=1.0] patched=0.500 abs_gain=-0.167 recovery=-0.500
+[L=01 a=2.0] patched=0.500 abs_gain=-0.167 recovery=-0.500
+[L=02 a=0.25] patched=0.583 abs_gain=-0.083 recovery=-0.250
+[L=02 a=0.5] patched=0.500 abs_gain=-0.167 recovery=-0.500
+[L=02 a=1.0] patched=0.500 abs_gain=-0.167 recovery=-0.500
+[L=02 a=2.0] patched=0.500 abs_gain=-0.167 recovery=-0.500
+[L=03 a=0.25] patched=0.583 abs_gain=-0.083 recovery=-0.250
+[L=03 a=0.5] patched=0.500 abs_gain=-0.167 recovery=-0.500
+[L=03 a=1.0] patched=0.500 abs_gain=-0.167 recovery=-0.500
+[L=03 a=2.0] patched=0.333 abs_gain=-0.333 recovery=-1.000
+[L=04 a=0.25] patched=0.500 abs_gain=-0.167 recovery=-0.500
+[L=04 a=0.5] patched=0.500 abs_gain=-0.167 recovery=-0.500
+[L=04 a=1.0] patched=0.500 abs_gain=-0.167 recovery=-0.500
+[L=04 a=2.0] patched=0.500 abs_gain=-0.167 recovery=-0.500
+[L=05 a=0.25] patched=0.500 abs_gain=-0.167 recovery=-0.500
+[L=05 a=0.5] patched=0.500 abs_gain=-0.167 recovery=-0.500
+[L=05 a=1.0] patched=0.417 abs_gain=-0.250 recovery=-0.750
+[L=05 a=2.0] patched=0.583 abs_gain=-0.083 recovery=-0.250
+[L=06 a=0.25] patched=0.500 abs_gain=-0.167 recovery=-0.500
+[L=06 a=0.5] patched=0.583 abs_gain=-0.083 recovery=-0.250
+[L=06 a=1.0] patched=0.500 abs_gain=-0.167 recovery=-0.500
+[L=06 a=2.0] patched=0.667 abs_gain=+0.000 recovery=0.000
+[L=07 a=0.25] patched=0.500 abs_gain=-0.167 recovery=-0.500
+[L=07 a=0.5] patched=0.500 abs_gain=-0.167 recovery=-0.500
+[L=07 a=1.0] patched=0.583 abs_gain=-0.083 recovery=-0.250
+[L=07 a=2.0] patched=0.833 abs_gain=+0.167 recovery=0.500
+[L=08 a=0.25] patched=0.500 abs_gain=-0.167 recovery=-0.500
+[L=08 a=0.5] patched=0.583 abs_gain=-0.083 recovery=-0.250
+[L=08 a=1.0] patched=0.667 abs_gain=+0.000 recovery=0.000
+[L=08 a=2.0] patched=0.667 abs_gain=+0.000 recovery=0.000
+[L=09 a=0.25] patched=0.500 abs_gain=-0.167 recovery=-0.500
+[L=09 a=0.5] patched=0.500 abs_gain=-0.167 recovery=-0.500
+[L=09 a=1.0] patched=0.667 abs_gain=+0.000 recovery=0.000
+[L=09 a=2.0] patched=0.500 abs_gain=-0.167 recovery=-0.500
+[L=10 a=0.25] patched=0.583 abs_gain=-0.083 recovery=-0.250
+[L=10 a=0.5] patched=0.583 abs_gain=-0.083 recovery=-0.250
+[L=10 a=1.0] patched=0.500 abs_gain=-0.167 recovery=-0.500
+[L=10 a=2.0] patched=0.500 abs_gain=-0.167 recovery=-0.500
+[L=11 a=0.25] patched=0.583 abs_gain=-0.083 recovery=-0.250
+[L=11 a=0.5] patched=0.500 abs_gain=-0.167 recovery=-0.500
+[L=11 a=1.0] patched=0.500 abs_gain=-0.167 recovery=-0.500
+[L=11 a=2.0] patched=0.500 abs_gain=-0.167 recovery=-0.500
+[L=12 a=0.25] patched=0.583 abs_gain=-0.083 recovery=-0.250
+[L=12 a=0.5] patched=0.500 abs_gain=-0.167 recovery=-0.500
+[L=12 a=1.0] patched=0.667 abs_gain=+0.000 recovery=0.000
+[L=12 a=2.0] patched=0.333 abs_gain=-0.333 recovery=-1.000
+[L=13 a=0.25] patched=0.583 abs_gain=-0.083 recovery=-0.250
+[L=13 a=0.5] patched=0.667 abs_gain=+0.000 recovery=0.000
+[L=13 a=1.0] patched=0.667 abs_gain=+0.000 recovery=0.000
+[L=13 a=2.0] patched=0.333 abs_gain=-0.333 recovery=-1.000
+[L=14 a=0.25] patched=0.583 abs_gain=-0.083 recovery=-0.250
+[L=14 a=0.5] patched=0.667 abs_gain=+0.000 recovery=0.000
+[L=14 a=1.0] patched=0.583 abs_gain=-0.083 recovery=-0.250
+[L=14 a=2.0] patched=0.333 abs_gain=-0.333 recovery=-1.000
+[L=15 a=0.25] patched=0.583 abs_gain=-0.083 recovery=-0.250
+[L=15 a=0.5] patched=0.583 abs_gain=-0.083 recovery=-0.250
+[L=15 a=1.0] patched=0.583 abs_gain=-0.083 recovery=-0.250
+[L=15 a=2.0] patched=0.333 abs_gain=-0.333 recovery=-1.000
+[L=16 a=0.25] patched=0.583 abs_gain=-0.083 recovery=-0.250
+[L=16 a=0.5] patched=0.583 abs_gain=-0.083 recovery=-0.250
+[L=16 a=1.0] patched=0.417 abs_gain=-0.250 recovery=-0.750
+[L=16 a=2.0] patched=0.167 abs_gain=-0.500 recovery=-1.500
+[L=17 a=0.25] patched=0.667 abs_gain=+0.000 recovery=0.000
+[L=17 a=0.5] patched=0.500 abs_gain=-0.167 recovery=-0.500
+[L=17 a=1.0] patched=0.417 abs_gain=-0.250 recovery=-0.750
+[L=17 a=2.0] patched=0.333 abs_gain=-0.333 recovery=-1.000
+[L=18 a=0.25] patched=0.583 abs_gain=-0.083 recovery=-0.250
+[L=18 a=0.5] patched=0.583 abs_gain=-0.083 recovery=-0.250
+[L=18 a=1.0] patched=0.417 abs_gain=-0.250 recovery=-0.750
+[L=18 a=2.0] patched=0.250 abs_gain=-0.417 recovery=-1.250
+[L=19 a=0.25] patched=0.500 abs_gain=-0.167 recovery=-0.500
+[L=19 a=0.5] patched=0.500 abs_gain=-0.167 recovery=-0.500
+[L=19 a=1.0] patched=0.417 abs_gain=-0.250 recovery=-0.750
+[L=19 a=2.0] patched=0.167 abs_gain=-0.500 recovery=-1.500
+[L=20 a=0.25] patched=0.500 abs_gain=-0.167 recovery=-0.500
+[L=20 a=0.5] patched=0.500 abs_gain=-0.167 recovery=-0.500
+[L=20 a=1.0] patched=0.417 abs_gain=-0.250 recovery=-0.750
+[L=20 a=2.0] patched=0.167 abs_gain=-0.500 recovery=-1.500
+[L=21 a=0.25] patched=0.417 abs_gain=-0.250 recovery=-0.750
+[L=21 a=0.5] patched=0.333 abs_gain=-0.333 recovery=-1.000
+[L=21 a=1.0] patched=0.250 abs_gain=-0.417 recovery=-1.250
+[L=21 a=2.0] patched=0.167 abs_gain=-0.500 recovery=-1.500
+[L=22 a=0.25] patched=0.500 abs_gain=-0.167 recovery=-0.500

@@ -1,0 +1,39 @@
+[load] phi35 bs=32 mode=fp16 <- /mnt/hdd/ajy/caches/huggingface/hub/models--microsoft--Phi-3.5-mini-instruct/snapshots/2fe192450127e6a83f7441aef6e3ca586c338b77
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:00<00:00,  1.42it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.72it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.67it/s]
+[load] VRAM 7288 MB
+
+#### phi35 / au (novel) / seed 42  N=400 {'angry': 100, 'happy': 100, 'neutral': 100, 'sad': 100}
+Traceback (most recent call last):
+  File "/home/ajy/CLAUDE_RESEARCH_ENGINE/projects/02_emotion_agent/experiments/exp_035_multimodel_gating/run_gating_batched.py", line 80, in <module>
+    acc, f1 = run_cfg(items, exemplars, prompt_fn, model, tok, use_icl, args.batch_size)
+  File "/home/ajy/CLAUDE_RESEARCH_ENGINE/projects/02_emotion_agent/experiments/exp_035_multimodel_gating/run_gating_batched.py", line 38, in run_cfg
+    raws = gen_batch(msgs[b:b+bs], model, tok)
+  File "/home/ajy/CLAUDE_RESEARCH_ENGINE/projects/02_emotion_agent/experiments/exp_035_multimodel_gating/run_gating_batched.py", line 27, in gen_batch
+    out = model.generate(**enc, max_new_tokens=max_new_tokens, do_sample=False,
+  File "/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/utils.py", line 2255, in generate
+    result = self._sample(
+  File "/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/generation/utils.py", line 3254, in _sample
+    outputs = self(**model_inputs, return_dict=True)
+  File "/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/models/phi3/modeling_phi3.py", line 899, in forward
+    outputs = self.model(
+  File "/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/models/phi3/modeling_phi3.py", line 605, in forward
+    position_embeddings = self.rotary_emb(hidden_states, position_ids)
+  File "/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/transformers/models/phi3/modeling_phi3.py", line 368, in forward
+    freqs = (inv_freq_expanded.float() @ position_ids_expanded.float()).transpose(1, 2)
+RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cpu and cuda:0! (when checking argument for argument mat2 in method wrapper_CUDA_bmm)

@@ -1,0 +1,75 @@
+{
+  "rows": [
+    {
+      "model": "qwen7b",
+      "ds": "au",
+      "fertility": 2.975760101010101,
+      "tok_per_sample": 28.755,
+      "gain": 10.08
+    },
+    {
+      "model": "qwen7b",
+      "ds": "iemocap",
+      "fertility": 1.4752945468133607,
+      "tok_per_sample": 17.945,
+      "gain": 1.0
+    },
+    {
+      "model": "qwen7b",
+      "ds": "meld",
+      "fertility": 1.5932787510262356,
+      "tok_per_sample": 12.395,
+      "gain": 0.67
+    },
+    {
+      "model": "mistral",
+      "ds": "au",
+      "fertility": 3.196756313131313,
+      "tok_per_sample": 30.885,
+      "gain": 15.17
+    },
+    {
+      "model": "mistral",
+      "ds": "iemocap",
+      "fertility": 1.8026399742541273,
+      "tok_per_sample": 20.475,
+      "gain": 2.08
+    },
+    {
+      "model": "mistral",
+      "ds": "meld",
+      "fertility": 1.9220883882844026,
+      "tok_per_sample": 14.06,
+      "gain": 0.0
+    },
+    {
+      "model": "qwen14b",
+      "ds": "au",
+      "fertility": 2.975760101010101,
+      "tok_per_sample": 28.755,
+      "gain": 16.67
+    },
+    {
+      "model": "qwen14b",
+      "ds": "iemocap",
+      "fertility": 1.4752945468133607,
+      "tok_per_sample": 17.945,
+      "gain": 5.5
+    },
+    {
+      "model": "qwen14b",
+      "ds": "meld",
+      "fertility": 1.5932787510262356,
+      "tok_per_sample": 12.395,
+      "gain": 4.67
+    }
+  ],
+  "spearman": {
+    "rho": 0.5232486729932277,
+    "p": 0.14829241377783678
+  },
+  "pearson": {
+    "r": 0.8766780327818381,
+    "p": 0.0019183408631861113
+  }
+}

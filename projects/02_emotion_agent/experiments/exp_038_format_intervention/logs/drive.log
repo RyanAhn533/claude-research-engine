@@ -1,0 +1,5 @@
+[drive] qwen7b 17:44:06
+[drive] qwen7b done: [H1] numeric_gain - prose_gain = +9.67pp (>0 supports format-novelty cause)
+[drive] mistral 17:53:44
+[drive] mistral done: [H1] numeric_gain - prose_gain = -3.50pp (>0 supports format-novelty cause)
+[drive] ALL DONE 18:05:56

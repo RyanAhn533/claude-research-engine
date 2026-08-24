@@ -1,0 +1,67 @@
+{
+  "cells": [
+    {
+      "model": "qwen7b",
+      "ds": "au",
+      "novelty": "novel",
+      "within_zero": 16.205392837524414,
+      "within_icl": 17.611597061157227,
+      "compaction": -0.08677384360449913,
+      "gain_pp": 10.08
+    },
+    {
+      "model": "qwen7b",
+      "ds": "iemocap",
+      "novelty": "familiar",
+      "within_zero": 23.75499153137207,
+      "within_icl": 26.142526626586914,
+      "compaction": -0.10050667002182423,
+      "gain_pp": 1.0
+    },
+    {
+      "model": "mistral",
+      "ds": "au",
+      "novelty": "novel",
+      "within_zero": 28.614185333251953,
+      "within_icl": 21.78543472290039,
+      "compaction": 0.23864913611278016,
+      "gain_pp": 15.17
+    },
+    {
+      "model": "mistral",
+      "ds": "iemocap",
+      "novelty": "familiar",
+      "within_zero": 48.28740310668945,
+      "within_icl": 30.71786117553711,
+      "compaction": 0.36385352702304186,
+      "gain_pp": 2.08
+    },
+    {
+      "model": "qwen14b",
+      "ds": "au",
+      "novelty": "novel",
+      "within_zero": 18.642513275146484,
+      "within_icl": 15.575294494628906,
+      "compaction": 0.16452818003925906,
+      "gain_pp": 16.67
+    },
+    {
+      "model": "qwen14b",
+      "ds": "iemocap",
+      "novelty": "familiar",
+      "within_zero": 25.10283088684082,
+      "within_icl": 22.690832138061523,
+      "compaction": 0.09608473082785629,
+      "gain_pp": 5.5
+    }
+  ],
+  "H2_spearman": {
+    "rho": 0.3142857142857143,
+    "p": 0.5440932944606414,
+    "n": 6
+  },
+  "H2_pearson": {
+    "r": 0.1623415755273076,
+    "p": 0.7586268755429163
+  }
+}

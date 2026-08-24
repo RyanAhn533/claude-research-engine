@@ -1,0 +1,6 @@
+[load] mistral
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:02,  1.36s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:02<00:01,  1.39s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:04<00:00,  1.36s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:04<00:00,  1.37s/it]
+  mistral/natural: zero=89.2 gold=89.0 rand=90.2 | gain=-0.2 TR=+1.0 TL=-1.2 fert=1.32
+  mistral/leet: zero=55.8 gold=51.0 rand=55.3 | gain=-4.8 TR=-0.5 TL=-4.3 fert=4.85
+[H] leet_gain - natural_gain = -4.7pp (>0 = format novelty causes gain in NON-emotion sentiment task)
+[SAVED] sent_mistral.json

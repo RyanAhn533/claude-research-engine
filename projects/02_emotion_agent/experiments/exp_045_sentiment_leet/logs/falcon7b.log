@@ -1,0 +1,6 @@
+[load] falcon7b
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:01<00:03,  1.30s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:02<00:02,  1.28s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:03<00:01,  1.18s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:03<00:00,  1.18it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:03<00:00,  1.01it/s]
+  falcon7b/natural: zero=94.0 gold=93.7 rand=93.3 | gain=-0.3 TR=-0.7 TL=+0.3 fert=1.16
+  falcon7b/leet: zero=57.7 gold=65.5 rand=63.7 | gain=+7.8 TR=+6.0 TL=+1.8 fert=4.73
+[H] leet_gain - natural_gain = +8.2pp (>0 = format novelty causes gain in NON-emotion sentiment task)
+[SAVED] sent_falcon7b.json

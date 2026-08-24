@@ -1,0 +1,9 @@
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.48, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+FER labels: {0: 'angry', 1: 'disgust', 2: 'fear', 3: 'happy', 4: 'neutral', 5: 'sad', 6: 'surprise'}
+>>> happy: acc=0.753 n=300 conf={'happy': 226, 'sad': 47, 'neutral': 27}
+>>> angry: acc=0.237 n=300 conf={'neutral': 99, 'sad': 56, 'other': 26, 'angry': 71, 'happy': 48}
+>>> sad: acc=0.377 n=300 conf={'neutral': 142, 'sad': 113, 'happy': 15, 'angry': 17, 'other': 13}
+>>> neutral: acc=0.813 n=300 conf={'neutral': 244, 'happy': 19, 'sad': 35, 'other': 1, 'angry': 1}
+
+=== EXP_051 DONE ===  gap= 0.446
+{"happy": {"n": 300, "acc": 0.753}, "angry": {"n": 300, "acc": 0.237}, "sad": {"n": 300, "acc": 0.377}, "neutral": {"n": 300, "acc": 0.813}}

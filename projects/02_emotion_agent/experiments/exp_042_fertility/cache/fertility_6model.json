@@ -1,0 +1,148 @@
+{
+  "rows": [
+    {
+      "model": "qwen3b",
+      "ds": "au",
+      "fertility": 2.975760101010101,
+      "gain": 6.749999999999995,
+      "novelty": "novel"
+    },
+    {
+      "model": "qwen3b",
+      "ds": "iemocap",
+      "fertility": 1.4752945468133607,
+      "gain": 1.8000000000000016,
+      "novelty": "familiar"
+    },
+    {
+      "model": "qwen3b",
+      "ds": "meld",
+      "fertility": 1.5932787510262356,
+      "gain": -2.050000000000013,
+      "novelty": "familiar"
+    },
+    {
+      "model": "qwen7b",
+      "ds": "au",
+      "fertility": 2.975760101010101,
+      "gain": 16.45,
+      "novelty": "novel"
+    },
+    {
+      "model": "qwen7b",
+      "ds": "iemocap",
+      "fertility": 1.4752945468133607,
+      "gain": 1.649999999999996,
+      "novelty": "familiar"
+    },
+    {
+      "model": "qwen7b",
+      "ds": "meld",
+      "fertility": 1.5932787510262356,
+      "gain": -0.7499999999999951,
+      "novelty": "familiar"
+    },
+    {
+      "model": "qwen14b",
+      "ds": "au",
+      "fertility": 2.975760101010101,
+      "gain": 14.499999999999996,
+      "novelty": "novel"
+    },
+    {
+      "model": "qwen14b",
+      "ds": "iemocap",
+      "fertility": 1.4752945468133607,
+      "gain": 4.949999999999999,
+      "novelty": "familiar"
+    },
+    {
+      "model": "qwen14b",
+      "ds": "meld",
+      "fertility": 1.5932787510262356,
+      "gain": 3.7999999999999923,
+      "novelty": "familiar"
+    },
+    {
+      "model": "mistral",
+      "ds": "au",
+      "fertility": 3.196756313131313,
+      "gain": 1.150000000000001,
+      "novelty": "novel"
+    },
+    {
+      "model": "mistral",
+      "ds": "iemocap",
+      "fertility": 1.8026399742541273,
+      "gain": 2.400000000000002,
+      "novelty": "familiar"
+    },
+    {
+      "model": "mistral",
+      "ds": "meld",
+      "fertility": 1.9220883882844026,
+      "gain": -1.7999999999999905,
+      "novelty": "familiar"
+    },
+    {
+      "model": "yi6b",
+      "ds": "au",
+      "fertility": 3.5604962121212123,
+      "gain": 10.549999999999999,
+      "novelty": "novel"
+    },
+    {
+      "model": "yi6b",
+      "ds": "iemocap",
+      "fertility": 1.8781338419359224,
+      "gain": 5.900000000000006,
+      "novelty": "familiar"
+    },
+    {
+      "model": "yi6b",
+      "ds": "meld",
+      "fertility": 1.8119134173789746,
+      "gain": 1.9999999999999907,
+      "novelty": "familiar"
+    },
+    {
+      "model": "falcon7b",
+      "ds": "au",
+      "fertility": 3.1376717171717177,
+      "gain": 14.650000000000002,
+      "novelty": "novel"
+    },
+    {
+      "model": "falcon7b",
+      "ds": "iemocap",
+      "fertility": 1.5505142642552954,
+      "gain": 3.6999999999999975,
+      "novelty": "familiar"
+    },
+    {
+      "model": "falcon7b",
+      "ds": "meld",
+      "fertility": 1.6277007411662987,
+      "gain": 1.4500000000000068,
+      "novelty": "familiar"
+    }
+  ],
+  "n": 18,
+  "pearson": {
+    "r": 0.7007694119079568,
+    "p": 0.0011976779254883395,
+    "ci95": [
+      0.377648136732977,
+      0.9047094596151504
+    ]
+  },
+  "spearman": {
+    "rho": 0.42679956141154546,
+    "p": 0.07733060971340276
+  },
+  "within_familiar_spearman": {
+    "rho": -0.09220785800477445,
+    "p": 0.7756350470031765,
+    "n": 12
+  }
+}

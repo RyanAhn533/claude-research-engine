@@ -1,0 +1,4 @@
+[d45] qwen14b: [H] leet_gain - natural_gain = +1.5pp (>0 = format novelty causes gain in NON-emotion sentiment task)
+[d45] falcon7b: [H] leet_gain - natural_gain = +8.2pp (>0 = format novelty causes gain in NON-emotion sentiment task)
+[d45] mistral: [H] leet_gain - natural_gain = -4.7pp (>0 = format novelty causes gain in NON-emotion sentiment task)
+[d45] ALL DONE

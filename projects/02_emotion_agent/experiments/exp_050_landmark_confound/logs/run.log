@@ -1,0 +1,4 @@
+/home/ajy/miniconda3/envs/cre_q1/lib/python3.10/site-packages/sklearn/linear_model/_logistic.py:1272: FutureWarning: 'multi_class' was deprecated in version 1.5 and will be removed in 1.8. From then on, it will always use 'multinomial'. Leave it to its default value to avoid this warning.
+  warnings.warn(
+=== EXP_050 landmark DONE ===
+{"extractor": "landmark_geometric_17", "overall_acc": 0.7740888982515273, "macro_f1": 0.7726927298706576, "per_emotion_acc": {"happy": 0.8967604433077578, "angry": 0.7159914361001317, "sad": 0.649599862318217, "neutral": 0.8336534446764092}, "happy_minus_neg_gap": 0.214}

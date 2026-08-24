@@ -1,0 +1,62 @@
+{
+  "exp_id": "exp_005_vlm_prompt_audit",
+  "model": "Qwen2.5-VL-7B-Instruct (4bit)",
+  "n_total": 600,
+  "by_group": {
+    "A_agree": {
+      "n_samples": 200,
+      "acc_self_P1": 0.565,
+      "acc_self_P3": 0.335,
+      "OIR": 0.0,
+      "SAR": 0.99,
+      "CSS": 0.06,
+      "conf_visible_P2": 0.813,
+      "conf_internal_P3": 0.80825
+    },
+    "B_reject": {
+      "n_samples": 200,
+      "acc_self_P1": 0.395,
+      "acc_self_P3": 0.27,
+      "OIR": 0.0,
+      "SAR": 0.9,
+      "CSS": 0.015,
+      "conf_visible_P2": 0.8035,
+      "conf_internal_P3": 0.8017500000000001
+    },
+    "C_uneval": {
+      "n_samples": 200,
+      "acc_self_P1": 0.56,
+      "acc_self_P3": 0.36,
+      "OIR": 0.0,
+      "SAR": 0.93,
+      "CSS": 0.07,
+      "conf_visible_P2": 0.81625,
+      "conf_internal_P3": 0.81025
+    }
+  },
+  "H4_oir_reject_minus_agree": 0.0,
+  "secondary": {
+    "sar_reject_minus_agree": -0.08999999999999997,
+    "conf_reject_minus_agree": -0.00649999999999995
+  },
+  "supported": false,
+  "verdict": "no_overinference_action_axis",
+  "findings": {
+    "overinfers": false,
+    "construct_conflation_CSS": {
+      "agree": 0.06,
+      "reject": 0.015,
+      "note": "CSS~0 => model gives same label for visible vs felt; does NOT separate constructs"
+    },
+    "confidence_flat": {
+      "gap_reject_minus_agree": -0.00649999999999995,
+      "note": "internal-affect confidence ~constant across observer groups => uncalibrated to ambiguity"
+    }
+  },
+  "n_folds": 3,
+  "oir_gap_folds": [
+    0.0,
+    0.0,
+    0.0
+  ]
+}

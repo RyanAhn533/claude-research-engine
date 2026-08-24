@@ -1,0 +1,50 @@
+{
+  "model": "trpakov/vit-face-expression",
+  "per_emotion": {
+    "happy": {
+      "n": 300,
+      "acc": 0.753
+    },
+    "angry": {
+      "n": 300,
+      "acc": 0.237
+    },
+    "sad": {
+      "n": 300,
+      "acc": 0.377
+    },
+    "neutral": {
+      "n": 300,
+      "acc": 0.813
+    }
+  },
+  "confusion": {
+    "happy": {
+      "happy": 226,
+      "sad": 47,
+      "neutral": 27
+    },
+    "angry": {
+      "neutral": 99,
+      "sad": 56,
+      "other": 26,
+      "angry": 71,
+      "happy": 48
+    },
+    "sad": {
+      "neutral": 142,
+      "sad": 113,
+      "happy": 15,
+      "angry": 17,
+      "other": 13
+    },
+    "neutral": {
+      "neutral": 244,
+      "happy": 19,
+      "sad": 35,
+      "other": 1,
+      "angry": 1
+    }
+  },
+  "gap_happy_minus_neg": 0.446
+}

@@ -1,0 +1,5 @@
+[load] falcon7b
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:01<00:03,  1.29s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:02<00:02,  1.27s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:03<00:01,  1.18s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:03<00:00,  1.18it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:03<00:00,  1.01it/s]
+  falcon7b/au_nofacs: zero=25.3 gold=39.9 rand=35.6 | gain=+14.6 TR=+10.2 TL=+4.3
+  falcon7b/iemocap: zero=45.8 gold=49.2 rand=47.2 | gain=+3.3 TR=+1.3 TL=+2.0
+[SAVED] tr_tl_falcon7b.json

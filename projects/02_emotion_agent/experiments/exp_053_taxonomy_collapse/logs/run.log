@@ -1,0 +1,11 @@
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.48, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+Western 7-class: ['angry', 'disgust', 'fear', 'happy', 'neutral', 'sad', 'surprise']
+>>> 한국 happy (n=250) -> 서양: happy:0.77, sad:0.16, neutral:0.08
+>>> 한국 angry (n=250) -> 서양: neutral:0.32, angry:0.23, sad:0.21, happy:0.16
+>>> 한국 sad (n=250) -> 서양: neutral:0.48, sad:0.36, happy:0.06, angry:0.06
+>>> 한국 neutral (n=250) -> 서양: neutral:0.81, sad:0.12, happy:0.06, fear:0.00
+>>> 한국 anxious (n=250) -> 서양: neutral:0.53, sad:0.25, happy:0.10, fear:0.07
+>>> 한국 hurt (n=250) -> 서양: neutral:0.50, sad:0.29, angry:0.08, happy:0.08
+>>> 한국 surprised (n=250) -> 서양: neutral:0.40, surprise:0.17, sad:0.14, happy:0.12
+
+=== EXP_053 DONE ===

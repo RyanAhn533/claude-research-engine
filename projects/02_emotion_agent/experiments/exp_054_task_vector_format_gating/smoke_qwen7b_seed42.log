@@ -1,0 +1,106 @@
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:33<01:39, 33.13s/it]Loading checkpoint shards:  50%|█████     | 2/4 [01:05<01:05, 32.71s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [01:38<00:32, 32.79s/it]Loading checkpoint shards: 100%|██████████| 4/4 [02:08<00:00, 31.70s/it]Loading checkpoint shards: 100%|██████████| 4/4 [02:08<00:00, 32.12s/it]
+[zero] 1.000
+[icl ] 1.000
+[gain] 0.000
+[L=00 alpha=0.25] patched=1.000 abs_gain=0.000 recovery=NA
+[L=00 alpha=0.5] patched=1.000 abs_gain=0.000 recovery=NA
+[L=00 alpha=1.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=00 alpha=2.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=01 alpha=0.25] patched=1.000 abs_gain=0.000 recovery=NA
+[L=01 alpha=0.5] patched=1.000 abs_gain=0.000 recovery=NA
+[L=01 alpha=1.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=01 alpha=2.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=02 alpha=0.25] patched=1.000 abs_gain=0.000 recovery=NA
+[L=02 alpha=0.5] patched=1.000 abs_gain=0.000 recovery=NA
+[L=02 alpha=1.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=02 alpha=2.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=03 alpha=0.25] patched=1.000 abs_gain=0.000 recovery=NA
+[L=03 alpha=0.5] patched=1.000 abs_gain=0.000 recovery=NA
+[L=03 alpha=1.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=03 alpha=2.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=04 alpha=0.25] patched=1.000 abs_gain=0.000 recovery=NA
+[L=04 alpha=0.5] patched=1.000 abs_gain=0.000 recovery=NA
+[L=04 alpha=1.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=04 alpha=2.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=05 alpha=0.25] patched=1.000 abs_gain=0.000 recovery=NA
+[L=05 alpha=0.5] patched=1.000 abs_gain=0.000 recovery=NA
+[L=05 alpha=1.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=05 alpha=2.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=06 alpha=0.25] patched=1.000 abs_gain=0.000 recovery=NA
+[L=06 alpha=0.5] patched=1.000 abs_gain=0.000 recovery=NA
+[L=06 alpha=1.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=06 alpha=2.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=07 alpha=0.25] patched=1.000 abs_gain=0.000 recovery=NA
+[L=07 alpha=0.5] patched=1.000 abs_gain=0.000 recovery=NA
+[L=07 alpha=1.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=07 alpha=2.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=08 alpha=0.25] patched=1.000 abs_gain=0.000 recovery=NA
+[L=08 alpha=0.5] patched=1.000 abs_gain=0.000 recovery=NA
+[L=08 alpha=1.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=08 alpha=2.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=09 alpha=0.25] patched=1.000 abs_gain=0.000 recovery=NA
+[L=09 alpha=0.5] patched=1.000 abs_gain=0.000 recovery=NA
+[L=09 alpha=1.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=09 alpha=2.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=10 alpha=0.25] patched=1.000 abs_gain=0.000 recovery=NA
+[L=10 alpha=0.5] patched=1.000 abs_gain=0.000 recovery=NA
+[L=10 alpha=1.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=10 alpha=2.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=11 alpha=0.25] patched=1.000 abs_gain=0.000 recovery=NA
+[L=11 alpha=0.5] patched=1.000 abs_gain=0.000 recovery=NA
+[L=11 alpha=1.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=11 alpha=2.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=12 alpha=0.25] patched=1.000 abs_gain=0.000 recovery=NA
+[L=12 alpha=0.5] patched=1.000 abs_gain=0.000 recovery=NA
+[L=12 alpha=1.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=12 alpha=2.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=13 alpha=0.25] patched=1.000 abs_gain=0.000 recovery=NA
+[L=13 alpha=0.5] patched=1.000 abs_gain=0.000 recovery=NA
+[L=13 alpha=1.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=13 alpha=2.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=14 alpha=0.25] patched=1.000 abs_gain=0.000 recovery=NA
+[L=14 alpha=0.5] patched=1.000 abs_gain=0.000 recovery=NA
+[L=14 alpha=1.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=14 alpha=2.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=15 alpha=0.25] patched=1.000 abs_gain=0.000 recovery=NA
+[L=15 alpha=0.5] patched=1.000 abs_gain=0.000 recovery=NA
+[L=15 alpha=1.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=15 alpha=2.0] patched=0.917 abs_gain=-0.083 recovery=NA
+[L=16 alpha=0.25] patched=1.000 abs_gain=0.000 recovery=NA
+[L=16 alpha=0.5] patched=1.000 abs_gain=0.000 recovery=NA
+[L=16 alpha=1.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=16 alpha=2.0] patched=0.583 abs_gain=-0.417 recovery=NA
+[L=17 alpha=0.25] patched=1.000 abs_gain=0.000 recovery=NA
+[L=17 alpha=0.5] patched=1.000 abs_gain=0.000 recovery=NA
+[L=17 alpha=1.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=17 alpha=2.0] patched=0.583 abs_gain=-0.417 recovery=NA
+[L=18 alpha=0.25] patched=1.000 abs_gain=0.000 recovery=NA
+[L=18 alpha=0.5] patched=1.000 abs_gain=0.000 recovery=NA
+[L=18 alpha=1.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=18 alpha=2.0] patched=0.167 abs_gain=-0.833 recovery=NA
+[L=19 alpha=0.25] patched=1.000 abs_gain=0.000 recovery=NA
+[L=19 alpha=0.5] patched=1.000 abs_gain=0.000 recovery=NA
+[L=19 alpha=1.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=19 alpha=2.0] patched=0.083 abs_gain=-0.917 recovery=NA
+[L=20 alpha=0.25] patched=1.000 abs_gain=0.000 recovery=NA
+[L=20 alpha=0.5] patched=1.000 abs_gain=0.000 recovery=NA
+[L=20 alpha=1.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=20 alpha=2.0] patched=0.167 abs_gain=-0.833 recovery=NA
+[L=21 alpha=0.25] patched=1.000 abs_gain=0.000 recovery=NA
+[L=21 alpha=0.5] patched=1.000 abs_gain=0.000 recovery=NA
+[L=21 alpha=1.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=21 alpha=2.0] patched=0.500 abs_gain=-0.500 recovery=NA
+[L=22 alpha=0.25] patched=1.000 abs_gain=0.000 recovery=NA
+[L=22 alpha=0.5] patched=1.000 abs_gain=0.000 recovery=NA
+[L=22 alpha=1.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=22 alpha=2.0] patched=0.750 abs_gain=-0.250 recovery=NA
+[L=23 alpha=0.25] patched=1.000 abs_gain=0.000 recovery=NA
+[L=23 alpha=0.5] patched=1.000 abs_gain=0.000 recovery=NA
+[L=23 alpha=1.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=23 alpha=2.0] patched=0.917 abs_gain=-0.083 recovery=NA
+[L=24 alpha=0.25] patched=1.000 abs_gain=0.000 recovery=NA
+[L=24 alpha=0.5] patched=1.000 abs_gain=0.000 recovery=NA
+[L=24 alpha=1.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=24 alpha=2.0] patched=1.000 abs_gain=0.000 recovery=NA
+[L=25 alpha=0.25] patched=1.000 abs_gain=0.000 recovery=NA
+[L=25 alpha=0.5] patched=1.000 abs_gain=0.000 recovery=NA

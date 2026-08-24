@@ -1,0 +1,45 @@
+{
+  "exp_id": "exp_006_ppbemo_uncertainty_probe",
+  "n": 240,
+  "n_classes": 7,
+  "n_features": 696,
+  "n_participants": 40,
+  "chance": 0.14285714285714285,
+  "majority": 0.15833333333333333,
+  "seeds": [
+    42,
+    123,
+    777
+  ],
+  "bal_acc_per_seed": [
+    0.12890045729055016,
+    0.13607857747176633,
+    0.13628178820129283
+  ],
+  "bal_acc_mean": 0.13375360765453645,
+  "bal_acc_ci95": [
+    0.08915635484778715,
+    0.17284721569390923
+  ],
+  "err_unc_auroc_per_seed": [
+    0.5093378607809848,
+    0.5237886107451325,
+    0.5013907187820231
+  ],
+  "err_unc_auroc_mean": 0.5115057301027135,
+  "err_unc_auroc_ci95": [
+    0.4053162716591565,
+    0.6128022920832118
+  ],
+  "ece_mean": 0.422965145462917,
+  "nll_mean": 4.471469559832582,
+  "brier_mean": 1.1575186422881785,
+  "risk_coverage_balacc": {
+    "full": 0.12890045729055016,
+    "cov80": 0.14465124473009355,
+    "cov50": 0.1392941366269828
+  },
+  "threshold": 0.6,
+  "supported": false,
+  "verdict": "uncertainty_uninformative"
+}

@@ -1,0 +1,8 @@
+[load] falcon7b seeds=[42, 123, 777] priors=['A_none', 'B_textbook', 'C_derived', 'D_mouth', 'D_eyes'] shots=[4]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:44<02:13, 44.49s/it]Loading checkpoint shards:  50%|█████     | 2/4 [01:29<01:29, 44.98s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [02:08<00:42, 42.05s/it]Loading checkpoint shards: 100%|██████████| 4/4 [02:15<00:00, 28.27s/it]Loading checkpoint shards: 100%|██████████| 4/4 [02:15<00:00, 33.88s/it]
+  falcon7b A_none_k4: acc=44.33±2.01 f1=0.395 [ang=25 hap=83 neu=47 sad=23] fail=0
+  falcon7b B_textbook_k4: acc=45.25±2.45 f1=0.398 [ang=19 hap=91 neu=46 sad=26] fail=0
+  falcon7b C_derived_k4: acc=44.00±2.16 f1=0.384 [ang=24 hap=78 neu=55 sad=19] fail=0
+  falcon7b D_mouth_k4: acc=45.50±1.54 f1=0.404 [ang=25 hap=77 neu=60 sad=20] fail=0
+  falcon7b D_eyes_k4: acc=43.42±2.29 f1=0.379 [ang=18 hap=87 neu=47 sad=22] fail=0
+[SAVED] au_prior_falcon7b.json

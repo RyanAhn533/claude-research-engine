@@ -1,0 +1,480 @@
+=== graded-novelty full run (6 models x 3 seeds x 5 levels) start 2026. 07. 13. (월) 22:00:08 KST ===
+
+[[[ qwen3b ]]] 22:00
+[load] qwen3b seeds=[42, 123, 777] ntest=100
+Using the latest cached version of the dataset since stanfordnlp/sst2 couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'default' at /home/ajy/.cache/huggingface/datasets/stanfordnlp___sst2/default/0.0.0/8d51e7e4887a4caaa95b3fbebbf53c0490b58bbb (last modified on Fri Jun 12 03:11:10 2026).
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  p=0.0: zero=87.3 gold=90.0 rand=88.8 | gain=+2.7 TR=+1.5 TL=+1.2 fert=1.14
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  p=0.25: zero=68.2 gold=82.5 rand=81.5 | gain=+14.3 TR=+13.3 TL=+1.0 fert=2.27
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  p=0.5: zero=68.5 gold=71.8 rand=72.7 | gain=+3.3 TR=+4.2 TL=-0.8 fert=3.22
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  p=0.75: zero=59.2 gold=63.5 rand=63.5 | gain=+4.3 TR=+4.3 TL=+0.0 fert=3.96
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  p=1.0: zero=53.8 gold=61.0 rand=58.3 | gain=+7.2 TR=+4.5 TL=+2.7 fert=4.66
+[MONOTONE] within-task Spearman(fertility,gain) rho=+0.400 p=0.505 (rho~+1 => graded predictor; flat/step => threshold)
+[SAVED] graded_qwen3b.json
+
+[[[ qwen7b ]]] 22:26
+[load] qwen7b seeds=[42, 123, 777] ntest=100
+Using the latest cached version of the dataset since stanfordnlp/sst2 couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'default' at /home/ajy/.cache/huggingface/datasets/stanfordnlp___sst2/default/0.0.0/8d51e7e4887a4caaa95b3fbebbf53c0490b58bbb (last modified on Fri Jun 12 03:11:10 2026).
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  p=0.0: zero=92.3 gold=95.0 rand=94.7 | gain=+2.7 TR=+2.3 TL=+0.3 fert=1.14
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  p=0.25: zero=85.2 gold=91.8 rand=91.5 | gain=+6.7 TR=+6.3 TL=+0.3 fert=2.27
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  p=0.5: zero=79.7 gold=84.8 rand=85.0 | gain=+5.2 TR=+5.3 TL=-0.2 fert=3.22
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  p=0.75: zero=67.0 gold=75.2 rand=76.2 | gain=+8.2 TR=+9.2 TL=-1.0 fert=3.96
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  p=1.0: zero=57.8 gold=63.5 rand=65.7 | gain=+5.7 TR=+7.8 TL=-2.2 fert=4.66
+[MONOTONE] within-task Spearman(fertility,gain) rho=+0.500 p=0.391 (rho~+1 => graded predictor; flat/step => threshold)
+[SAVED] graded_qwen7b.json
+
+[[[ falcon7b ]]] 23:13
+[load] falcon7b seeds=[42, 123, 777] ntest=100
+Using the latest cached version of the dataset since stanfordnlp/sst2 couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'default' at /home/ajy/.cache/huggingface/datasets/stanfordnlp___sst2/default/0.0.0/8d51e7e4887a4caaa95b3fbebbf53c0490b58bbb (last modified on Fri Jun 12 03:11:10 2026).
+  p=0.0: zero=94.0 gold=93.7 rand=93.3 | gain=-0.3 TR=-0.7 TL=+0.3 fert=1.19
+  p=0.25: zero=85.0 gold=87.3 rand=86.7 | gain=+2.3 TR=+1.7 TL=+0.7 fert=2.34
+  p=0.5: zero=72.8 gold=79.8 rand=78.8 | gain=+7.0 TR=+6.0 TL=+1.0 fert=3.29
+  p=0.75: zero=62.8 gold=70.3 rand=70.2 | gain=+7.5 TR=+7.3 TL=+0.2 fert=4.05
+  p=1.0: zero=57.7 gold=65.5 rand=63.7 | gain=+7.8 TR=+6.0 TL=+1.8 fert=4.75
+[MONOTONE] within-task Spearman(fertility,gain) rho=+1.000 p=0.000 (rho~+1 => graded predictor; flat/step => threshold)
+[SAVED] graded_falcon7b.json
+
+[[[ yi6b ]]] 00:04
+[load] yi6b seeds=[42, 123, 777] ntest=100
+Using the latest cached version of the dataset since stanfordnlp/sst2 couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'default' at /home/ajy/.cache/huggingface/datasets/stanfordnlp___sst2/default/0.0.0/8d51e7e4887a4caaa95b3fbebbf53c0490b58bbb (last modified on Fri Jun 12 03:11:10 2026).
+  p=0.0: zero=84.3 gold=91.3 rand=85.2 | gain=+7.0 TR=+0.8 TL=+6.2 fert=1.27
+  p=0.25: zero=61.5 gold=73.2 rand=74.3 | gain=+11.7 TR=+12.8 TL=-1.2 fert=2.59
+  p=0.5: zero=52.3 gold=58.5 rand=55.3 | gain=+6.2 TR=+3.0 TL=+3.2 fert=3.62
+  p=0.75: zero=50.0 gold=55.8 rand=52.3 | gain=+5.8 TR=+2.3 TL=+3.5 fert=4.36
+  p=1.0: zero=50.0 gold=53.5 rand=50.8 | gain=+3.5 TR=+0.8 TL=+2.7 fert=5.03
+[MONOTONE] within-task Spearman(fertility,gain) rho=-0.900 p=0.037 (rho~+1 => graded predictor; flat/step => threshold)
+[SAVED] graded_yi6b.json
+
+[[[ mistral ]]] 00:54
+[load] mistral seeds=[42, 123, 777] ntest=100
+Using the latest cached version of the dataset since stanfordnlp/sst2 couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'default' at /home/ajy/.cache/huggingface/datasets/stanfordnlp___sst2/default/0.0.0/8d51e7e4887a4caaa95b3fbebbf53c0490b58bbb (last modified on Fri Jun 12 03:11:10 2026).
+  p=0.0: zero=89.2 gold=89.0 rand=90.2 | gain=-0.2 TR=+1.0 TL=-1.2 fert=1.35
+  p=0.25: zero=80.0 gold=78.5 rand=83.3 | gain=-1.5 TR=+3.3 TL=-4.8 fert=2.49
+  p=0.5: zero=66.5 gold=66.8 rand=71.8 | gain=+0.3 TR=+5.3 TL=-5.0 fert=3.43
+  p=0.75: zero=56.0 gold=55.2 rand=58.0 | gain=-0.8 TR=+2.0 TL=-2.8 fert=4.16
+  p=1.0: zero=55.8 gold=51.0 rand=55.3 | gain=-4.8 TR=-0.5 TL=-4.3 fert=4.87
+[MONOTONE] within-task Spearman(fertility,gain) rho=-0.500 p=0.391 (rho~+1 => graded predictor; flat/step => threshold)
+[SAVED] graded_mistral.json
+
+[[[ qwen14b ]]] 01:49
+[load] qwen14b seeds=[42, 123, 777] ntest=100
+Using the latest cached version of the dataset since stanfordnlp/sst2 couldn't be found on the Hugging Face Hub (offline mode is enabled).
+Found the latest cached dataset configuration 'default' at /home/ajy/.cache/huggingface/datasets/stanfordnlp___sst2/default/0.0.0/8d51e7e4887a4caaa95b3fbebbf53c0490b58bbb (last modified on Fri Jun 12 03:11:10 2026).
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  p=0.0: zero=93.2 gold=95.0 rand=91.2 | gain=+1.8 TR=-2.0 TL=+3.8 fert=1.14
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  p=0.25: zero=87.8 gold=93.5 rand=88.3 | gain=+5.7 TR=+0.5 TL=+5.2 fert=2.27
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  p=0.5: zero=83.7 gold=87.8 rand=84.3 | gain=+4.2 TR=+0.7 TL=+3.5 fert=3.22
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  p=0.75: zero=72.3 gold=82.2 rand=77.8 | gain=+9.8 TR=+5.5 TL=+4.3 fert=3.96
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  warnings.warn(
+  p=1.0: zero=66.7 gold=70.0 rand=63.7 | gain=+3.3 TR=-3.0 TL=+6.3 fert=4.66
+[MONOTONE] within-task Spearman(fertility,gain) rho=+0.300 p=0.624 (rho~+1 => graded predictor; flat/step => threshold)
+[SAVED] graded_qwen14b.json
+
+=== ALL DONE 2026. 07. 14. (화) 03:26:54 KST ===

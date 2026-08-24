@@ -1,0 +1,5 @@
+[load] yi6b
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:02,  1.33s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:02<00:01,  1.29s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:03<00:00,  1.00s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:03<00:00,  1.08s/it]
+  yi6b/au_nofacs: zero=27.3 gold=38.4 rand=34.2 | gain=+11.2 TR=+7.0 TL=+4.2
+  yi6b/iemocap: zero=45.2 gold=51.0 rand=50.8 | gain=+5.8 TR=+5.7 TL=+0.2
+[SAVED] tr_tl_yi6b.json

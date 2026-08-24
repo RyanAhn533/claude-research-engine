@@ -1,0 +1,72 @@
+{
+  "M0": {
+    "variant": "M0",
+    "desc": "encoder + meanpool (baseline)",
+    "n_seeds": 1,
+    "seeds": [
+      1111
+    ],
+    "test_acc2": [
+      0.8525
+    ],
+    "mean": 0.8525,
+    "reference_acc2": 0.8504,
+    "note": "single-seed exploratory; n<3 so NOT on leaderboard"
+  },
+  "M1": {
+    "variant": "M1",
+    "desc": "+ Hierarchical pyramid L=3",
+    "n_seeds": 1,
+    "seeds": [
+      1111
+    ],
+    "test_acc2": [
+      0.8608
+    ],
+    "mean": 0.8608,
+    "reference_acc2": 0.8559,
+    "note": "single-seed exploratory; n<3 so NOT on leaderboard"
+  },
+  "M2": {
+    "variant": "M2",
+    "desc": "+ DAR only (L=1)",
+    "n_seeds": 1,
+    "seeds": [
+      1111
+    ],
+    "test_acc2": [
+      0.8539
+    ],
+    "mean": 0.8539,
+    "reference_acc2": 0.8539,
+    "note": "single-seed exploratory; n<3 so NOT on leaderboard"
+  },
+  "M3": {
+    "variant": "M3",
+    "desc": "+ Hierarchical + DAR",
+    "n_seeds": 1,
+    "seeds": [
+      1111
+    ],
+    "test_acc2": [
+      0.855
+    ],
+    "mean": 0.855,
+    "reference_acc2": 0.855,
+    "note": "single-seed exploratory; n<3 so NOT on leaderboard"
+  },
+  "M4": {
+    "variant": "M4",
+    "desc": "+ Hier + DAR + Evidential Beta gate (full)",
+    "n_seeds": 1,
+    "seeds": [
+      1111
+    ],
+    "test_acc2": [
+      0.8528
+    ],
+    "mean": 0.8528,
+    "reference_acc2": 0.8528,
+    "note": "single-seed exploratory; n<3 so NOT on leaderboard"
+  }
+}

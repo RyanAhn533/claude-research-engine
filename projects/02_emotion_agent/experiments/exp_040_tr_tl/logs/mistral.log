@@ -1,0 +1,5 @@
+[load] mistral
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:02,  1.34s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:02<00:01,  1.33s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:03<00:00,  1.28s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:03<00:00,  1.30s/it]
+  mistral/au_nofacs: zero=35.8 gold=37.6 rand=34.4 | gain=+1.7 TR=-1.4 TL=+3.2
+  mistral/iemocap: zero=45.5 gold=47.6 rand=44.8 | gain=+2.1 TR=-0.7 TL=+2.8
+[SAVED] tr_tl_mistral.json

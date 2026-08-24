@@ -1,0 +1,7 @@
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.48, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+>>> happy: acc=0.897 n=300 conf={'happy': 269, 'neutral': 26, 'angry': 4, 'sad': 1}
+>>> angry: acc=0.447 n=300 conf={'angry': 134, 'neutral': 100, 'sad': 33, 'other': 17, 'happy': 16}
+>>> sad: acc=0.367 n=300 conf={'neutral': 116, 'angry': 39, 'other': 20, 'sad': 110, 'happy': 15}
+>>> neutral: acc=0.577 n=300 conf={'neutral': 173, 'happy': 38, 'angry': 43, 'sad': 34, 'other': 12}
+
+=== EXP_052 DONE === Western gap= 0.49

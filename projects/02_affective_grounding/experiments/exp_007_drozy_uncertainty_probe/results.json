@@ -1,0 +1,46 @@
+{
+  "exp_id": "exp_007_drozy_uncertainty_probe",
+  "n_windows": 21600,
+  "n_classes": 3,
+  "n_subjects": 14,
+  "n_sessions": 36,
+  "chance": 0.3333333333333333,
+  "majority": 0.4166666666666667,
+  "seeds": [
+    42,
+    123,
+    777
+  ],
+  "bal_acc_per_seed": [
+    0.32622558922558925,
+    0.32525084175084173,
+    0.3183922558922559
+  ],
+  "bal_acc_mean": 0.32328956228956224,
+  "bal_acc_ci95": [
+    0.3206501007042933,
+    0.3317849619773816
+  ],
+  "session_bal_acc": 0.3464646464646464,
+  "err_unc_auroc_per_seed": [
+    0.5875721174461485,
+    0.581341140715088,
+    0.5906117419738326
+  ],
+  "err_unc_auroc_mean": 0.5865083333783564,
+  "err_unc_auroc_ci95": [
+    0.5797344792269139,
+    0.5956588266490325
+  ],
+  "ece_mean": 0.2597947420911104,
+  "nll_mean": 1.40651534602678,
+  "brier_mean": 0.7952750895323568,
+  "risk_coverage_balacc": {
+    "full": 0.32622558922558925,
+    "cov80": 0.3163298013277845,
+    "cov50": 0.32902048393573863
+  },
+  "threshold": 0.6,
+  "supported": false,
+  "verdict": "uncertainty_uninformative"
+}

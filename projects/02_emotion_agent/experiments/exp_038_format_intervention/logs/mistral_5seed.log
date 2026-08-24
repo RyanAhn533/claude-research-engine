@@ -1,0 +1,6 @@
+[load] mistral
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards:  33%|███▎      | 1/3 [00:01<00:02,  1.41s/it]Loading checkpoint shards:  67%|██████▋   | 2/3 [00:02<00:01,  1.41s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:04<00:00,  1.36s/it]Loading checkpoint shards: 100%|██████████| 3/3 [00:04<00:00,  1.37s/it]
+  mistral/numeric: zero=35.55% icl=36.70% GAIN=+1.15pp
+  mistral/prose: zero=30.25% icl=35.65% GAIN=+5.40pp
+[H1] numeric_gain - prose_gain = -4.25pp (>0 supports format-novelty cause)
+[SAVED] /home/ajy/CLAUDE_RESEARCH_ENGINE/projects/02_emotion_agent/experiments/exp_038_format_intervention/cache/intervention_mistral.json

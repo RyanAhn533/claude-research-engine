@@ -1,0 +1,115 @@
+{
+  "rows": [
+    {
+      "model": "mistral",
+      "ds": "au",
+      "novelty": "novel",
+      "delta_pp": 15.166666666666664,
+      "ci95": [
+        3.023365722067496,
+        27.309967611265833
+      ],
+      "cohens_dz": 3.1026233146682562,
+      "wilcoxon_p": 0.25
+    },
+    {
+      "model": "mistral",
+      "ds": "iemocap",
+      "novelty": "familiar",
+      "delta_pp": 2.083333333333333,
+      "ci95": [
+        -1.1035678309777395,
+        5.270234497644406
+      ],
+      "cohens_dz": 1.6239245061540797,
+      "wilcoxon_p": 0.25
+    },
+    {
+      "model": "mistral",
+      "ds": "meld",
+      "novelty": "familiar",
+      "delta_pp": 1.850371707708594e-15,
+      "ci95": [
+        -2.7070263118059747,
+        2.7070263118059783
+      ],
+      "cohens_dz": 1.6980175330291622e-15,
+      "wilcoxon_p": 1.0
+    },
+    {
+      "model": "qwen14b",
+      "ds": "au",
+      "novelty": "novel",
+      "delta_pp": 16.666666666666664,
+      "ci95": [
+        5.81484155477007,
+        27.51849177856326
+      ],
+      "cohens_dz": 3.8152379685825766,
+      "wilcoxon_p": 0.25
+    },
+    {
+      "model": "qwen14b",
+      "ds": "iemocap",
+      "novelty": "familiar",
+      "delta_pp": 5.499999999999999,
+      "ci95": [
+        2.792973688194028,
+        8.20702631180597
+      ],
+      "cohens_dz": 5.047146145152354,
+      "wilcoxon_p": 0.25
+    },
+    {
+      "model": "qwen14b",
+      "ds": "meld",
+      "novelty": "familiar",
+      "delta_pp": 4.666666666666669,
+      "ci95": [
+        -3.7650812670426372,
+        13.098414600375975
+      ],
+      "cohens_dz": 1.3748801251926617,
+      "wilcoxon_p": 0.25
+    },
+    {
+      "model": "qwen7b",
+      "ds": "au",
+      "novelty": "novel",
+      "delta_pp": 10.083333333333332,
+      "ci95": [
+        -0.4985782070773409,
+        20.665244873744008
+      ],
+      "cohens_dz": 2.367094876716384,
+      "wilcoxon_p": 0.25
+    },
+    {
+      "model": "qwen7b",
+      "ds": "iemocap",
+      "novelty": "familiar",
+      "delta_pp": 1.0000000000000009,
+      "ci95": [
+        -3.478342947459305,
+        5.478342947459307
+      ],
+      "cohens_dz": 0.5547001962252291,
+      "wilcoxon_p": 0.75
+    },
+    {
+      "model": "qwen7b",
+      "ds": "meld",
+      "novelty": "familiar",
+      "delta_pp": 0.6666666666666747,
+      "ci95": [
+        -7.197045113493529,
+        8.530378446826878
+      ],
+      "cohens_dz": 0.21059925059706497,
+      "wilcoxon_p": 1.0
+    }
+  ],
+  "novel_mean_pp": 13.97222222222222,
+  "familiar_mean_pp": 2.3194444444444464,
+  "mannwhitney_novel_gt_familiar_p": 0.011904761904761904
+}

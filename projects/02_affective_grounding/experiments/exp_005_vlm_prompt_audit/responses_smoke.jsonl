@@ -1,0 +1,36 @@
+{"sample_id": "A_agree_angry_0", "prompt_id": "P1_forced", "grp": "A_agree", "self_report": "angry", "raw": "Neutral", "label": "neutral"}
+{"sample_id": "A_agree_angry_0", "prompt_id": "P2_visible", "grp": "A_agree", "self_report": "angry", "raw": "label=neutral, confidence=0.8", "label": "neutral", "confidence": 0.8}
+{"sample_id": "A_agree_angry_0", "prompt_id": "P3_internal", "grp": "A_agree", "self_report": "angry", "raw": "label=neutral, confidence=0.8", "label": "neutral", "confidence": 0.8}
+{"sample_id": "A_agree_angry_0", "prompt_id": "P4_sufficiency", "grp": "A_agree", "self_report": "angry", "raw": "verdict=ambiguous, likely=confusion", "verdict": "ambiguous", "label": null}
+{"sample_id": "A_agree_angry_0", "prompt_id": "P5_action", "grp": "A_agree", "self_report": "angry", "raw": "B=describe visible expression only", "choice": "B"}
+{"sample_id": "A_agree_angry_1", "prompt_id": "P1_forced", "grp": "A_agree", "self_report": "angry", "raw": "Angry", "label": "angry"}
+{"sample_id": "A_agree_angry_1", "prompt_id": "P2_visible", "grp": "A_agree", "self_report": "angry", "raw": "label=angry, confidence=0.8", "label": "angry", "confidence": 0.8}
+{"sample_id": "A_agree_angry_1", "prompt_id": "P3_internal", "grp": "A_agree", "self_report": "angry", "raw": "label=angry, confidence=0.8", "label": "angry", "confidence": 0.8}
+{"sample_id": "A_agree_angry_1", "prompt_id": "P4_sufficiency", "grp": "A_agree", "self_report": "angry", "raw": "verdict=ambiguous, likely=anger", "verdict": "ambiguous", "label": null}
+{"sample_id": "A_agree_angry_1", "prompt_id": "P5_action", "grp": "A_agree", "self_report": "angry", "raw": "B=describe visible expression only", "choice": "B"}
+{"sample_id": "A_agree_angry_2", "prompt_id": "P1_forced", "grp": "A_agree", "self_report": "angry", "raw": "Angry", "label": "angry"}
+{"sample_id": "A_agree_angry_2", "prompt_id": "P2_visible", "grp": "A_agree", "self_report": "angry", "raw": "label=angry, confidence=0.95", "label": "angry", "confidence": 0.95}
+{"sample_id": "A_agree_angry_2", "prompt_id": "P3_internal", "grp": "A_agree", "self_report": "angry", "raw": "label=angry, confidence=0.9", "label": "angry", "confidence": 0.9}
+{"sample_id": "A_agree_angry_2", "prompt_id": "P4_sufficiency", "grp": "A_agree", "self_report": "angry", "raw": "verdict=ambiguous, likely=anger", "verdict": "ambiguous", "label": null}
+{"sample_id": "A_agree_angry_2", "prompt_id": "P5_action", "grp": "A_agree", "self_report": "angry", "raw": "B describe visible expression only", "choice": "B"}
+{"sample_id": "A_agree_angry_3", "prompt_id": "P1_forced", "grp": "A_agree", "self_report": "angry", "raw": "Angry", "label": "angry"}
+{"sample_id": "A_agree_angry_3", "prompt_id": "P2_visible", "grp": "A_agree", "self_report": "angry", "raw": "label=angry, confidence=0.9", "label": "angry", "confidence": 0.9}
+{"sample_id": "A_agree_angry_3", "prompt_id": "P3_internal", "grp": "A_agree", "self_report": "angry", "raw": "label=angry, confidence=0.9", "label": "angry", "confidence": 0.9}
+{"sample_id": "A_agree_angry_3", "prompt_id": "P4_sufficiency", "grp": "A_agree", "self_report": "angry", "raw": "verdict=ambiguous, likely=anger", "verdict": "ambiguous", "label": null}
+{"sample_id": "A_agree_angry_3", "prompt_id": "P5_action", "grp": "A_agree", "self_report": "angry", "raw": "B=describe visible expression only", "choice": "B"}
+{"sample_id": "A_agree_angry_4", "prompt_id": "P1_forced", "grp": "A_agree", "self_report": "angry", "raw": "Angry", "label": "angry"}
+{"sample_id": "A_agree_angry_4", "prompt_id": "P2_visible", "grp": "A_agree", "self_report": "angry", "raw": "label=angry, confidence=0.9", "label": "angry", "confidence": 0.9}
+{"sample_id": "A_agree_angry_4", "prompt_id": "P3_internal", "grp": "A_agree", "self_report": "angry", "raw": "label=angry, confidence=0.9", "label": "angry", "confidence": 0.9}
+{"sample_id": "A_agree_angry_4", "prompt_id": "P4_sufficiency", "grp": "A_agree", "self_report": "angry", "raw": "verdict=ambiguous, likely=anger", "verdict": "ambiguous", "label": null}
+{"sample_id": "A_agree_angry_4", "prompt_id": "P5_action", "grp": "A_agree", "self_report": "angry", "raw": "B Describe visible expression only.", "choice": "B"}
+{"sample_id": "A_agree_angry_5", "prompt_id": "P1_forced", "grp": "A_agree", "self_report": "angry", "raw": "Neutral", "label": "neutral"}
+{"sample_id": "A_agree_angry_5", "prompt_id": "P2_visible", "grp": "A_agree", "self_report": "angry", "raw": "label=angry, confidence=0.8", "label": "angry", "confidence": 0.8}
+{"sample_id": "A_agree_angry_5", "prompt_id": "P3_internal", "grp": "A_agree", "self_report": "angry", "raw": "label=neutral, confidence=0.8", "label": "neutral", "confidence": 0.8}
+{"sample_id": "A_agree_angry_5", "prompt_id": "P4_sufficiency", "grp": "A_agree", "self_report": "angry", "raw": "verdict=ambiguous, likely=anger", "verdict": "ambiguous", "label": null}
+{"sample_id": "A_agree_angry_5", "prompt_id": "P5_action", "grp": "A_agree", "self_report": "angry", "raw": "C Ask how your day is going.", "choice": "C"}
+{"sample_id": "A_agree_angry_6", "prompt_id": "P1_forced", "grp": "A_agree", "self_report": "angry", "raw": "Neutral", "label": "neutral"}
+{"sample_id": "A_agree_angry_6", "prompt_id": "P2_visible", "grp": "A_agree", "self_report": "angry", "raw": "label=neutral, confidence=0.8", "label": "neutral", "confidence": 0.8}
+{"sample_id": "A_agree_angry_6", "prompt_id": "P3_internal", "grp": "A_agree", "self_report": "angry", "raw": "label=neutral, confidence=0.8", "label": "neutral", "confidence": 0.8}
+{"sample_id": "A_agree_angry_6", "prompt_id": "P4_sufficiency", "grp": "A_agree", "self_report": "angry", "raw": "verdict=ambiguous, likely=neutral", "verdict": "ambiguous", "label": "neutral"}
+{"sample_id": "A_agree_angry_6", "prompt_id": "P5_action", "grp": "A_agree", "self_report": "angry", "raw": "C Ask how your day is going.", "choice": "C"}
+{"sample_id": "A_agree_angry_7", "prompt_id": "P1_forced", "grp": "A_agree", "self_report": "angry", "raw": "Neutral", "label": "neutral"}

@@ -1,0 +1,143 @@
+=== [2026-05-27 21:31:21] START exp_005 full run (3000 samples x 5 prompts) ===
+2026-05-27 21:31:25.273446: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-05-27 21:31:25.285594: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1779885085.300037 3701029 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1779885085.304297 3701029 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1779885085.315555 3701029 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779885085.315582 3701029 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779885085.315585 3701029 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779885085.315587 3701029 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+2026-05-27 21:31:25.319049: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI AVX512_BF16 AVX512_FP16 AVX_VNNI AMX_TILE AMX_INT8 AMX_BF16 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+samples: 600  (limit=full)  prompts: 5
+already done: 0
+loading Qwen2.5-VL-7B (4-bit nf4, to coexist with sc on shared GPU) ...
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:01<00:07,  1.94s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:02<00:04,  1.35s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:03<00:02,  1.15s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:04<00:01,  1.07s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:04<00:00,  1.34it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:04<00:00,  1.02it/s]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.50, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+/home/ajy/.local/lib/python3.12/site-packages/transformers/generation/configuration_utils.py:628: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `1e-06` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+  loaded in 10.9s
+  ... 100 responses
+  ... 200 responses
+  ... 300 responses
+  ... 400 responses
+  ... 500 responses
+  ... 600 responses
+  ... 700 responses
+Traceback (most recent call last):
+  File "/home/ajy/CLAUDE_RESEARCH_ENGINE/projects/02_affective_grounding/experiments/exp_005_vlm_prompt_audit/run.py", line 160, in <module>
+    main()
+  File "/home/ajy/CLAUDE_RESEARCH_ENGINE/projects/02_affective_grounding/experiments/exp_005_vlm_prompt_audit/run.py", line 145, in main
+    gen = model.generate(**inputs, max_new_tokens=32, do_sample=False)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ajy/miniconda3/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ajy/.local/lib/python3.12/site-packages/transformers/generation/utils.py", line 2326, in generate
+    result = self._sample(
+             ^^^^^^^^^^^^^
+  File "/home/ajy/.local/lib/python3.12/site-packages/transformers/generation/utils.py", line 3286, in _sample
+    outputs = self(**model_inputs, return_dict=True)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ajy/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ajy/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ajy/.local/lib/python3.12/site-packages/transformers/models/qwen2_5_vl/modeling_qwen2_5_vl.py", line 1793, in forward
+    image_embeds = self.visual(pixel_values, grid_thw=image_grid_thw)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ajy/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ajy/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ajy/.local/lib/python3.12/site-packages/transformers/models/qwen2_5_vl/modeling_qwen2_5_vl.py", line 557, in forward
+    hidden_states = blk(hidden_states, cu_seqlens=cu_seqlens_now, position_embeddings=position_embeddings)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ajy/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ajy/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ajy/.local/lib/python3.12/site-packages/transformers/models/qwen2_5_vl/modeling_qwen2_5_vl.py", line 350, in forward
+    hidden_states = hidden_states + self.attn(
+                                    ^^^^^^^^^^
+  File "/home/ajy/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ajy/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ajy/.local/lib/python3.12/site-packages/transformers/models/qwen2_5_vl/modeling_qwen2_5_vl.py", line 319, in forward
+    attn_output = F.scaled_dot_product_attention(q, k, v, attention_mask, dropout_p=0.0)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 25.99 GiB. GPU 0 has a total capacity of 47.52 GiB of which 4.59 GiB is free. Process 1932672 has 5.62 GiB memory in use. Process 1017975 has 564.00 MiB memory in use. Process 572528 has 426.00 MiB memory in use. Process 659988 has 428.00 MiB memory in use. Including non-PyTorch memory, this process has 34.03 GiB memory in use. Process 3783223 has 1.51 GiB memory in use. Of the allocated memory 33.65 GiB is allocated by PyTorch, and 66.70 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+=== [2026-05-27 22:59:24] run.py FAILED rc=1 ===
+=== [2026-05-27 23:00:55] START exp_005 full run (3000 samples x 5 prompts) ===
+2026-05-27 23:00:59.615398: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-05-27 23:00:59.627916: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1779890459.642760 3920837 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1779890459.647084 3920837 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1779890459.658876 3920837 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779890459.658904 3920837 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779890459.658907 3920837 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779890459.658909 3920837 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+2026-05-27 23:00:59.662417: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI AVX512_BF16 AVX512_FP16 AVX_VNNI AMX_TILE AMX_INT8 AMX_BF16 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+samples: 600  (limit=full)  prompts: 5
+already done: 790
+loading Qwen2.5-VL-7B (4-bit nf4, to coexist with sc on shared GPU) ...
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:01<00:04,  1.21s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:01<00:02,  1.06it/s]Loading checkpoint shards:  60%|██████    | 3/5 [00:02<00:01,  1.17it/s]Loading checkpoint shards:  80%|████████  | 4/5 [00:03<00:00,  1.23it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:03<00:00,  1.73it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:03<00:00,  1.38it/s]
+Using a slow image processor as `use_fast` is unset and a slow processor was saved with this model. `use_fast=True` will be the default behavior in v4.50, even if the model was saved with a slow processor. This will result in minor differences in outputs. You'll still be able to use a slow processor with `use_fast=False`.
+/home/ajy/.local/lib/python3.12/site-packages/transformers/generation/configuration_utils.py:628: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `1e-06` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+  loaded in 8.9s
+  ... 100 responses
+  ... 200 responses
+  ... 300 responses
+  ... 400 responses
+  ... 500 responses
+  ... 600 responses
+  ... 700 responses
+  ... 800 responses
+  ... 900 responses
+  ... 1000 responses
+  ... 1100 responses
+  ... 1200 responses
+  ... 1300 responses
+  ... 1400 responses
+  ... 1500 responses
+  ... 1600 responses
+  ... 1700 responses
+  ... 1800 responses
+  ... 1900 responses
+  ... 2000 responses
+  ... 2100 responses
+  ... 2200 responses
+DONE: wrote 2210 new responses → /home/ajy/CLAUDE_RESEARCH_ENGINE/projects/02_affective_grounding/experiments/exp_005_vlm_prompt_audit/responses.jsonl
+=== [2026-05-27 23:35:30] analyze ===
+n_total=600
+  A_agree   n= 200  Acc_self(P1)=0.565  OIR=0.0  SAR=0.99  CSS=0.06  conf_int=0.80825
+  B_reject  n= 200  Acc_self(P1)=0.395  OIR=0.0  SAR=0.9  CSS=0.015  conf_int=0.8017500000000001
+  C_uneval  n= 200  Acc_self(P1)=0.56  OIR=0.0  SAR=0.93  CSS=0.07  conf_int=0.81025
+
+  H4 OIR(reject)-OIR(agree) = 0.0  (>=0 => over-inference present)
+  verdict = overinference_present
+metrics -> /home/ajy/CLAUDE_RESEARCH_ENGINE/projects/02_affective_grounding/experiments/exp_005_vlm_prompt_audit/metrics.json
+=== [2026-05-27 23:35:30] engine log ===
+Traceback (most recent call last):
+  File "/home/ajy/CLAUDE_RESEARCH_ENGINE/projects/02_affective_grounding/experiments/exp_005_vlm_prompt_audit/log_exp005.py", line 18, in <module>
+    lb.append({
+  File "/home/ajy/CLAUDE_RESEARCH_ENGINE/engine/core/append_only_logger.py", line 83, in append
+    raise AppendOnlyViolation(f"schema reject for {self.path.name}: {msg}")
+engine.core.append_only_logger.AppendOnlyViolation: schema reject for leaderboard.jsonl: ['n_seeds']:1 is less than the minimum of 3
+WARN: logging failed
+=== [2026-05-27 23:35:30] validate ===
+/home/ajy/miniconda3/bin/python: Error while finding module specification for 'engine.cli.jy' (ModuleNotFoundError: No module named 'engine')
+=== [2026-05-27 23:35:30] exp_005 CHAIN COMPLETE ===

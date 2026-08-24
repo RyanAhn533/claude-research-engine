@@ -1,0 +1,7 @@
+[hard] qwen7b 19:08:18
+[hard] qwen7b: [H1] numeric_gain - prose_gain = +9.00pp (>0 supports format-novelty cause)
+[hard] mistral 19:24:11
+[hard] mistral: [H1] numeric_gain - prose_gain = -4.25pp (>0 supports format-novelty cause)
+[hard] qwen14b 19:44:18
+[hard] qwen14b: [H1] numeric_gain - prose_gain = +14.40pp (>0 supports format-novelty cause)
+[hard] ALL DONE 20:22:53

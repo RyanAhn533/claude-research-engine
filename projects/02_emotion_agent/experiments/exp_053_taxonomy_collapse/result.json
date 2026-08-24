@@ -1,0 +1,79 @@
+{
+  "model": "trpakov/vit-face-expression",
+  "korean_to_western_dist": {
+    "happy": {
+      "n": 250,
+      "dist_pct": {
+        "happy": 0.768,
+        "sad": 0.156,
+        "neutral": 0.076
+      }
+    },
+    "angry": {
+      "n": 250,
+      "dist_pct": {
+        "neutral": 0.32,
+        "angry": 0.232,
+        "sad": 0.212,
+        "happy": 0.164,
+        "fear": 0.04,
+        "disgust": 0.028,
+        "surprise": 0.004
+      }
+    },
+    "sad": {
+      "n": 250,
+      "dist_pct": {
+        "neutral": 0.484,
+        "sad": 0.36,
+        "happy": 0.06,
+        "angry": 0.056,
+        "disgust": 0.028,
+        "fear": 0.012
+      }
+    },
+    "neutral": {
+      "n": 250,
+      "dist_pct": {
+        "neutral": 0.808,
+        "sad": 0.124,
+        "happy": 0.06,
+        "fear": 0.004,
+        "angry": 0.004
+      }
+    },
+    "anxious": {
+      "n": 250,
+      "dist_pct": {
+        "neutral": 0.532,
+        "sad": 0.248,
+        "happy": 0.1,
+        "fear": 0.072,
+        "angry": 0.048
+      }
+    },
+    "hurt": {
+      "n": 250,
+      "dist_pct": {
+        "neutral": 0.496,
+        "sad": 0.288,
+        "angry": 0.084,
+        "happy": 0.08,
+        "fear": 0.04,
+        "surprise": 0.008,
+        "disgust": 0.004
+      }
+    },
+    "surprised": {
+      "n": 250,
+      "dist_pct": {
+        "neutral": 0.396,
+        "surprise": 0.172,
+        "sad": 0.144,
+        "happy": 0.116,
+        "fear": 0.112,
+        "angry": 0.06
+      }
+    }
+  }
+}
